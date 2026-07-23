@@ -1420,6 +1420,7 @@ document.addEventListener("submit", async (event) => {
         episodeType,
         explicit: explicitValue === "Yes",
         audioUrl: uploaded.url,
+        audioStorageKey: uploaded.storageKey || "",
         audioFileName: file.name,
         bytes: uploaded.bytes,
         mimeType: uploaded.mimeType,

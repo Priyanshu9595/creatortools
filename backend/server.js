@@ -392,23 +392,72 @@ const StoreSchema = new mongoose.Schema({
 }, { minimize: false, timestamps: true, strict: false });
 
 const StoreModel = mongoose.model('Store', StoreSchema);
+let mongoReady = false;
+
+function loadLocalStore() {
+  try {
+    if (existsSync(STORE_FILE)) {
+      return JSON.parse(readFileSync(STORE_FILE, "utf8"));
+    }
+  } catch (error) {
+    console.warn("Local store could not be read; starting with defaults:", error.message);
+  }
+  const seeded = defaultStore();
+  seeded.versions = seeded.projects.map((project) => versionFor(project, "Initial BRD seed"));
+  return seeded;
+}
+
+function withTimeout(promise, ms, message) {
+  let timer;
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error(message)), ms);
+    })
+  ]).finally(() => clearTimeout(timer));
+}
 
 async function initDb() {
-  await mongoose.connect(process.env.MONGODB_URI, { dbName: 'creatortools' });
-  let doc = await StoreModel.findOne();
-  if (doc) {
-    store = doc.toObject();
-  } else {
-    store = defaultStore();
-    store.versions = store.projects.map((project) => versionFor(project, "Initial BRD seed"));
-    await StoreModel.create(store);
+  const useLocalStore = truthy(process.env.USE_LOCAL_STORE);
+  if (process.env.MONGODB_URI && !useLocalStore) {
+    try {
+      const timeoutMs = Number(process.env.MONGODB_CONNECT_TIMEOUT_MS || 8000);
+      await withTimeout(
+        mongoose.connect(process.env.MONGODB_URI, {
+          dbName: 'creatortools',
+          serverSelectionTimeoutMS: timeoutMs,
+          connectTimeoutMS: timeoutMs
+        }),
+        timeoutMs + 1000,
+        "MongoDB connection timed out"
+      );
+      mongoReady = true;
+      const doc = await StoreModel.findOne();
+      if (doc) {
+        store = doc.toObject();
+      } else {
+        store = loadLocalStore();
+        await StoreModel.create(store);
+      }
+    } catch (error) {
+      mongoReady = false;
+      console.warn("MongoDB unavailable; using local JSON store:", error.message);
+    }
   }
+  if (!store) store = loadLocalStore();
   normalizeStore();
 }
 
 function saveStore(nextStore = store) {
-  if (!StoreModel) return;
-  StoreModel.findOneAndUpdate({}, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err));
+  if (mongoReady) {
+    StoreModel.findOneAndUpdate({}, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err));
+  }
+  try {
+    if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
+    writeFileSync(STORE_FILE, JSON.stringify(nextStore, null, 2));
+  } catch (error) {
+    console.error("Local store save error:", error);
+  }
 }
 
 
@@ -1199,33 +1248,32 @@ async function receivePodcastAudio(req, res) {
   }
   const metadata = await audioMetadata(storedPath);
   const objectKey = `podcasts/${id("audio")}${ext}`;
+  const hasObjectStorage = Boolean(s3Client && objectBucketName && objectPublicBaseUrl && !truthy(process.env.USE_LOCAL_UPLOADS));
   let publicUrl = `/uploads/${path.basename(storedPath)}`;
 
-  if (!s3Client || !objectBucketName) {
-    if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
-    throw Object.assign(new Error("Backblaze B2 is not fully configured for uploads."), { status: 500 });
-  }
-
-  try {
-    await s3Client.send(new PutObjectCommand({
-      Bucket: objectBucketName,
-      Key: objectKey,
-      Body: fs.createReadStream(storedPath),
-      ContentType: inferredMimeType
-    }));
-    publicUrl = objectPublicBaseUrl
-      ? `${objectPublicBaseUrl}/${objectKey}`
-      : publicUrl;
-    if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
-  } catch (err) {
-    if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
-    console.error("Object storage upload failed:", err);
-    throw Object.assign(new Error("Failed to upload file to Backblaze B2."), { status: 500 });
+  if (hasObjectStorage) {
+    try {
+      await s3Client.send(new PutObjectCommand({
+        Bucket: objectBucketName,
+        Key: objectKey,
+        Body: fs.createReadStream(storedPath),
+        ContentType: inferredMimeType
+      }));
+      publicUrl = `${objectPublicBaseUrl}/${objectKey}`;
+      if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
+    } catch (err) {
+      if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
+      console.error("Object storage upload failed:", err);
+      throw Object.assign(new Error("Failed to upload file to object storage. Check B2/R2 credentials and bucket permissions."), { status: 500 });
+    }
+  } else {
+    console.warn("Object storage is not configured; keeping podcast audio in local uploads.");
   }
 
   return {
     url: publicUrl,
-    storageKey: objectKey,
+    storageKey: hasObjectStorage ? objectKey : "",
+    storageProvider: hasObjectStorage ? "object-storage" : "local",
     bytes: req.file.size,
     mimeType: inferredMimeType,
     audioFileName: req.file.originalname,
@@ -1446,8 +1494,8 @@ function createPodcastEpisodeFromBody(body) {
     keywords: Array.isArray(body.keywords) ? body.keywords : String(body.keywords || "").split(",").map((value) => value.trim()).filter(Boolean),
     explicit: truthy(body.explicit),
     audioUrl: clean(body.audioUrl, ""),
-    audioStorageKey: clean(body.audioStorageKey, ""),
-    audioFileName: clean(body.audioFileName, ""),
+    audioStorageKey: clean(body.audioStorageKey || body.storageKey, ""),
+    audioFileName: clean(body.audioFileName || body.fileName, ""),
     audioFileSize: Number(body.audioFileSize || body.bytes || 0),
     bytes: Number(body.audioFileSize || body.bytes || 0),
     audioMimeType: clean(body.audioMimeType || body.mimeType, "audio/mpeg"),
