@@ -1776,7 +1776,7 @@ async function handleAuthApi(req, res, pathname) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return error(res, 400, "bad_request", "Valid email is required.");
     if (password.length < 6) return error(res, 400, "bad_request", "Password must be at least 6 characters.");
     const existing = await findUserByEmail(email);
-    if (existing) return error(res, 409, "email_exists", "An account already exists for this email. Please log in.");
+    if (existing) return error(res, 409, "email_exists", "Account already exists. Please sign in.");
     const user = await createUserRecord({ email, password, name: body.name });
     await loadStoreForUser(user);
     return send(res, 201, { token: signToken(user), user: publicUser(user) });

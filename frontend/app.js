@@ -12,7 +12,12 @@ const api = (path, options = {}) => {
       clearAuth();
       showLogin("login");
     }
-    if (!response.ok) throw new Error(payload?.data?.message || payload?.message || "Request failed");
+    if (!response.ok) {
+      const error = new Error(payload?.data?.message || payload?.message || "Request failed");
+      error.status = response.status;
+      error.code = payload?.data?.error || payload?.error || "";
+      throw error;
+    }
     return payload.data ?? payload;
   });
 };
@@ -1508,6 +1513,12 @@ document.addEventListener("submit", async (event) => {
     await renderPodcastBody("episodes");
     notify(statusValue === "Published" ? "Episode published to RSS." : "Episode draft saved.");
   } catch (error) {
+    if (mode === "signup" && (error.status === 409 || error.code === "email_exists")) {
+      showLogin("login");
+      document.querySelector("#emailInput").value = document.querySelector("#emailInput").value.trim();
+      notify("Account already exists. Enter your password and sign in.");
+      return;
+    }
     notify(error.message);
   } finally {
     submitBtn.textContent = originalText;
