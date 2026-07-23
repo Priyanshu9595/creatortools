@@ -904,6 +904,12 @@ main {
   grid-template-columns: minmax(390px, 520px) minmax(620px, 1fr);
 }
 
+.tool-output {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
 form,
 .form-grid {
   display: grid;

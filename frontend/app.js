@@ -681,7 +681,7 @@ function renderScriptScreen() {
     <section class="workspace">
       <form id="toolForm">
         ${input("topic", "What is your video about?", "")}
-        ${select("platform", "Platform", ["YouTube", "Instagram Reels", "YouTube Shorts", "Product Ads"], true)}
+        ${select("platform", "Platform", ["📺 YouTube", "📱 Instagram Reels", "⚡ YouTube Shorts", "🛍️ Product Ads"])}
         ${select("tone", "Tone", ["Informative", "Bold", "Friendly", "Cinematic"])}
         ${select("language", "Language", ["English", "Hindi", "Spanish"])}
         <input name="duration" type="hidden" value="45">
@@ -894,7 +894,7 @@ function renderStoryboardScreen() {
         <input name="cta" type="hidden" value="">
         <button class="primary-wide" type="submit">Generate Storyboard</button>
       </form>
-      <section class="panel storyboard-panel" id="toolOutput">
+      <section class="panel storyboard-panel tool-output" id="toolOutput">
         <h2>Storyboard</h2>
         <p class="muted">Generated storyboard scenes will appear here.</p>
       </section>
@@ -1829,11 +1829,6 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-document.querySelector("#refreshBtn")?.addEventListener("click", async () => {
-  await refresh();
-  render();
-  notify("Dashboard refreshed.");
-});
 
 document.querySelector("#newProjectBtn")?.addEventListener("click", async () => {
   await api("/api/projects", { method: "POST", body: JSON.stringify({ module: "script", title: "Untitled Creator Project" }) });
