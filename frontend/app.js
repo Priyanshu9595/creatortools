@@ -87,8 +87,8 @@ function initialsForUser(user) {
 
 function updateUserChip() {
   const user = state.user || authUser();
-  const avatar = document.querySelector("#logoutBtn span");
-  const label = document.querySelector("#logoutBtn strong");
+  const avatar = document.querySelector("#userChip span");
+  const label = document.querySelector("#userChip strong");
   if (avatar) avatar.textContent = initialsForUser(user);
   if (label) label.textContent = user?.email || "Creator Workspace";
 }
@@ -1539,12 +1539,6 @@ document.addEventListener("submit", async (event) => {
     await renderPodcastBody("episodes");
     notify(statusValue === "Published" ? "Episode published to RSS." : "Episode draft saved.");
   } catch (error) {
-    if (mode === "signup" && (error.status === 409 || error.code === "email_exists")) {
-      showLogin("login");
-      document.querySelector("#emailInput").value = document.querySelector("#emailInput").value.trim();
-      notify("Account already exists. Enter your password and sign in.");
-      return;
-    }
     notify(error.message);
   } finally {
     submitBtn.textContent = originalText;
@@ -1848,7 +1842,8 @@ document.querySelector("#newProjectBtn")?.addEventListener("click", async () => 
   notify("Project created.");
 });
 
-document.querySelector("#logoutBtn")?.addEventListener("click", () => {
+document.querySelector("#logoutBtn")?.addEventListener("click", async () => {
+  try { await api("/api/auth/logout", { method: "POST" }); } catch (e) {}
   clearAuth();
   document.querySelector("#appContainer").style.display = "none";
   document.querySelector("#landingContainer").style.display = "block";
@@ -1880,6 +1875,12 @@ document.querySelector("#loginForm")?.addEventListener("submit", async (event) =
     await bootApp();
     notify(mode === "signup" ? "Account created." : "Signed in.");
   } catch (error) {
+    if (mode === "signup" && (error.status === 409 || error.code === "email_exists")) {
+      showLogin("login");
+      document.querySelector("#emailInput").value = document.querySelector("#emailInput").value.trim();
+      notify("Account already exists. Enter your password and sign in.");
+      return;
+    }
     notify(error.message);
   } finally {
     submitBtn.textContent = originalText;
