@@ -58,6 +58,515 @@
   },
   "projects": [
     {
+      "id": "p-1784804478158-487cec",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "script",
+      "title": "Become a Web Developer: AI for Creators",
+      "status": "READY",
+      "tags": [
+        "script"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "Become a Web Developer: AI for Creators",
+        "platform": "YouTube Shorts",
+        "language": "English",
+        "tone": "Informative",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "45 seconds",
+        "warning": "Ensure 'onScreenText' is clear and legible for quick reads.",
+        "hook": "Ever wished you could build your own website or app without drowning in code? As a content creator, imagine the power of owning your digital space!",
+        "problem": "Many creators feel limited by third-party platforms, or overwhelmed by the thought of learning complex coding from scratch. It's a huge barrier to true digital independence and optimized creator workflow.",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "Hook - The Creator's Dream",
+            "seconds": 5,
+            "voiceOver": "Ever wished you could build your own website or app without drowning in code? As a content creator, imagine the power of owning your digital space!",
+            "onScreenText": "Creators: Own Your Digital Space!",
+            "productionNote": "Energetic, engaging music. Dynamic text animation for 'Own Your Digital Space!'"
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "The Creator's Problem",
+            "seconds": 7,
+            "voiceOver": "Many creators feel limited by third-party platforms, or overwhelmed by the thought of learning complex coding from scratch. It's a huge barrier to true digital independence and optimized creator workflow.",
+            "onScreenText": "Tired of Platform Limits? Coding Too Hard?",
+            "productionNote": "Slightly more serious tone. Visuals of a creator looking frustrated at a computer screen."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "AI as Your Co-Pilot",
+            "seconds": 8,
+            "voiceOver": "But what if AI could be your co-pilot? Modern AI tools are revolutionizing web development, making it accessible even if you're not a tech wizard. Think AI productivity for your projects!",
+            "onScreenText": "AI: Your Web Dev Co-Pilot! #AIProductivity",
+            "productionNote": "Upbeat music returns. Visuals of AI interfaces simplifying code or design elements."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "Focus on What Matters",
+            "seconds": 8,
+            "voiceOver": "You can focus on design, content, and user experience, while AI handles the repetitive coding tasks. This streamlines your creator workflow, letting you bring your vision to life faster.",
+            "onScreenText": "Focus on Design & Content. AI Handles Code!",
+            "productionNote": "Split screen: one side showing creative design, other side showing AI quickly generating code."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "Unleash Your Potential",
+            "seconds": 7,
+            "voiceOver": "Imagine building a custom portfolio, an exclusive membership site, or even a unique e-commerce store, all tailored to your brand. Unlock new monetization and audience engagement!",
+            "onScreenText": "Build Custom Sites. Monetize. Engage!",
+            "productionNote": "Quick cuts showing examples of beautiful, custom creator websites."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 10,
+            "voiceOver": "Learning web development with AI isn't just about coding; it's about empowering your creative future. Ready to transform your online presence and truly own your brand? Start creating smarter today!",
+            "onScreenText": "Empower Your Creative Future! Start Creating Smarter Today!",
+            "productionNote": "Inspiring music. Clear, bold text for the CTA. A final shot of a creator confidently working on their own website."
+          }
+        ],
+        "caption": "Tired of relying on others for your digital presence? 🚀 Discover how AI can make you a web developer, empowering your creator workflow and unlocking endless possibilities! Own your platform, your way. #AIProductivity #CreatorWorkflow",
+        "description": "Unlock the power of web development with AI, even if you're a content creator with no coding experience! This YouTube Short breaks down how artificial intelligence tools can streamline your journey to building custom websites, portfolios, and digital products. Learn to leverage AI for a more efficient creator workflow and gain true independence online. #WebDevelopment #AICreators #DigitalIndependence #CreatorEconomy #TechForCreators",
+        "hashtags": [
+          "#WebDevelopment",
+          "#AICreators",
+          "#AIProductivity",
+          "#CreatorWorkflow",
+          "#YouTubeShorts",
+          "#DigitalIndependence",
+          "#LearnToCode",
+          "#ContentCreatorTips",
+          "#TechForCreators",
+          "#BuildYourBrand"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "valid"
+      },
+      "createdAt": "2026-07-23T11:01:18.158Z",
+      "updatedAt": "2026-07-23T11:01:18.159Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1784804046122-91b4c0",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "script",
+      "title": "AI for Creator Connections: Make Friends, Not Just Content",
+      "status": "READY",
+      "tags": [
+        "script"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "AI for Creator Connections: Make Friends, Not Just Content",
+        "platform": "Instagram Reels",
+        "language": "English",
+        "tone": "Informative",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "45 seconds",
+        "warning": "While AI can free up time, genuine connection still requires your authentic presence and effort.",
+        "hook": "Ever feel like content creation is a solo mission?",
+        "problem": "You're pouring hours into your craft, but genuinely connecting with other creators feels like another task on an endless to-do list. How do you find time to build a supportive network when your plate is already full?",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "The Creator's Isolation",
+            "seconds": 5,
+            "voiceOver": "Ever feel like content creation is a solo mission?",
+            "onScreenText": "Creator Isolation?",
+            "productionNote": "Quick, relatable opening. Show a creator looking thoughtful or slightly overwhelmed at their desk."
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "The Time vs. Connection Dilemma",
+            "seconds": 7,
+            "voiceOver": "You're pouring hours into your craft, but genuinely connecting with other creators feels like another task on an endless to-do list.",
+            "onScreenText": "Time vs. Connection: The Creator's Struggle",
+            "productionNote": "Show a creator looking at a busy calendar or a long to-do list, then wistfully at their phone (implying social connection)."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "Introducing the Solution: AI",
+            "seconds": 6,
+            "voiceOver": "What if you could free up significant time in your creator workflow to build real friendships and collaborations?",
+            "onScreenText": "Unlock Time for Connection with AI",
+            "productionNote": "Transition to a brighter, more hopeful visual. A lightbulb moment or a 'futuristic' graphic."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "AI for Content Efficiency",
+            "seconds": 8,
+            "voiceOver": "This is where AI productivity comes in. Use AI tools to brainstorm ideas, draft scripts, or even analyze trends faster than ever.",
+            "onScreenText": "AI for Content Brainstorming\nAI for Script Drafting\nAI for Trend Analysis",
+            "productionNote": "Show AI tools in action (e.g., ChatGPT interface generating ideas, or a quick montage of data analysis). Emphasize speed."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "AI for Engagement & Community",
+            "seconds": 8,
+            "voiceOver": "Automate repetitive tasks like social media scheduling or initial comment responses. This lets you focus on meaningful interactions and identifying potential collaborators.",
+            "onScreenText": "Automate Repetitive Tasks\nFocus on Meaningful Interactions\nIdentify Collaborators",
+            "productionNote": "Show hands typing quickly on a keyboard, then a creator genuinely smiling while replying to a comment or in a video call with another creator."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "The Outcome: Genuine Connections",
+            "seconds": 7,
+            "voiceOver": "Imagine having more energy and time to attend virtual events, engage deeply in creator communities, or even meet up in real life.",
+            "onScreenText": "More Time, More Energy\nGenuine Creator Friendships",
+            "productionNote": "Montage of creators networking, laughing, collaborating on projects, or having coffee together (in person or virtually)."
+          },
+          {
+            "number": 7,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 4,
+            "voiceOver": "Stop feeling isolated. Leverage AI to build your network and thrive.",
+            "onScreenText": "Connect. Collaborate. Thrive.",
+            "productionNote": "Strong, positive concluding visual. Creator confidently engaging with others. End with the CTA on screen."
+          }
+        ],
+        "caption": "Feeling isolated as a content creator? 😩 It's tough to balance creation with building genuine connections. But what if AI could free up your time to make real friends and collaborators? Discover how AI productivity can transform your creator workflow and help you build a thriving network. #CreatorLife #AITools",
+        "description": "Content creation often feels like a solo journey, making it hard to connect with fellow creators. This Reel shows you how leveraging AI productivity tools can streamline your workflow, automate tedious tasks, and free up valuable time. Use that newfound time and energy to engage authentically, attend networking events, and build meaningful friendships and collaborations within the creator community. Stop feeling overwhelmed and start connecting!",
+        "hashtags": [
+          "#AITools",
+          "#AIProductivity",
+          "#CreatorWorkflow",
+          "#ContentCreator",
+          "#NetworkingTips",
+          "#BuildCommunity",
+          "#CreatorLife",
+          "#TechForCreators",
+          "#DigitalNomad",
+          "#SocialMediaTips"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "success"
+      },
+      "createdAt": "2026-07-23T10:54:06.122Z",
+      "updatedAt": "2026-07-23T10:54:06.127Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1784803413367-79670a",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "storyboard",
+      "title": "I want to become good boy",
+      "status": "READY",
+      "tags": [
+        "storyboard"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "concept": "A heartwarming story of a mischievous puppy transforming into a well-behaved 'good boy' through positive reinforcement and the loving guidance of its owner, highlighting the joy of responsible pet ownership. This concept was chosen over alternatives focusing on a child's development or an adult's self-improvement due to its universal appeal, emotional connection, and direct visual representation of 'good boy'.",
+        "scenes": [
+          {
+            "sceneNumber": 1,
+            "number": 1,
+            "duration": 6,
+            "start": "0s",
+            "end": "6s",
+            "title": "The Playful Prankster",
+            "visualDescription": "A cute, energetic golden retriever puppy playfully tugging at a slipper, leaving a small, harmless mess of shredded paper next to it. Its eyes are bright with mischief but also innocence.",
+            "cameraShot": "Close-up on the puppy's face, then a quick pan out to a medium shot revealing the light mess it made.",
+            "voiceOver": "Every good boy starts somewhere... full of boundless energy and a little bit of mischief.",
+            "onScreenText": "Just trying my best!",
+            "transition": "Cut",
+            "stockSearchQuery": "cute mischievous puppy playing with slipper",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20cute%2C%20energetic%20golden%20retriever%20puppy%20playfully%20tugging%20at%20a%20slipper%2C%20leaving%20a%20small%2C%20harmless%20mess%20of%20shredded%20paper%20next%20to%20it.%20Its%20eyes%20are%20bright%20with%20mischief%20but%20also%20innocence..%20Camera%3A%20Close-up%20on%20the%20puppy's%20face%2C%20then%20a%20quick%20pan%20out%20to%20a%20medium%20shot%20revealing%20the%20light%20mess%20it%20made..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=2f5da42f6a71&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20cute%2C%20energetic%20golden%20retriever%20puppy%20playfully%20tugging%20at%20a%20slipper%2C%20leaving%20a%20small%2C%20harmless%20mess%20of%20shredded%20paper%20next%20to%20it.%20Its%20eyes%20are%20bright%20with%20mischief%20but%20also%20innocence..%20Camera%3A%20Close-up%20on%20the%20puppy's%20face%2C%20then%20a%20quick%20pan%20out%20to%20a%20medium%20shot%20revealing%20the%20light%20mess%20it%20made..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=2f5da42f6a71&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 2,
+            "number": 2,
+            "duration": 6,
+            "start": "6s",
+            "end": "12s",
+            "title": "A Glimmer of Understanding",
+            "visualDescription": "The puppy looks up with soft, slightly sad eyes after being gently told 'no'. An owner (only hands visible) kneels down, gently stroking the puppy's head, offering comfort and guidance.",
+            "cameraShot": "Medium shot, focusing on the puppy's face and the owner's comforting hand. Emphasize the emotional connection.",
+            "voiceOver": "...and deep down, every good boy wants to be even better, to understand what makes their human happy.",
+            "onScreenText": "I want to be a good boy!",
+            "transition": "Dissolve",
+            "stockSearchQuery": "puppy looking hopeful at owner's hand",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20puppy%20looks%20up%20with%20soft%2C%20slightly%20sad%20eyes%20after%20being%20gently%20told%20'no'.%20An%20owner%20(only%20hands%20visible)%20kneels%20down%2C%20gently%20stroking%20the%20puppy's%20head%2C%20offering%20comfort%20and%20guidance..%20Camera%3A%20Medium%20shot%2C%20focusing%20on%20the%20puppy's%20face%20and%20the%20owner's%20comforting%20hand.%20Emphasize%20the%20emotional%20connection..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=fb1e480860c4&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20puppy%20looks%20up%20with%20soft%2C%20slightly%20sad%20eyes%20after%20being%20gently%20told%20'no'.%20An%20owner%20(only%20hands%20visible)%20kneels%20down%2C%20gently%20stroking%20the%20puppy's%20head%2C%20offering%20comfort%20and%20guidance..%20Camera%3A%20Medium%20shot%2C%20focusing%20on%20the%20puppy's%20face%20and%20the%20owner's%20comforting%20hand.%20Emphasize%20the%20emotional%20connection..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=fb1e480860c4&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 3,
+            "number": 3,
+            "duration": 6,
+            "start": "12s",
+            "end": "18s",
+            "title": "Learning with Love",
+            "visualDescription": "A quick montage of the puppy learning simple commands like 'sit', 'stay', and 'paw'. Each success is met with a small treat and enthusiastic praise from the owner. The puppy is engaged and happy.",
+            "cameraShot": "Dynamic cuts between close-ups on the puppy's focused eyes, a paw extending, and a treat being given. Wide shot of the owner and puppy in a positive training session.",
+            "voiceOver": "With a little patience, consistent guidance, and a lot of love, the journey of learning begins.",
+            "onScreenText": "Learning new things!",
+            "transition": "Quick cuts",
+            "stockSearchQuery": "puppy training positive reinforcement treats",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20quick%20montage%20of%20the%20puppy%20learning%20simple%20commands%20like%20'sit'%2C%20'stay'%2C%20and%20'paw'.%20Each%20success%20is%20met%20with%20a%20small%20treat%20and%20enthusiastic%20praise%20from%20the%20owner.%20The%20puppy%20is%20engaged%20and%20happy..%20Camera%3A%20Dynamic%20cuts%20between%20close-ups%20on%20the%20puppy's%20focused%20eyes%2C%20a%20paw%20extending%2C%20and%20a%20treat%20being%20given.%20Wide%20shot%20of%20the%20owner%20and%20puppy%20in%20a%20positive%20training%20session..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=683b9275c80e&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20quick%20montage%20of%20the%20puppy%20learning%20simple%20commands%20like%20'sit'%2C%20'stay'%2C%20and%20'paw'.%20Each%20success%20is%20met%20with%20a%20small%20treat%20and%20enthusiastic%20praise%20from%20the%20owner.%20The%20puppy%20is%20engaged%20and%20happy..%20Camera%3A%20Dynamic%20cuts%20between%20close-ups%20on%20the%20puppy's%20focused%20eyes%2C%20a%20paw%20extending%2C%20and%20a%20treat%20being%20given.%20Wide%20shot%20of%20the%20owner%20and%20puppy%20in%20a%20positive%20training%20session..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=683b9275c80e&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 4,
+            "number": 4,
+            "duration": 6,
+            "start": "18s",
+            "end": "24s",
+            "title": "The Good Boy Moment",
+            "visualDescription": "The now slightly older puppy calmly sits by the door, patiently waiting for the owner to put on shoes, or brings a toy neatly to the owner's feet. The owner showers the 'good boy' with affectionate hugs and praise.",
+            "cameraShot": "Medium shot of the well-behaved puppy, then a close-up on the owner's joyful face as they hug the dog, followed by a close-up on the happy, contented puppy.",
+            "voiceOver": "And then, moments of pure joy. The transformation is complete, a true good boy, shining with newfound manners and devotion.",
+            "onScreenText": "Good boy!",
+            "transition": "Fade to white",
+            "stockSearchQuery": "well-behaved puppy owner praise hug",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20now%20slightly%20older%20puppy%20calmly%20sits%20by%20the%20door%2C%20patiently%20waiting%20for%20the%20owner%20to%20put%20on%20shoes%2C%20or%20brings%20a%20toy%20neatly%20to%20the%20owner's%20feet.%20The%20owner%20showers%20the%20'good%20boy'%20with%20affectionate%20hugs%20and%20praise..%20Camera%3A%20Medium%20shot%20of%20the%20well-behaved%20puppy%2C%20then%20a%20close-up%20on%20the%20owner's%20joyful%20face%20as%20they%20hug%20the%20dog%2C%20followed%20by%20a%20close-up%20on%20the%20happy%2C%20contented%20puppy..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=59d8b64d4fa7&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20now%20slightly%20older%20puppy%20calmly%20sits%20by%20the%20door%2C%20patiently%20waiting%20for%20the%20owner%20to%20put%20on%20shoes%2C%20or%20brings%20a%20toy%20neatly%20to%20the%20owner's%20feet.%20The%20owner%20showers%20the%20'good%20boy'%20with%20affectionate%20hugs%20and%20praise..%20Camera%3A%20Medium%20shot%20of%20the%20well-behaved%20puppy%2C%20then%20a%20close-up%20on%20the%20owner's%20joyful%20face%20as%20they%20hug%20the%20dog%2C%20followed%20by%20a%20close-up%20on%20the%20happy%2C%20contented%20puppy..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=59d8b64d4fa7&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 5,
+            "number": 5,
+            "duration": 6,
+            "start": "24s",
+            "end": "30s",
+            "title": "Nurture the Good Boy Within",
+            "visualDescription": "Clean, bright background with subtle, heartwarming animation of a happy dog wagging its tail. Focus on elegant, impactful on-screen text.",
+            "cameraShot": "Static shot on the text, with the subtle animation in the background.",
+            "voiceOver": "Every pet has the potential to be a good boy. Nurture the good boy within your furry friend. The journey is worth it.",
+            "onScreenText": "Nurture the good boy within. The journey is worth it.",
+            "transition": "Fade to black",
+            "stockSearchQuery": "minimalist background happy dog animation text message",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20good%20boy%22.%20Clean%2C%20bright%20background%20with%20subtle%2C%20heartwarming%20animation%20of%20a%20happy%20dog%20wagging%20its%20tail.%20Focus%20on%20elegant%2C%20impactful%20on-screen%20text..%20Camera%3A%20Static%20shot%20on%20the%20text%2C%20with%20the%20subtle%20animation%20in%20the%20background..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=715211d37b9d&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20good%20boy%22.%20Clean%2C%20bright%20background%20with%20subtle%2C%20heartwarming%20animation%20of%20a%20happy%20dog%20wagging%20its%20tail.%20Focus%20on%20elegant%2C%20impactful%20on-screen%20text..%20Camera%3A%20Static%20shot%20on%20the%20text%2C%20with%20the%20subtle%20animation%20in%20the%20background..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=715211d37b9d&model=flux&nologo=true&private=true&enhance=true"
+          }
+        ],
+        "title": "I want to become good boy",
+        "duration": 30
+      },
+      "createdAt": "2026-07-23T10:43:33.367Z",
+      "updatedAt": "2026-07-23T10:43:33.367Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1784803349422-662185",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "thumbnail",
+      "title": "How to become good boy",
+      "status": "READY",
+      "tags": [
+        "thumbnail"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "headlines": [
+          "Be Good NOW",
+          "Good Boy Guide",
+          "Unlock Goodness"
+        ],
+        "backgroundQuery": "man looking confident smiling positive light",
+        "textPosition": "right",
+        "subjectPosition": "left",
+        "style": "bright and uplifting",
+        "overlay": "soft golden glow gradient",
+        "title": "How to become good boy",
+        "subtitle": "Good boy",
+        "imageUrl": "https://image.pollinations.ai/prompt/Create%20a%20professional%20YouTube%20thumbnail%20background%20image%20for%20the%20video%20title%3A%20%22How%20to%20become%20good%20boy%22.%0ASubtitle%2Fcontext%3A%20%22Good%20boy%22.%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20clickable%20but%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20clean%20and%20dark%20for%20large%20readable%20overlay%20text.%0ADo%20not%20include%20any%20letters%2C%20words%2C%20captions%2C%20logos%2C%20watermark%2C%20UI%20text%2C%20or%20gibberish%20text%20inside%20the%20image.?width=1280&height=720&seed=c523cc7a5eaf&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "Create a professional YouTube thumbnail background image for the video title: \"How to become good boy\".\nSubtitle/context: \"Good boy\".\nStyle: Bold, high contrast, cinematic, modern creator economy, clickable but premium.\n16:9 composition, leave the left side clean and dark for large readable overlay text.\nDo not include any letters, words, captions, logos, watermark, UI text, or gibberish text inside the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 35.208006493s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-23T10:42:29.422Z",
+      "updatedAt": "2026-07-23T10:42:29.423Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1784803289688-948759",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "subtitle",
+      "title": "What is a noun_  Learn English Grammar.mp4",
+      "status": "READY",
+      "tags": [
+        "subtitle"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/e460469e2e8b994183d7d863a80b2c61.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1784803289688-e002be",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1784803289688-948759",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1784803289688-948759",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-23T10:41:29.688Z",
+          "updatedAt": "2026-07-23T10:41:29.688Z"
+        },
+        "language": "Auto Detect",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-23T10:41:29.688Z",
+      "updatedAt": "2026-07-23T10:41:29.690Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1784803116815-321957",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "script",
+      "title": "Choosing the Best Phone for Content Creators: Boost Your Workflow",
+      "status": "READY",
+      "tags": [
+        "script"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "Choosing the Best Phone for Content Creators: Boost Your Workflow",
+        "platform": "YouTube",
+        "language": "English",
+        "tone": "Informative",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "0:45",
+        "warning": "Ensure to research specific phone models based on your individual content creation needs and budget.",
+        "hook": "Content creators, ever feel overwhelmed by phone choices? Which one truly elevates your craft and streamlines your workflow?",
+        "problem": "With countless options available, finding a phone that genuinely boosts your AI productivity and creator workflow can feel like an impossible task.",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "Hook: Creator Phone Dilemma",
+            "seconds": 5,
+            "voiceOver": "Content creators, ever feel overwhelmed by phone choices? Which one truly elevates your craft and streamlines your workflow?",
+            "onScreenText": "Choosing Your Creator Phone?",
+            "productionNote": "Fast-paced montage of different phone models and creator tools. Show a question mark animation."
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "Problem: Overwhelming Options",
+            "seconds": 5,
+            "voiceOver": "The market's flooded, and finding a phone that genuinely boosts your AI productivity and creator workflow is a real challenge.",
+            "onScreenText": "Too Many Options? Slowing Your Workflow?",
+            "productionNote": "Show a creator looking frustrated at multiple phone boxes or comparison charts."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "Solution Intro: Key Features",
+            "seconds": 8,
+            "voiceOver": "It's not just about specs; it's about integration. Look for these key features to truly empower your AI productivity and creator workflow.",
+            "onScreenText": "Key Features for Creators: AI Productivity, Seamless Workflow",
+            "productionNote": "Animated infographic highlighting 'Camera', 'Processor', 'Battery', 'AI Integration' as essential categories."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "Camera Focus",
+            "seconds": 8,
+            "voiceOver": "First, the camera. Look for advanced computational photography, excellent low-light performance, and stable 4K video recording. These are crucial for stunning visuals.",
+            "onScreenText": "Pro-Grade Camera: Low-Light, 4K, Stability",
+            "productionNote": "Split screen: one side showing crisp, high-quality video footage from a phone, other side showing camera specs and features."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "Performance & Battery",
+            "seconds": 7,
+            "voiceOver": "Next, powerful processors and long-lasting batteries. You need smooth editing on the go and enough juice to power through a full day of shooting and rendering.",
+            "onScreenText": "Power & Stamina: Fast Processor, All-Day Battery",
+            "productionNote": "Graphics showing a fast-charging animation and a processor chip. Quick cut of a creator editing video efficiently on a phone."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "AI Integration",
+            "seconds": 7,
+            "voiceOver": "Finally, consider AI integration. Phones with dedicated AI chips streamline tasks like automatic editing suggestions, noise reduction, and smart content organization, supercharging your AI productivity.",
+            "onScreenText": "Smart AI Integration: Edit Faster, Organize Better",
+            "productionNote": "Visuals of AI features in action on a phone screen (e.g., auto-cropping, background removal, smart search for media)."
+          },
+          {
+            "number": 7,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 5,
+            "voiceOver": "Ready to upgrade your creation game? Choose wisely and start creating smarter today!",
+            "onScreenText": "Start Creating Smarter Today!",
+            "productionNote": "Dynamic text animation of CTA. Subtle link icon or 'Learn More' button graphic."
+          }
+        ],
+        "caption": "Unlock your full creative potential! 🚀 Choosing the right phone can revolutionize your content creation workflow and boost AI productivity. We break down what truly matters for creators. #CreatorPhone #AIProductivity #ContentCreator",
+        "description": "Struggling to find the perfect phone for your content creation? This video guides content creators through the essential features to look for, focusing on how a phone can enhance your AI productivity and streamline your creator workflow. From camera capabilities to processor power and crucial AI integration, make an informed decision and elevate your craft. Start creating smarter today!",
+        "hashtags": [
+          "#CreatorPhone",
+          "#ContentCreator",
+          "#AIProductivity",
+          "#CreatorWorkflow",
+          "#BestPhoneForCreators",
+          "#TechForCreators",
+          "#MobileContent",
+          "#VideoProduction"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "valid"
+      },
+      "createdAt": "2026-07-23T10:38:36.815Z",
+      "updatedAt": "2026-07-23T10:38:36.815Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
       "id": "p-1784801204801-979686",
       "creatorId": "user-1784797382509-d6efb1",
       "module": "podcast",
@@ -134,12 +643,661 @@
       "trashedAt": null
     }
   ],
-  "versions": [],
+  "versions": [
+    {
+      "id": "ver-1784804478158-3f6e4c",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784804478158-487cec",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "Become a Web Developer: AI for Creators",
+        "platform": "YouTube Shorts",
+        "language": "English",
+        "tone": "Informative",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "45 seconds",
+        "warning": "Ensure 'onScreenText' is clear and legible for quick reads.",
+        "hook": "Ever wished you could build your own website or app without drowning in code? As a content creator, imagine the power of owning your digital space!",
+        "problem": "Many creators feel limited by third-party platforms, or overwhelmed by the thought of learning complex coding from scratch. It's a huge barrier to true digital independence and optimized creator workflow.",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "Hook - The Creator's Dream",
+            "seconds": 5,
+            "voiceOver": "Ever wished you could build your own website or app without drowning in code? As a content creator, imagine the power of owning your digital space!",
+            "onScreenText": "Creators: Own Your Digital Space!",
+            "productionNote": "Energetic, engaging music. Dynamic text animation for 'Own Your Digital Space!'"
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "The Creator's Problem",
+            "seconds": 7,
+            "voiceOver": "Many creators feel limited by third-party platforms, or overwhelmed by the thought of learning complex coding from scratch. It's a huge barrier to true digital independence and optimized creator workflow.",
+            "onScreenText": "Tired of Platform Limits? Coding Too Hard?",
+            "productionNote": "Slightly more serious tone. Visuals of a creator looking frustrated at a computer screen."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "AI as Your Co-Pilot",
+            "seconds": 8,
+            "voiceOver": "But what if AI could be your co-pilot? Modern AI tools are revolutionizing web development, making it accessible even if you're not a tech wizard. Think AI productivity for your projects!",
+            "onScreenText": "AI: Your Web Dev Co-Pilot! #AIProductivity",
+            "productionNote": "Upbeat music returns. Visuals of AI interfaces simplifying code or design elements."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "Focus on What Matters",
+            "seconds": 8,
+            "voiceOver": "You can focus on design, content, and user experience, while AI handles the repetitive coding tasks. This streamlines your creator workflow, letting you bring your vision to life faster.",
+            "onScreenText": "Focus on Design & Content. AI Handles Code!",
+            "productionNote": "Split screen: one side showing creative design, other side showing AI quickly generating code."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "Unleash Your Potential",
+            "seconds": 7,
+            "voiceOver": "Imagine building a custom portfolio, an exclusive membership site, or even a unique e-commerce store, all tailored to your brand. Unlock new monetization and audience engagement!",
+            "onScreenText": "Build Custom Sites. Monetize. Engage!",
+            "productionNote": "Quick cuts showing examples of beautiful, custom creator websites."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 10,
+            "voiceOver": "Learning web development with AI isn't just about coding; it's about empowering your creative future. Ready to transform your online presence and truly own your brand? Start creating smarter today!",
+            "onScreenText": "Empower Your Creative Future! Start Creating Smarter Today!",
+            "productionNote": "Inspiring music. Clear, bold text for the CTA. A final shot of a creator confidently working on their own website."
+          }
+        ],
+        "caption": "Tired of relying on others for your digital presence? 🚀 Discover how AI can make you a web developer, empowering your creator workflow and unlocking endless possibilities! Own your platform, your way. #AIProductivity #CreatorWorkflow",
+        "description": "Unlock the power of web development with AI, even if you're a content creator with no coding experience! This YouTube Short breaks down how artificial intelligence tools can streamline your journey to building custom websites, portfolios, and digital products. Learn to leverage AI for a more efficient creator workflow and gain true independence online. #WebDevelopment #AICreators #DigitalIndependence #CreatorEconomy #TechForCreators",
+        "hashtags": [
+          "#WebDevelopment",
+          "#AICreators",
+          "#AIProductivity",
+          "#CreatorWorkflow",
+          "#YouTubeShorts",
+          "#DigitalIndependence",
+          "#LearnToCode",
+          "#ContentCreatorTips",
+          "#TechForCreators",
+          "#BuildYourBrand"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "valid"
+      },
+      "createdAt": "2026-07-23T11:01:18.158Z"
+    },
+    {
+      "id": "ver-1784804046122-8c64cb",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784804046122-91b4c0",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "AI for Creator Connections: Make Friends, Not Just Content",
+        "platform": "Instagram Reels",
+        "language": "English",
+        "tone": "Informative",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "45 seconds",
+        "warning": "While AI can free up time, genuine connection still requires your authentic presence and effort.",
+        "hook": "Ever feel like content creation is a solo mission?",
+        "problem": "You're pouring hours into your craft, but genuinely connecting with other creators feels like another task on an endless to-do list. How do you find time to build a supportive network when your plate is already full?",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "The Creator's Isolation",
+            "seconds": 5,
+            "voiceOver": "Ever feel like content creation is a solo mission?",
+            "onScreenText": "Creator Isolation?",
+            "productionNote": "Quick, relatable opening. Show a creator looking thoughtful or slightly overwhelmed at their desk."
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "The Time vs. Connection Dilemma",
+            "seconds": 7,
+            "voiceOver": "You're pouring hours into your craft, but genuinely connecting with other creators feels like another task on an endless to-do list.",
+            "onScreenText": "Time vs. Connection: The Creator's Struggle",
+            "productionNote": "Show a creator looking at a busy calendar or a long to-do list, then wistfully at their phone (implying social connection)."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "Introducing the Solution: AI",
+            "seconds": 6,
+            "voiceOver": "What if you could free up significant time in your creator workflow to build real friendships and collaborations?",
+            "onScreenText": "Unlock Time for Connection with AI",
+            "productionNote": "Transition to a brighter, more hopeful visual. A lightbulb moment or a 'futuristic' graphic."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "AI for Content Efficiency",
+            "seconds": 8,
+            "voiceOver": "This is where AI productivity comes in. Use AI tools to brainstorm ideas, draft scripts, or even analyze trends faster than ever.",
+            "onScreenText": "AI for Content Brainstorming\nAI for Script Drafting\nAI for Trend Analysis",
+            "productionNote": "Show AI tools in action (e.g., ChatGPT interface generating ideas, or a quick montage of data analysis). Emphasize speed."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "AI for Engagement & Community",
+            "seconds": 8,
+            "voiceOver": "Automate repetitive tasks like social media scheduling or initial comment responses. This lets you focus on meaningful interactions and identifying potential collaborators.",
+            "onScreenText": "Automate Repetitive Tasks\nFocus on Meaningful Interactions\nIdentify Collaborators",
+            "productionNote": "Show hands typing quickly on a keyboard, then a creator genuinely smiling while replying to a comment or in a video call with another creator."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "The Outcome: Genuine Connections",
+            "seconds": 7,
+            "voiceOver": "Imagine having more energy and time to attend virtual events, engage deeply in creator communities, or even meet up in real life.",
+            "onScreenText": "More Time, More Energy\nGenuine Creator Friendships",
+            "productionNote": "Montage of creators networking, laughing, collaborating on projects, or having coffee together (in person or virtually)."
+          },
+          {
+            "number": 7,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 4,
+            "voiceOver": "Stop feeling isolated. Leverage AI to build your network and thrive.",
+            "onScreenText": "Connect. Collaborate. Thrive.",
+            "productionNote": "Strong, positive concluding visual. Creator confidently engaging with others. End with the CTA on screen."
+          }
+        ],
+        "caption": "Feeling isolated as a content creator? 😩 It's tough to balance creation with building genuine connections. But what if AI could free up your time to make real friends and collaborators? Discover how AI productivity can transform your creator workflow and help you build a thriving network. #CreatorLife #AITools",
+        "description": "Content creation often feels like a solo journey, making it hard to connect with fellow creators. This Reel shows you how leveraging AI productivity tools can streamline your workflow, automate tedious tasks, and free up valuable time. Use that newfound time and energy to engage authentically, attend networking events, and build meaningful friendships and collaborations within the creator community. Stop feeling overwhelmed and start connecting!",
+        "hashtags": [
+          "#AITools",
+          "#AIProductivity",
+          "#CreatorWorkflow",
+          "#ContentCreator",
+          "#NetworkingTips",
+          "#BuildCommunity",
+          "#CreatorLife",
+          "#TechForCreators",
+          "#DigitalNomad",
+          "#SocialMediaTips"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "success"
+      },
+      "createdAt": "2026-07-23T10:54:06.122Z"
+    },
+    {
+      "id": "ver-1784803413367-6a7588",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784803413367-79670a",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "concept": "A heartwarming story of a mischievous puppy transforming into a well-behaved 'good boy' through positive reinforcement and the loving guidance of its owner, highlighting the joy of responsible pet ownership. This concept was chosen over alternatives focusing on a child's development or an adult's self-improvement due to its universal appeal, emotional connection, and direct visual representation of 'good boy'.",
+        "scenes": [
+          {
+            "sceneNumber": 1,
+            "number": 1,
+            "duration": 6,
+            "start": "0s",
+            "end": "6s",
+            "title": "The Playful Prankster",
+            "visualDescription": "A cute, energetic golden retriever puppy playfully tugging at a slipper, leaving a small, harmless mess of shredded paper next to it. Its eyes are bright with mischief but also innocence.",
+            "cameraShot": "Close-up on the puppy's face, then a quick pan out to a medium shot revealing the light mess it made.",
+            "voiceOver": "Every good boy starts somewhere... full of boundless energy and a little bit of mischief.",
+            "onScreenText": "Just trying my best!",
+            "transition": "Cut",
+            "stockSearchQuery": "cute mischievous puppy playing with slipper",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20cute%2C%20energetic%20golden%20retriever%20puppy%20playfully%20tugging%20at%20a%20slipper%2C%20leaving%20a%20small%2C%20harmless%20mess%20of%20shredded%20paper%20next%20to%20it.%20Its%20eyes%20are%20bright%20with%20mischief%20but%20also%20innocence..%20Camera%3A%20Close-up%20on%20the%20puppy's%20face%2C%20then%20a%20quick%20pan%20out%20to%20a%20medium%20shot%20revealing%20the%20light%20mess%20it%20made..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=2f5da42f6a71&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20cute%2C%20energetic%20golden%20retriever%20puppy%20playfully%20tugging%20at%20a%20slipper%2C%20leaving%20a%20small%2C%20harmless%20mess%20of%20shredded%20paper%20next%20to%20it.%20Its%20eyes%20are%20bright%20with%20mischief%20but%20also%20innocence..%20Camera%3A%20Close-up%20on%20the%20puppy's%20face%2C%20then%20a%20quick%20pan%20out%20to%20a%20medium%20shot%20revealing%20the%20light%20mess%20it%20made..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=2f5da42f6a71&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 2,
+            "number": 2,
+            "duration": 6,
+            "start": "6s",
+            "end": "12s",
+            "title": "A Glimmer of Understanding",
+            "visualDescription": "The puppy looks up with soft, slightly sad eyes after being gently told 'no'. An owner (only hands visible) kneels down, gently stroking the puppy's head, offering comfort and guidance.",
+            "cameraShot": "Medium shot, focusing on the puppy's face and the owner's comforting hand. Emphasize the emotional connection.",
+            "voiceOver": "...and deep down, every good boy wants to be even better, to understand what makes their human happy.",
+            "onScreenText": "I want to be a good boy!",
+            "transition": "Dissolve",
+            "stockSearchQuery": "puppy looking hopeful at owner's hand",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20puppy%20looks%20up%20with%20soft%2C%20slightly%20sad%20eyes%20after%20being%20gently%20told%20'no'.%20An%20owner%20(only%20hands%20visible)%20kneels%20down%2C%20gently%20stroking%20the%20puppy's%20head%2C%20offering%20comfort%20and%20guidance..%20Camera%3A%20Medium%20shot%2C%20focusing%20on%20the%20puppy's%20face%20and%20the%20owner's%20comforting%20hand.%20Emphasize%20the%20emotional%20connection..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=fb1e480860c4&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20puppy%20looks%20up%20with%20soft%2C%20slightly%20sad%20eyes%20after%20being%20gently%20told%20'no'.%20An%20owner%20(only%20hands%20visible)%20kneels%20down%2C%20gently%20stroking%20the%20puppy's%20head%2C%20offering%20comfort%20and%20guidance..%20Camera%3A%20Medium%20shot%2C%20focusing%20on%20the%20puppy's%20face%20and%20the%20owner's%20comforting%20hand.%20Emphasize%20the%20emotional%20connection..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=fb1e480860c4&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 3,
+            "number": 3,
+            "duration": 6,
+            "start": "12s",
+            "end": "18s",
+            "title": "Learning with Love",
+            "visualDescription": "A quick montage of the puppy learning simple commands like 'sit', 'stay', and 'paw'. Each success is met with a small treat and enthusiastic praise from the owner. The puppy is engaged and happy.",
+            "cameraShot": "Dynamic cuts between close-ups on the puppy's focused eyes, a paw extending, and a treat being given. Wide shot of the owner and puppy in a positive training session.",
+            "voiceOver": "With a little patience, consistent guidance, and a lot of love, the journey of learning begins.",
+            "onScreenText": "Learning new things!",
+            "transition": "Quick cuts",
+            "stockSearchQuery": "puppy training positive reinforcement treats",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20quick%20montage%20of%20the%20puppy%20learning%20simple%20commands%20like%20'sit'%2C%20'stay'%2C%20and%20'paw'.%20Each%20success%20is%20met%20with%20a%20small%20treat%20and%20enthusiastic%20praise%20from%20the%20owner.%20The%20puppy%20is%20engaged%20and%20happy..%20Camera%3A%20Dynamic%20cuts%20between%20close-ups%20on%20the%20puppy's%20focused%20eyes%2C%20a%20paw%20extending%2C%20and%20a%20treat%20being%20given.%20Wide%20shot%20of%20the%20owner%20and%20puppy%20in%20a%20positive%20training%20session..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=683b9275c80e&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20good%20boy%22.%20A%20quick%20montage%20of%20the%20puppy%20learning%20simple%20commands%20like%20'sit'%2C%20'stay'%2C%20and%20'paw'.%20Each%20success%20is%20met%20with%20a%20small%20treat%20and%20enthusiastic%20praise%20from%20the%20owner.%20The%20puppy%20is%20engaged%20and%20happy..%20Camera%3A%20Dynamic%20cuts%20between%20close-ups%20on%20the%20puppy's%20focused%20eyes%2C%20a%20paw%20extending%2C%20and%20a%20treat%20being%20given.%20Wide%20shot%20of%20the%20owner%20and%20puppy%20in%20a%20positive%20training%20session..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=683b9275c80e&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 4,
+            "number": 4,
+            "duration": 6,
+            "start": "18s",
+            "end": "24s",
+            "title": "The Good Boy Moment",
+            "visualDescription": "The now slightly older puppy calmly sits by the door, patiently waiting for the owner to put on shoes, or brings a toy neatly to the owner's feet. The owner showers the 'good boy' with affectionate hugs and praise.",
+            "cameraShot": "Medium shot of the well-behaved puppy, then a close-up on the owner's joyful face as they hug the dog, followed by a close-up on the happy, contented puppy.",
+            "voiceOver": "And then, moments of pure joy. The transformation is complete, a true good boy, shining with newfound manners and devotion.",
+            "onScreenText": "Good boy!",
+            "transition": "Fade to white",
+            "stockSearchQuery": "well-behaved puppy owner praise hug",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20now%20slightly%20older%20puppy%20calmly%20sits%20by%20the%20door%2C%20patiently%20waiting%20for%20the%20owner%20to%20put%20on%20shoes%2C%20or%20brings%20a%20toy%20neatly%20to%20the%20owner's%20feet.%20The%20owner%20showers%20the%20'good%20boy'%20with%20affectionate%20hugs%20and%20praise..%20Camera%3A%20Medium%20shot%20of%20the%20well-behaved%20puppy%2C%20then%20a%20close-up%20on%20the%20owner's%20joyful%20face%20as%20they%20hug%20the%20dog%2C%20followed%20by%20a%20close-up%20on%20the%20happy%2C%20contented%20puppy..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=59d8b64d4fa7&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20good%20boy%22.%20The%20now%20slightly%20older%20puppy%20calmly%20sits%20by%20the%20door%2C%20patiently%20waiting%20for%20the%20owner%20to%20put%20on%20shoes%2C%20or%20brings%20a%20toy%20neatly%20to%20the%20owner's%20feet.%20The%20owner%20showers%20the%20'good%20boy'%20with%20affectionate%20hugs%20and%20praise..%20Camera%3A%20Medium%20shot%20of%20the%20well-behaved%20puppy%2C%20then%20a%20close-up%20on%20the%20owner's%20joyful%20face%20as%20they%20hug%20the%20dog%2C%20followed%20by%20a%20close-up%20on%20the%20happy%2C%20contented%20puppy..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=59d8b64d4fa7&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 5,
+            "number": 5,
+            "duration": 6,
+            "start": "24s",
+            "end": "30s",
+            "title": "Nurture the Good Boy Within",
+            "visualDescription": "Clean, bright background with subtle, heartwarming animation of a happy dog wagging its tail. Focus on elegant, impactful on-screen text.",
+            "cameraShot": "Static shot on the text, with the subtle animation in the background.",
+            "voiceOver": "Every pet has the potential to be a good boy. Nurture the good boy within your furry friend. The journey is worth it.",
+            "onScreenText": "Nurture the good boy within. The journey is worth it.",
+            "transition": "Fade to black",
+            "stockSearchQuery": "minimalist background happy dog animation text message",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20good%20boy%22.%20Clean%2C%20bright%20background%20with%20subtle%2C%20heartwarming%20animation%20of%20a%20happy%20dog%20wagging%20its%20tail.%20Focus%20on%20elegant%2C%20impactful%20on-screen%20text..%20Camera%3A%20Static%20shot%20on%20the%20text%2C%20with%20the%20subtle%20animation%20in%20the%20background..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=715211d37b9d&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20good%20boy%22.%20Clean%2C%20bright%20background%20with%20subtle%2C%20heartwarming%20animation%20of%20a%20happy%20dog%20wagging%20its%20tail.%20Focus%20on%20elegant%2C%20impactful%20on-screen%20text..%20Camera%3A%20Static%20shot%20on%20the%20text%2C%20with%20the%20subtle%20animation%20in%20the%20background..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=715211d37b9d&model=flux&nologo=true&private=true&enhance=true"
+          }
+        ],
+        "title": "I want to become good boy",
+        "duration": 30
+      },
+      "createdAt": "2026-07-23T10:43:33.367Z"
+    },
+    {
+      "id": "ver-1784803349422-332f19",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784803349422-662185",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "headlines": [
+          "Be Good NOW",
+          "Good Boy Guide",
+          "Unlock Goodness"
+        ],
+        "backgroundQuery": "man looking confident smiling positive light",
+        "textPosition": "right",
+        "subjectPosition": "left",
+        "style": "bright and uplifting",
+        "overlay": "soft golden glow gradient",
+        "title": "How to become good boy",
+        "subtitle": "Good boy",
+        "imageUrl": "https://image.pollinations.ai/prompt/Create%20a%20professional%20YouTube%20thumbnail%20background%20image%20for%20the%20video%20title%3A%20%22How%20to%20become%20good%20boy%22.%0ASubtitle%2Fcontext%3A%20%22Good%20boy%22.%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20clickable%20but%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20clean%20and%20dark%20for%20large%20readable%20overlay%20text.%0ADo%20not%20include%20any%20letters%2C%20words%2C%20captions%2C%20logos%2C%20watermark%2C%20UI%20text%2C%20or%20gibberish%20text%20inside%20the%20image.?width=1280&height=720&seed=c523cc7a5eaf&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "Create a professional YouTube thumbnail background image for the video title: \"How to become good boy\".\nSubtitle/context: \"Good boy\".\nStyle: Bold, high contrast, cinematic, modern creator economy, clickable but premium.\n16:9 composition, leave the left side clean and dark for large readable overlay text.\nDo not include any letters, words, captions, logos, watermark, UI text, or gibberish text inside the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 35.208006493s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-23T10:42:29.422Z"
+    },
+    {
+      "id": "ver-1784803289688-602c3a",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784803289688-948759",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/e460469e2e8b994183d7d863a80b2c61.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1784803289688-e002be",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1784803289688-948759",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1784803289688-948759",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-23T10:41:29.688Z",
+          "updatedAt": "2026-07-23T10:41:29.688Z"
+        },
+        "language": "Auto Detect",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-23T10:41:29.688Z"
+    },
+    {
+      "id": "ver-1784803116815-383e8a",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784803116815-321957",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "Choosing the Best Phone for Content Creators: Boost Your Workflow",
+        "platform": "YouTube",
+        "language": "English",
+        "tone": "Informative",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "0:45",
+        "warning": "Ensure to research specific phone models based on your individual content creation needs and budget.",
+        "hook": "Content creators, ever feel overwhelmed by phone choices? Which one truly elevates your craft and streamlines your workflow?",
+        "problem": "With countless options available, finding a phone that genuinely boosts your AI productivity and creator workflow can feel like an impossible task.",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "Hook: Creator Phone Dilemma",
+            "seconds": 5,
+            "voiceOver": "Content creators, ever feel overwhelmed by phone choices? Which one truly elevates your craft and streamlines your workflow?",
+            "onScreenText": "Choosing Your Creator Phone?",
+            "productionNote": "Fast-paced montage of different phone models and creator tools. Show a question mark animation."
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "Problem: Overwhelming Options",
+            "seconds": 5,
+            "voiceOver": "The market's flooded, and finding a phone that genuinely boosts your AI productivity and creator workflow is a real challenge.",
+            "onScreenText": "Too Many Options? Slowing Your Workflow?",
+            "productionNote": "Show a creator looking frustrated at multiple phone boxes or comparison charts."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "Solution Intro: Key Features",
+            "seconds": 8,
+            "voiceOver": "It's not just about specs; it's about integration. Look for these key features to truly empower your AI productivity and creator workflow.",
+            "onScreenText": "Key Features for Creators: AI Productivity, Seamless Workflow",
+            "productionNote": "Animated infographic highlighting 'Camera', 'Processor', 'Battery', 'AI Integration' as essential categories."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "Camera Focus",
+            "seconds": 8,
+            "voiceOver": "First, the camera. Look for advanced computational photography, excellent low-light performance, and stable 4K video recording. These are crucial for stunning visuals.",
+            "onScreenText": "Pro-Grade Camera: Low-Light, 4K, Stability",
+            "productionNote": "Split screen: one side showing crisp, high-quality video footage from a phone, other side showing camera specs and features."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "Performance & Battery",
+            "seconds": 7,
+            "voiceOver": "Next, powerful processors and long-lasting batteries. You need smooth editing on the go and enough juice to power through a full day of shooting and rendering.",
+            "onScreenText": "Power & Stamina: Fast Processor, All-Day Battery",
+            "productionNote": "Graphics showing a fast-charging animation and a processor chip. Quick cut of a creator editing video efficiently on a phone."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "AI Integration",
+            "seconds": 7,
+            "voiceOver": "Finally, consider AI integration. Phones with dedicated AI chips streamline tasks like automatic editing suggestions, noise reduction, and smart content organization, supercharging your AI productivity.",
+            "onScreenText": "Smart AI Integration: Edit Faster, Organize Better",
+            "productionNote": "Visuals of AI features in action on a phone screen (e.g., auto-cropping, background removal, smart search for media)."
+          },
+          {
+            "number": 7,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 5,
+            "voiceOver": "Ready to upgrade your creation game? Choose wisely and start creating smarter today!",
+            "onScreenText": "Start Creating Smarter Today!",
+            "productionNote": "Dynamic text animation of CTA. Subtle link icon or 'Learn More' button graphic."
+          }
+        ],
+        "caption": "Unlock your full creative potential! 🚀 Choosing the right phone can revolutionize your content creation workflow and boost AI productivity. We break down what truly matters for creators. #CreatorPhone #AIProductivity #ContentCreator",
+        "description": "Struggling to find the perfect phone for your content creation? This video guides content creators through the essential features to look for, focusing on how a phone can enhance your AI productivity and streamline your creator workflow. From camera capabilities to processor power and crucial AI integration, make an informed decision and elevate your craft. Start creating smarter today!",
+        "hashtags": [
+          "#CreatorPhone",
+          "#ContentCreator",
+          "#AIProductivity",
+          "#CreatorWorkflow",
+          "#BestPhoneForCreators",
+          "#TechForCreators",
+          "#MobileContent",
+          "#VideoProduction"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "valid"
+      },
+      "createdAt": "2026-07-23T10:38:36.815Z"
+    }
+  ],
   "media": [],
-  "jobs": [],
+  "jobs": [
+    {
+      "id": "job-1784804478158-7cc495",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script-generation",
+      "projectId": "p-1784804478158-487cec",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Gemini Flash",
+      "model": "structured-json",
+      "resultReference": "p-1784804478158-487cec",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T11:01:18.158Z",
+      "updatedAt": "2026-07-23T11:01:18.158Z"
+    },
+    {
+      "id": "job-1784804046122-bd51fd",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script-generation",
+      "projectId": "p-1784804046122-91b4c0",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Gemini Flash",
+      "model": "structured-json",
+      "resultReference": "p-1784804046122-91b4c0",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T10:54:06.122Z",
+      "updatedAt": "2026-07-23T10:54:06.122Z"
+    },
+    {
+      "id": "job-1784803413366-54d6fd",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "storyboard-generation",
+      "projectId": "p-1784803413367-79670a",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Gemini Flash",
+      "model": "scene-json",
+      "resultReference": "p-1784803413367-79670a",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T10:43:33.366Z",
+      "updatedAt": "2026-07-23T10:43:33.366Z"
+    },
+    {
+      "id": "job-1784803349422-c0e982",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail-image",
+      "projectId": "p-1784803349422-662185",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "pollinations-flux",
+      "model": "16:9-image",
+      "resultReference": "p-1784803349422-662185",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T10:42:29.422Z",
+      "updatedAt": "2026-07-23T10:42:29.422Z"
+    },
+    {
+      "id": "job-1784803289688-e002be",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "transcription",
+      "projectId": "p-1784803289688-948759",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Groq Whisper",
+      "model": "audio",
+      "resultReference": "p-1784803289688-948759",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T10:41:29.688Z",
+      "updatedAt": "2026-07-23T10:41:29.688Z"
+    },
+    {
+      "id": "job-1784803116814-49b5bd",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script-generation",
+      "projectId": "p-1784803116815-321957",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Gemini Flash",
+      "model": "structured-json",
+      "resultReference": "p-1784803116815-321957",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T10:38:36.814Z",
+      "updatedAt": "2026-07-23T10:38:36.814Z"
+    }
+  ],
   "exports": [],
   "notifications": [],
   "activity": [
+    {
+      "id": "act-1784804478159-2f1e70",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script.generated",
+      "message": "AI Script Writer output generated for Become a Web Developer: AI for Creators.",
+      "createdAt": "2026-07-23T11:01:18.159Z"
+    },
+    {
+      "id": "act-1784804478158-2a3a0c",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created Become a Web Developer: AI for Creators.",
+      "createdAt": "2026-07-23T11:01:18.158Z"
+    },
+    {
+      "id": "act-1784804046127-6f1008",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script.generated",
+      "message": "AI Script Writer output generated for AI for Creator Connections: Make Friends, Not Just Content.",
+      "createdAt": "2026-07-23T10:54:06.127Z"
+    },
+    {
+      "id": "act-1784804046122-f73ad7",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created AI for Creator Connections: Make Friends, Not Just Content.",
+      "createdAt": "2026-07-23T10:54:06.122Z"
+    },
+    {
+      "id": "act-1784803413367-25d76c",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "storyboard.generated",
+      "message": "Storyboard Builder output generated for I want to become good boy.",
+      "createdAt": "2026-07-23T10:43:33.367Z"
+    },
+    {
+      "id": "act-1784803413367-6ce06a",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created I want to become good boy.",
+      "createdAt": "2026-07-23T10:43:33.367Z"
+    },
+    {
+      "id": "act-1784803349423-3331b5",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail.generated",
+      "message": "Thumbnail Studio output generated for How to become good boy.",
+      "createdAt": "2026-07-23T10:42:29.423Z"
+    },
+    {
+      "id": "act-1784803349422-9a7065",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created How to become good boy.",
+      "createdAt": "2026-07-23T10:42:29.422Z"
+    },
+    {
+      "id": "act-1784803289690-55f921",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "subtitle.generated",
+      "message": "Subtitle Studio output generated for What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-23T10:41:29.690Z"
+    },
+    {
+      "id": "act-1784803289688-fb8cf4",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-23T10:41:29.688Z"
+    },
+    {
+      "id": "act-1784803116815-273a20",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script.generated",
+      "message": "AI Script Writer output generated for Choosing the Best Phone for Content Creators: Boost Your Workflow.",
+      "createdAt": "2026-07-23T10:38:36.815Z"
+    },
+    {
+      "id": "act-1784803116815-48b016",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created Choosing the Best Phone for Content Creators: Boost Your Workflow.",
+      "createdAt": "2026-07-23T10:38:36.815Z"
+    },
     {
       "id": "act-1784801204801-c9b552",
       "creatorId": "user-1784797382509-d6efb1",

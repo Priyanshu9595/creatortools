@@ -1176,8 +1176,12 @@ async function storyboardFromBrief(body) {
     required: ["concept", "scenes"]
   };
 
-  const prompt = `You are an expert Commercial Video Director. Your ONLY focus must be the campaign topic provided below. Do NOT hallucinate unrelated concepts.
-Campaign / Topic: ${title}
+  const prompt = `You are a strict, no-nonsense Commercial Video Director. 
+CRITICAL RULE: The entire storyboard MUST be EXACTLY about the topic: "${title}". 
+DO NOT drift into generic ads or unrelated concepts. Every single scene, voiceover, and visual must directly and exclusively focus on "${title}".
+If the topic is a personal goal (like "I want to become App developer"), build the narrative around the journey, struggles, or motivation of that specific goal.
+
+Topic: ${title}
 Total Duration: ${duration} seconds
 Number of Scenes: ${requestedScenes}
 Video Type: ${clean(body.goal, "Video")}
@@ -1185,10 +1189,8 @@ Character: ${clean(body.character, "Use the best subject for the campaign")}
 Product: ${clean(body.product, "Use the product or topic implied by the campaign")}
 Visual Style: ${clean(body.visualStyle, "Choose a fitting cinematic style")}
 
-Create a high-quality, scene-by-scene storyboard STRICTLY based on the provided Campaign / Topic. Ignore anything unrelated to "${title}".
-Generate exactly ${requestedScenes} scenes that total exactly ${duration} seconds.
-Include camera directions, visual descriptions, voiceovers, on-screen text, transitions, and image-generation search prompts.
-Every single scene, voiceover, and visual must directly relate to the user's specific campaign.`;
+Create a high-quality, scene-by-scene storyboard. Generate exactly ${requestedScenes} scenes that total exactly ${duration} seconds.
+Include camera directions, visual descriptions, voiceovers, on-screen text, transitions, and image-generation search prompts.`;
 
   try {
     return normalizeStoryboardResult(await generateWithGemini(prompt, schema), title, duration, requestedScenes);
@@ -1244,9 +1246,11 @@ function normalizeStoryboardResult(result, title, totalDuration, requestedScenes
 }
 
 function storyboardSceneImageUrl(title, scene, index) {
-  const prompt = `Cinematic storyboard frame ${index + 1} for "${title}". ${scene.visualDescription}. Camera: ${scene.cameraShot}. No words, no captions, no logos, no UI text.`;
-  const seed = createHash("sha256").update(prompt).digest("hex").slice(0, 12);
-  return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=640&height=360&seed=${seed}&model=flux&nologo=true&private=true&enhance=true`;
+  const cleanDesc = (scene.visualDescription || title).replace(/[^a-zA-Z0-9., ]/g, "").substring(0, 300);
+  const prompt = `Scene ${index + 1}: ${cleanDesc}. Cinematic, no text, no logos`;
+  const safePrompt = encodeURIComponent(prompt);
+  const seed = Math.floor(Math.random() * 1000000);
+  return `https://image.pollinations.ai/prompt/${safePrompt}?width=640&height=360&seed=${seed}&nologo=true`;
 }
 
 function srtTime(seconds) {

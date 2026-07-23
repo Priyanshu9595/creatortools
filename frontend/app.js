@@ -421,8 +421,7 @@ function setRoute(route) {
     button.classList.toggle("active", button.dataset.route === route);
   });
   title.textContent = routeTitles[route] || "Dashboard";
-  const newProjectBtn = document.querySelector("#newProjectBtn");
-  if (newProjectBtn) newProjectBtn.style.display = route === "dashboard" ? "inline-flex" : "none";
+
   render();
 }
 
@@ -690,7 +689,7 @@ function renderScriptScreen() {
         <input name="cta" type="hidden" value="Start creating smarter today">
         <button class="primary-wide" type="submit">Generate Script</button>
       </form>
-      <section class="panel output script-output" id="toolOutput">
+      <section class="panel output script-output tool-output" id="toolOutput">
         <div class="panel-header"><h2>Generated Script</h2>${panelTools()}</div>
         <p class="muted">Your generated script will appear here.</p>
       </section>
@@ -747,7 +746,7 @@ function renderSubtitleScreen() {
           <button class="ghost" data-download-srt type="button">${icon("download")} Download SRT</button>
         </div>
       </form>
-      <section class="panel preview-panel" id="toolOutput">
+      <section class="panel preview-panel tool-output" id="toolOutput">
         <h2>Preview</h2>
         <p class="muted">Upload a video or audio file, then generate subtitles.</p>
       </section>
@@ -818,7 +817,7 @@ function renderThumbnailScreen() {
         </label>
         <button class="primary-wide" type="submit">Generate Thumbnail</button>
       </form>
-      <section class="panel preview-tools" id="toolOutput">
+      <section class="panel preview-tools tool-output" id="toolOutput">
         ${renderThumbnailEmptyState()}
       </section>
     </section>
@@ -1830,12 +1829,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-document.querySelector("#newProjectBtn")?.addEventListener("click", async () => {
-  await api("/api/projects", { method: "POST", body: JSON.stringify({ module: "script", title: "Untitled Creator Project" }) });
-  await refresh();
-  setRoute("projects");
-  notify("Project created.");
-});
+
 
 document.querySelector("#logoutBtn")?.addEventListener("click", async () => {
   try { await api("/api/auth/logout", { method: "POST" }); } catch (e) {}

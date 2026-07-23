@@ -14,6 +14,7 @@
   --green: #10a35a;
   --orange: #ff5b19;
   --shadow: 0 24px 60px rgba(31, 42, 70, 0.08);
+  --header-font: Outfit, ui-sans-serif, system-ui, sans-serif;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
@@ -47,13 +48,17 @@ button {
   padding: 0 22px;
   background: linear-gradient(135deg, var(--violet), var(--violet-2));
   color: #fff;
-  font-weight: 700;
+  font-family: var(--header-font);
+  font-weight: 600;
   cursor: pointer;
   box-shadow: 0 16px 28px rgba(124, 53, 242, 0.18);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 button:hover {
-  filter: brightness(1.03);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 32px rgba(124, 53, 242, 0.3);
+  filter: brightness(1.05);
 }
 
 button:disabled {
@@ -75,6 +80,13 @@ button:disabled {
 
 a {
   color: inherit;
+}
+
+h1,
+h2,
+h3,
+.brand strong {
+  font-family: var(--header-font);
 }
 
 h1,
@@ -159,6 +171,13 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7, 11, 26, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .landing-brand strong {
@@ -175,12 +194,19 @@ p {
   align-items: center;
   gap: 40px;
   color: rgba(255, 255, 255, 0.88);
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: var(--header-font);
 }
 
 .landing-nav a {
   text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+.landing-nav a:hover {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
 }
 
 .landing-actions {
@@ -260,6 +286,24 @@ p {
   font-size: 20px;
 }
 
+@keyframes floatAnimation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes laptopFloat {
+  0% { transform: perspective(1000px) rotateY(-12deg) rotateX(2deg) translateY(0px); }
+  50% { transform: perspective(1000px) rotateY(-12deg) rotateX(2deg) translateY(-10px); }
+  100% { transform: perspective(1000px) rotateY(-12deg) rotateX(2deg) translateY(0px); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 45px 95px rgba(0, 0, 0, 0.58), 0 36px 80px rgba(101, 55, 244, 0.38); }
+  50% { box-shadow: 0 50px 105px rgba(0, 0, 0, 0.6), 0 40px 95px rgba(124, 53, 242, 0.5); }
+  100% { box-shadow: 0 45px 95px rgba(0, 0, 0, 0.58), 0 36px 80px rgba(101, 55, 244, 0.38); }
+}
+
 .hero-stage {
   position: relative;
   min-height: 560px;
@@ -275,6 +319,7 @@ p {
   overflow: hidden;
   transform: perspective(1000px) rotateY(-12deg) rotateX(2deg);
   box-shadow: 0 45px 95px rgba(0, 0, 0, 0.58), 0 36px 80px rgba(101, 55, 244, 0.38);
+  animation: laptopFloat 6s ease-in-out infinite, pulseGlow 6s ease-in-out infinite;
 }
 
 .hero-laptop img {
@@ -299,27 +344,33 @@ p {
   font-weight: 800;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 18px 36px rgba(55, 24, 129, 0.35);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: floatAnimation 5s ease-in-out infinite;
 }
 
 .tile-ai {
   left: 60px;
   top: 130px;
+  animation-delay: 0s;
 }
 
 .tile-cc {
   left: 40px;
   bottom: 126px;
   color: #d9baff;
+  animation-delay: 1s;
 }
 
 .tile-mic {
   right: 18px;
   top: 114px;
+  animation-delay: 2s;
 }
 
 .tile-board {
   right: 12px;
   bottom: 78px;
+  animation-delay: 3s;
 }
 
 .tile-mic::before {
