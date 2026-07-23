@@ -1,0 +1,5 @@
+node_modules/
+.env
+.agents/
+.chrome-smoke/
+.DS_Store

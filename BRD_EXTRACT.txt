@@ -1,0 +1,911 @@
+VIDEO & MEDIA
+PRODUCTION TOOLS
+Business Requirements Document
+A private, single-creator workspace for scripts, subtitles, podcasts, thumbnails, and video ad storyboards.
+Google Docs Compatible | Condensed 20-25 Page Edition
+Document
+Value
+Prepared for
+Personal creator / project owner
+Version
+1.1 - Personal Use Edition
+Date
+July 2026
+Status
+Ready for personal product design and development planning
+Product positioning: One personal AI studio to plan, write, caption, design, manage, and publish creator content.
+Document Control and Governance
+Purpose, ownership, approvals, and change control
+Document purpose
+This BRD defines the business goals, scope, access model, workflows, functional requirements, data requirements, integration approach, non-functional expectations, and delivery plan for the Video & Media Production Tools platform. It is intentionally implementation-ready while remaining technology-flexible where free-tier providers may change.
+Stakeholders
+Stakeholder
+Primary responsibility
+Creator / Product Owner
+Vision, priorities, personal workflow, acceptance, and release decisions
+Developer
+Frontend, backend, workers, integrations, security, and deployment
+UI/UX Designer
+Single-dashboard usability, responsive layouts, editor experience, and accessibility
+QA / Tester
+Functional, integration, media, security, performance, and regression testing
+Approval and change control
+Item
+Rule
+Approval
+Product Owner and Engineering Lead approve MVP scope.
+Change request
+Any new paid dependency, publishing destination, or video-generation feature requires written approval.
+Source of truth
+This BRD and approved UI flows; provider documentation governs external API limits.
+Review cadence
+Review requirements at the end of each delivery phase.
+Important free-tier principle
+The application must remain functional when an optional provider is unavailable. AI image generation is optional; core thumbnail and storyboard flows must work with stock images, uploads, and browser-based editing.
+Table of Contents
+Condensed document map
+No.
+Section
+Page
+1
+Executive Summary and Business Goals
+4
+2
+Scope, Priorities, and Boundaries
+5
+3
+Single Creator Dashboard and Navigation
+6
+4
+Common Platform Workflow
+7
+5
+Architecture and Free API Strategy
+8
+6
+Module 1 - AI Script Writer
+9
+7
+Module 2 - Subtitle and Caption Generator
+10
+8
+Module 3 - Podcast Manager Overview
+11
+9
+Module 3 - Episode Lifecycle and AI
+12
+10
+Module 3 - RSS Publisher
+13
+11
+Module 4 - Thumbnail Generator
+14
+12
+Module 5 - Campaign Brief and Concepts
+15
+13
+Module 5 - Storyboard Editor
+16
+14
+Module 5 - Exports and Acceptance
+17
+15
+Personal Projects, Media, and Notifications
+18
+16
+Personal Settings, Usage, and Free-Tier Controls
+19
+17
+Data Model and Retention
+20
+18
+API and Integration Contracts
+21
+19
+Security and Non-Functional Requirements
+22
+20
+Testing and Delivery Roadmap
+23
+21
+Risks, Assumptions, and Final Acceptance
+24
+Reading guidance
+Pages 11-13 provide the detailed Podcast Manager and RSS Publisher requirements. Pages 15-17 provide the detailed Video Ad Storyboard Builder requirements.
+1. Executive Summary and Business Goals
+Product vision
+Build a private single-creator workspace where the owner can create a project, use one or more production tools, edit generated output, save versions, manage personal media, and export or publish the result. The application uses one creator dashboard and does not include an admin dashboard, organizations, teams, subscriptions, billing, or user-management features.
+Business problem
+Creators use disconnected tools for ideation, transcription, podcast publishing, thumbnail design, and ad planning.
+Manual file movement and repeated data entry increase production time and cause version confusion.
+Many creator tools become unusable when free trials expire or require expensive media-processing APIs.
+Small creators need guided workflows, not only blank editors or generic chat responses.
+Business objectives
+Objective
+MVP outcome / indicator
+Unified personal workflow
+The creator accesses all five modules from one secured dashboard.
+Faster creation
+Generate a first editable output within 60 seconds for text tasks.
+Reliable media handling
+Uploads show progress, processing status, retry, and clear failure messages.
+Zero-cost development path
+Core flows use free tiers or open-source/self-hosted processing.
+Reusable project history
+Every output is linked to a personal project, version, source asset, and export.
+Quota protection
+Local daily limits and provider fallbacks protect free API allowances.
+Suggested MVP KPIs
+Successful generation rate >= 95% for valid text requests.
+Successful transcription job completion >= 90% for supported files.
+RSS validation pass rate = 100% before feed activation.
+At least 80% of user projects can be reopened and edited without data loss.
+Average dashboard API response under 2 seconds, excluding background jobs.
+2. Scope, Priorities, and Boundaries
+In scope for MVP
+Area
+Included capabilities
+Personal workspace
+Optional single-user login, one dashboard, projects, media library, usage view, exports, notifications, settings
+Script Writer
+YouTube/Reel/Short/ad scripts, hooks, scenes, rewrite, language and tone controls
+Subtitle Studio
+Audio extraction, transcription, timestamps, editing, SRT/VTT/TXT export
+Podcast Manager
+Podcast setup, episode upload, AI metadata, scheduling, public pages, RSS feed
+Thumbnail Studio
+Headline suggestions, stock/uploaded backgrounds, text/logo editor, PNG/JPG export
+Storyboard Builder
+Campaign brief, concepts, scenes, editor, duration validation, PDF/shot-list export
+Personal controls
+Provider preferences, daily safety limits, storage cleanup, job retry, and activity history
+Out of scope for MVP
+Full nonlinear video editor or timeline rendering suite.
+Automatic distribution to every podcast or social platform.
+AI avatar, lip-sync, full text-to-video, or long-form video generation.
+Dynamic podcast advertising, paid private feeds, and advanced revenue analytics.
+Team invitations, multi-account editing, role hierarchies, and enterprise approval chains.
+Native Android/iOS applications.
+Prioritization
+Priority
+Meaning
+Examples
+Must
+Required for an end-to-end usable product
+One dashboard, projects, all five basic tools, save/export, personal settings
+Should
+High-value feature after core stability
+Transcription correction tools, scheduled podcast publishing, templates
+Could
+Optional enhancement
+Advanced analytics, generated scene images, additional export layouts
+Later
+Not part of MVP commitment
+Full video generation, live recording, public marketplace
+3. Single Creator Dashboard and Navigation
+Creator use cases
+Creator mode
+Personal need
+Video Creator
+Fast scripts, subtitles, thumbnails, reusable brand settings, and exports
+Podcaster
+Episode organization, transcripts, show notes, scheduling, public pages, and valid RSS
+Short-Form Creator
+Rapid hooks, captions, vertical thumbnail covers, and short ad concepts
+Ad Planner
+Client-free personal campaign briefs, timed storyboards, shot lists, and PDF exports
+Single-user access model
+Role
+Key permissions
+Creator Owner
+Full access to the single dashboard, personal projects, media, podcast publishing, exports, provider settings, limits, storage cleanup, and activity history.
+Information architecture
+Single creator dashboard
+Purpose
+Access
+Overview and Projects
+Recent work, quick-create actions, processing status, and search
+Private
+Script Writer and Subtitles
+Generate scripts and process editable transcripts/captions
+Private
+Podcasts and RSS
+Manage channels, episodes, schedules, public pages, and feed health
+Private dashboard; public feed/pages
+Thumbnails and Storyboards
+Create visual covers and scene-by-scene ad plans
+Private
+Media, Exports, Usage, Settings
+Manage assets, downloads, free-tier usage, provider choices, and cleanup
+Private
+Single-owner data rule
+Every project, asset, episode, job, version, and export must reference the single CreatorProfile so ownership and cleanup remain deterministic.
+4. Common Platform Workflow
+End-to-end creator journey
+The creator opens the secured application and completes personal profile or brand settings.
+The creator creates a project from the single dashboard and selects Script, Subtitle, Podcast, Thumbnail, or Storyboard.
+The platform checks authentication, daily quota, file limits, and provider availability.
+User enters a brief or uploads media. A synchronous request or background job is created.
+The application displays progress and saves intermediate state to prevent data loss.
+Generated content is validated, normalized, and presented in an editable workspace.
+User edits, regenerates selected parts, saves versions, and attaches reusable media.
+User exports the result or publishes an eligible podcast episode and RSS update.
+Usage, job status, storage, and activity data are recorded for personal monitoring and troubleshooting.
+Common project status
+Status
+Meaning
+Allowed actions
+DRAFT
+Created but incomplete
+Edit, upload, delete
+PROCESSING
+AI or media job is running
+View progress, cancel where safe
+READY
+Output is available
+Edit, regenerate, export
+FAILED
+Processing failed
+Inspect error, retry, change input
+PUBLISHED
+Public podcast content is live
+Update metadata, unpublish
+ARCHIVED
+Hidden from active work
+Restore or permanently delete
+Autosave and version rules
+Autosave editable text/canvas state after inactivity and before navigation.
+Create an explicit version before major regeneration or export.
+Never overwrite locked storyboard scenes or manually corrected transcript segments.
+A deleted project moves to recoverable trash before permanent deletion.
+5. Architecture and Free API Strategy
+Recommended logical architecture
+Use a React/Next.js frontend, Node.js API layer, PostgreSQL or MongoDB, object storage, Redis-backed job queue where available, and separate workers for FFmpeg or transcription. All provider calls pass through backend adapters; secret keys must never be exposed to the browser.
+Recommended no-cost service matrix
+Capability
+Primary option
+Fallback / reason
+Text generation
+Gemini Flash / Flash-Lite free tier
+Groq-hosted open models; structured, multilingual output
+Transcription
+Groq Whisper free tier
+Faster-Whisper self-hosted for privacy or quota exhaustion
+Media processing
+FFmpeg self-hosted
+No per-call cost; handles audio extraction, compression, subtitles
+Translation
+Gemini or LibreTranslate self-hosted
+Keep optional; validate language quality
+Object storage
+Cloudflare R2 free allowance
+Good for podcast audio because internet egress is not charged
+Stock imagery
+Unsplash API
+Reliable backgrounds; follow attribution and usage rules
+Canvas editor
+Konva.js or Fabric.js
+Browser-based text/logo editing; no external API
+Podcast discovery
+Podcast Index API
+Optional; not required to publish the platform RSS feed
+RSS generation
+Own Node.js endpoint
+Full control; no third-party publishing API required
+Provider adapter requirements
+Expose a common internal interface for generateText, transcribe, searchImage, uploadObject, and healthCheck.
+Store provider name, model, request ID, latency, usage estimate, error category, and retry count.
+Allow the creator to select an available provider or fallback from Settings without changing frontend code.
+Verify current provider quotas and terms before production launch; free tiers are not contractual capacity.
+6. Module 1 - AI Script Writer
+Purpose and user outcome
+Generate an editable, platform-specific script from a structured brief. The tool must guide the user toward a strong hook, scene flow, voice-over, on-screen text, and call to action rather than returning an unstructured essay.
+Inputs and output
+Inputs
+Structured output
+Topic, platform, duration, audience
+Title and 2-3 hook options
+Language, tone, objective, keywords
+Scene number, duration, visual direction
+Product/offer, CTA, reference notes
+Voice-over, dialogue, on-screen text
+Optional source material
+Caption, description, hashtags, final CTA
+Functional requirements
+ID
+Requirement
+SW-01
+Support YouTube, Reel, Short, podcast intro, explainer, and video ad formats.
+SW-02
+Return schema-validated sections; reject incomplete or malformed AI output.
+SW-03
+Allow regenerate section, shorten, expand, change tone, and translate.
+SW-04
+Preserve manually edited or locked sections during partial regeneration.
+SW-05
+Save drafts and versions; export TXT, DOCX, or PDF.
+SW-06
+Show estimated duration and warn when the script exceeds the selected length.
+Free API recommendation
+Primary: Gemini Flash. Strong multilingual writing and structured JSON output. Use Flash-Lite for titles, hashtags, and smaller rewrites; configure a Groq text model as a fallback. Apply personal daily limits and cache identical requests.
+Acceptance example
+Given a 45-second Hindi Reel brief, the system produces a hook, 4-6 timed scenes, voice-over, text overlays, and CTA; the user changes the tone, locks Scene 1, regenerates the remaining scenes, and exports the result without losing edits.
+7. Module 2 - Subtitle and Caption Generator
+Purpose and workflow
+Convert uploaded audio/video into editable time-coded captions, then export subtitle files or optionally render captions into video. Processing must run as a background job for media longer than a small synchronous threshold.
+1. Validate file type, size, duration, and personal quota.
+2. Upload original media to object storage.
+3. Use FFmpeg to extract/compress 16 kHz mono audio and split large files.
+4. Transcribe chunks with Groq Whisper or self-hosted Faster-Whisper.
+5. Merge timestamps, normalize punctuation, and save editable segments.
+6. Export SRT, VTT, TXT, or queue a captioned-video render.
+Functional requirements
+ID
+Requirement
+SC-01
+Support MP4, MOV, WebM, MP3, WAV, and M4A within configured limits.
+SC-02
+Display upload and processing progress with retry and failure reason.
+SC-03
+Provide segment-level text and timestamp editing.
+SC-04
+Support language detection, manual language override, and optional translation.
+SC-05
+Generate valid SRT and WebVTT with monotonic timestamps.
+SC-06
+Preserve corrected segments during reprocessing where segment mapping is possible.
+SC-07
+Allow caption style selection before rendering a captioned video.
+Free API recommendation
+Groq Whisper + FFmpeg
+Groq provides fast transcription during MVP; Faster-Whisper is the no-per-request fallback. FFmpeg reduces file size, splits long audio, and renders subtitle overlays. Never send full large video files directly to the transcription API.
+8. Module 3 - Podcast Manager Overview
+Business purpose
+Enable a creator to set up a podcast, manage episode drafts and media, create AI-assisted metadata, schedule publication, expose public podcast and episode pages, and publish a standards-compliant RSS feed from one workspace.
+Primary screens
+Screen
+Required content/actions
+Podcast list
+Cover, title, episode counts, last update, feed status, open/create actions
+Podcast setup
+Title, description, author, language, category, type, explicit flag, cover
+Podcast overview
+Published/draft/scheduled counts, storage, recent episodes, RSS health
+Episode list
+Episode, season, status, duration, publish date, edit/menu actions
+Episode editor
+Audio, metadata, transcript, show notes, chapters, publish settings
+RSS settings
+Public feed URL, validation result, last update, copy and troubleshooting
+Public pages
+Podcast profile, audio player, episode list, show notes, transcript, share
+Podcast setup fields
+Group
+Fields
+Identity
+Title, subtitle, slug, description, author, owner name/email
+Classification
+Language, country, primary/secondary category, explicit flag
+Format
+Episodic or serial, default author, copyright, website URL
+Branding
+Square cover image, optional accent color, public page settings
+Core business rules
+Podcast slug must be unique and URL-safe.
+Cover image must pass type, aspect-ratio, and minimum-dimension checks.
+A feed remains inactive until required channel data and at least one valid published episode exist.
+Only the creator-owner may publish, unpublish, archive, or delete an episode.
+9. Module 3 - Episode Lifecycle, Storage, and AI
+Episode creation workflow
+1. Create an episode draft and enter a title or working topic.
+2. Upload MP3/M4A/WAV/AAC; validate MIME type, size, and media integrity.
+3. Store the original in R2 and extract duration, byte length, and MIME type.
+4. Optionally transcribe audio and generate description, show notes, chapters, and keywords.
+5. Review public metadata, explicit flag, season/episode number, and custom image.
+6. Publish immediately or schedule with date, time, and the creator time zone.
+Episode statuses
+Status
+Meaning
+DRAFT
+Metadata or media is incomplete; not visible publicly.
+UPLOADING
+Object upload is active.
+PROCESSING
+Metadata/transcript/AI jobs are running.
+READY
+Valid for preview and scheduling.
+SCHEDULED
+Eligible for automatic publication at scheduled UTC time.
+PUBLISHED
+Included in RSS and public pages.
+FAILED
+Upload or processing error requires retry.
+UNPUBLISHED / ARCHIVED
+Removed from feed or hidden from active workspace.
+AI-assisted features
+Feature
+Input
+Output
+Title suggestions
+Topic or transcript
+3 concise, non-duplicate titles
+Description
+Transcript or notes
+Short public summary and SEO description
+Show notes
+Transcript
+Summary, key points, links placeholders, CTA
+Chapters
+Timestamped transcript
+Ordered timestamp-title pairs
+Social copy
+Episode metadata
+Platform-ready announcement draft
+Storage and scheduling rules
+Store object key, public URL, byte length, MIME type, duration, checksum, and upload status.
+Use signed uploads; published audio must resolve through a stable public URL.
+Store scheduled time in UTC and retain original time zone for display.
+A scheduler publishes only READY episodes whose scheduled time is due, then invalidates RSS cache.
+10. Module 3 - RSS Publisher
+How publishing works
+The platform generates its own public XML response at a route such as /rss/{podcastSlug}.xml. No external RSS-generation API is required. The service reads the podcast channel and eligible published episodes, creates valid XML, caches it briefly, and returns Content-Type: application/rss+xml.
+RSS inclusion rules
+Include episode when
+Exclude episode when
+status = PUBLISHED
+Draft, processing, failed, scheduled in future, archived
+publishedAt is not in the future
+Audio URL, byte length, or MIME type is missing
+audio object is publicly reachable
+Required title, description, GUID, or date is invalid
+GUID is unique and stable
+Feed-level validation has failed
+Minimum feed content
+Channel fields
+Episode item fields
+Title, link, description, language
+Title, description, publication date
+Author/owner, category, explicit
+Enclosure URL, byte length, MIME type
+Square cover image and copyright
+Stable GUID, duration, episode/season/type
+Feed URL and last build date
+Optional transcript, chapters, episode image
+Validation requirements
+XML parses without error and special characters are escaped.
+Required podcast and episode fields exist.
+Every enclosure returns a valid public audio response.
+Publication dates use a valid internet date format.
+No duplicate GUID, episode number conflict, or future scheduled item is included.
+Validation errors identify the exact field and block feed activation.
+Functional requirements
+ID
+Requirement
+RSS-01
+Generate or refresh the feed after publish, update, unpublish, or delete.
+RSS-02
+Provide copy feed URL, validate now, last generated time, and health status.
+RSS-03
+Order episodes by publication date, newest first unless serial rules specify otherwise.
+RSS-04
+Retain GUID stability when titles or slugs change.
+11. Module 4 - Thumbnail Generator with AI Text Overlay
+Purpose and design strategy
+Generate a strong thumbnail concept and accurate editable text without depending on an image model to spell the final headline. AI proposes hooks and visual direction; the user selects an uploaded or stock background; Konva.js/Fabric.js renders text, logo, shapes, gradients, and effects in the browser.
+Workflow
+1. Enter video title, audience, category, emotion, and brand settings.
+2. Generate 3-5 short headline options and stock-image search terms.
+3. Search Unsplash or upload an image; choose the target aspect ratio.
+4. Edit layers: headline, subtext, logo, subject image, shapes, gradient, outline, and shadow.
+5. Save canvas JSON for future edits and export PNG/JPG.
+Functional requirements
+ID
+Requirement
+TH-01
+Support 16:9, 9:16, and 1:1 presets with safe-area guidance.
+TH-02
+Support drag, resize, rotate, align, layer order, undo, and redo.
+TH-03
+Generate headline, visual concept, text-position, and search-keyword suggestions.
+TH-04
+Allow stock images, user uploads, logo uploads, and reusable brand presets.
+TH-05
+Store editable canvas JSON separately from the final exported image.
+TH-06
+Export correct pixel dimensions and warn about low-resolution source images.
+Free API recommendation
+Gemini + Unsplash + Konva.js
+This is the most dependable no-cost MVP path. AI-generated backgrounds may be offered as a limited experimental option, but the product must remain fully usable without them. Follow Unsplash attribution and usage requirements.
+12. Module 5 - Campaign Brief and Concept Generation
+Business purpose
+Convert a product or campaign brief into a professional scene-by-scene production blueprint. The MVP generates concepts, scripts, shots, timing, and reference visuals; it does not promise a finished generated video.
+Campaign brief
+Group
+Required fields
+Project and brand
+Project name, brand, product, category, logo, colors, brand voice
+Offer and value
+Description, key features, benefits, USP, price, offer, CTA
+Audience
+Age, location, language, interests, problem, buying motivation
+Delivery
+Platform, aspect ratio, duration, tone, campaign goal
+Creative constraints
+Framework, must-show assets, prohibited claims, reference notes
+Supported goals and frameworks
+Campaign goals
+Story frameworks
+Brand awareness, product sale, lead generation
+AIDA: Attention, Interest, Desire, Action
+App install, traffic, product launch
+PAS: Problem, Agitation, Solution
+Offer promotion, event, retargeting
+Before-After-Bridge, Problem-Solution-Benefit
+UGC-style or testimonial ad
+Testimonial and creator-led demonstration
+Concept generation rules
+Generate three clearly different concepts before scenes.
+Each concept includes hook, narrative approach, visual style, emotional angle, and CTA strategy.
+User selects one concept or requests new concepts; the selected concept becomes versioned project data.
+Generated marketing claims must be treated as drafts and require user confirmation.
+Example
+For a 30-second face-wash Reel, concepts may be: problem/solution, morning transformation, and creator testimonial. Selecting one then generates timed scenes in strict JSON.
+13. Module 5 - Storyboard Scene Editor and Timeline
+Scene data structure
+Category
+Fields
+Timing
+Scene number, title, start time, end time, duration, purpose
+Visual
+Location, background, character, action, product placement, lighting
+Camera
+Shot type, angle, movement, focus, composition
+Audio
+Voice-over, dialogue, music direction, sound effect
+Text
+Headline, on-screen text, offer, CTA, subtitle
+Editing
+Transition, animation note, pace, reference image, production note
+Editor layout
+Left panel
+Center preview
+Right properties / bottom timeline
+Scene list with drag-and-drop
+Reference image and text overlay
+All editable scene fields
+Lock, duplicate, delete indicators
+Duration and camera badges
+Timeline with total duration
+Status and validation warnings
+Brand/character consistency preview
+Overrun/underrun warning and actions
+Scene actions
+Edit, regenerate text, regenerate reference image, duplicate, delete, move, split, merge, lock, and add notes.
+Regeneration must skip locked scenes and preserve manually edited fields unless the user selects overwrite.
+Reordering updates scene numbers and start/end times.
+The total of scene durations must equal the selected video duration before final approval.
+Functional requirements
+ID
+Requirement
+SB-01
+Generate schema-valid scenes with required fields and positive durations.
+SB-02
+Validate total duration and show the exact overrun or underrun.
+SB-03
+Support scene-level lock and partial regeneration.
+SB-04
+Maintain character, product, and brand consistency settings across scenes.
+SB-05
+Autosave edits and create versions before full regeneration.
+14. Module 5 - Reference Images, Exports, and Acceptance
+Reference image strategy
+For a reliable free workflow, Gemini generates a stock-search query for each scene and Unsplash provides candidate reference images. Users may upload product and lifestyle images. Optional AI-generated images must be rate-limited, cached, and clearly identified as references rather than production-ready final frames.
+Consistency controls
+Store reusable character description, wardrobe, product packaging, brand colors, and visual style.
+Keep generated background and real product image as separate layers where possible.
+Allow a user to lock the visual reference for approved scenes.
+Warn that generated references may contain visual inconsistencies and require human review.
+Exports
+Export
+Required content
+Storyboard PDF
+One or more scenes per page with image, timing, visual, camera, audio, text, transition, notes
+Voice-over script
+Ordered scene headings and narration/dialogue
+Shot list
+Shot number, scene, location, camera, cast, product, duration, notes
+Production checklist
+Assets, actors, locations, props, brand requirements
+JSON/CSV
+Structured handoff for downstream production tools
+Acceptance scenario
+Module 5 acceptance
+A user enters a 30-second vertical product-sale brief, receives three concepts, selects one, generates 5-8 timed scenes, locks the hook, regenerates other scenes, replaces a reference image, fixes a duration overrun, and exports a readable storyboard PDF plus shot list.
+Free API recommendation
+Gemini Flash for structured concepts/scenes; Unsplash and user uploads for reference imagery; Konva.js for optional overlays; jsPDF, pdf-lib, or server-side PDF generation for exports. The backend validates every generated JSON response before saving.
+15. Personal Projects, Media, Exports, and Notifications
+Personal project workspace
+Capability
+Business rule
+Project ownership
+Every project belongs to the single creator profile and one module type.
+Cross-tool reuse
+A script can seed a storyboard; a podcast transcript can seed show notes or social copy.
+Versions
+Store explicit snapshots for text, transcript, canvas, and storyboard changes.
+Search/filter
+Name, type, status, tag, created date, and updated date.
+Trash
+Soft delete with a configurable recovery period before permanent deletion.
+Media library
+Support audio, video, images, subtitle files, and generated exports.
+Store original filename, normalized object key, MIME type, size, checksum, dimensions/duration, owner, and status.
+Use signed upload URLs and server-side validation; do not trust browser MIME types.
+Track references so an asset in use is not permanently deleted without warning.
+Provide storage usage and delete/retry actions.
+Export management
+Status
+Behavior
+QUEUED
+Export request created; user may continue other work.
+PROCESSING
+Worker generates file and records progress.
+READY
+Download URL available until retention expiry.
+FAILED
+Error category and retry action displayed.
+EXPIRED
+Regenerate required; source project remains available.
+Notifications
+In-app notifications for completed/failed jobs, scheduled publication, quota warnings, and RSS validation issues.
+Email notifications are optional for MVP and can be enabled or disabled in personal settings.
+Notifications must link directly to the relevant project or episode.
+16. Personal Settings, Usage, and Free-Tier Controls
+Personal settings and system status
+Personal settings area
+Functions
+Provider status
+View configured text, transcription, image-search, storage, and fallback services
+Processing jobs
+View own queued/failed jobs, error reason, retry, cancel, and clear history
+Daily limits
+Set conservative generation, transcription, export, search, and image limits
+Storage
+View usage by module, find large/orphaned files, and run cleanup
+Templates and brand
+Maintain reusable script, thumbnail, storyboard, logo, font, and color presets
+Privacy and activity
+Review publishing actions, data-retention choices, and recent security/activity events
+Suggested personal safety limits
+Module
+Illustrative personal limit
+Script Writer
+3 full scripts and 10 small rewrites per day
+Subtitles
+2 jobs per day, maximum 10 minutes per job
+Podcast
+1 podcast, 10 active episodes, configurable storage cap
+Thumbnail
+10 stock searches and 5 exports per day
+Storyboard
+2 storyboards per day, maximum 10 scenes
+Free-tier protection rules
+Enforce quotas in the backend before provider calls.
+Rate-limit by creator session, device/IP, route, and job type.
+Reserve quota when a job starts and release or refund according to failure policy.
+Cache identical deterministic requests and avoid duplicate simultaneous jobs.
+Use circuit breakers, timeout, bounded retries, and provider fallback.
+Allow the creator to change personal daily limits and preferred providers from Settings without deployment.
+17. Core Data Model and Retention
+Conceptual entities
+Entity
+Key data / relationships
+CreatorProfile
+Single profile, preferences, brand settings, quota policy, and storage usage
+Project
+Module type, status, title, latest version, tags; belongs to CreatorProfile
+ProjectVersion
+Snapshot JSON/content, version number, and created date
+MediaAsset
+Object key, URL, MIME, size, metadata, project reference, and status
+GenerationJob
+Type, provider, status, request data, result, error, and usage estimate
+Script
+Brief, structured sections, locks, duration, and versions
+Transcription
+Media, language, segments, SRT/VTT URLs, and correction state
+Podcast
+Channel metadata, slug, cover, feed status, and CreatorProfile reference
+PodcastEpisode
+Podcast, audio, metadata, status, schedule, and GUID
+Thumbnail
+Brief, canvas JSON, source assets, and export URL
+Storyboard / Scene
+Campaign brief, selected concept, and ordered timed scene records
+UsageRecord / ActivityLog
+Provider units, quota date, publishing actions, settings changes, and errors
+Relationship summary
+User 1-N Projects; Project 1-N Versions, MediaAssets, Jobs, and Exports. Podcast 1-N Episodes. Storyboard 1-N Scenes. Assets may be referenced by multiple project objects but always retain one owner. Usage and audit records are append-only for their retention period.
+Retention rules
+Data
+Suggested rule
+Active projects and source media
+Retained while needed and within the personal storage cap.
+Trash
+Recoverable for 30 days, then permanently removed.
+Temporary chunks/render files
+Delete automatically after job completion or short timeout.
+Generated export URLs
+Expire after a configured period; source project remains.
+Job logs and usage
+Retain long enough for personal troubleshooting and free-tier tracking.
+Application reset
+Provide an explicit export-and-delete workflow before clearing all personal data.
+18. API and Integration Contracts
+Representative internal endpoints
+Domain
+Endpoints / actions
+Private access and dashboard
+Optional POST /auth/login; GET /dashboard; GET/PATCH /settings
+Projects
+GET/POST /projects; GET/PATCH/DELETE /projects/{id}; versions
+Scripts
+POST /scripts/generate; /rewrite; /export
+Media and subtitles
+POST signed upload; POST /transcriptions; status; edit; export/render
+Podcasts
+CRUD podcasts/episodes; upload; transcribe; generate notes; publish/schedule/unpublish
+RSS
+GET /rss/{slug}.xml; POST validate/refresh
+Thumbnails
+Generate suggestions; search assets; save canvas; export
+Storyboards
+Create; concepts; scenes; reorder; regenerate; image; export
+Personal controls
+GET usage/storage/jobs/activity; POST retry/cancel/cleanup; PATCH limits/providers
+Contract rules
+Use consistent JSON envelopes, validation errors, correlation IDs, and pagination.
+Long operations return a job ID and status URL rather than holding the HTTP request open.
+Use idempotency keys for upload completion, publish, schedule, and export creation.
+External provider errors are mapped to internal categories: quota, authentication, timeout, invalid input, unavailable, and unknown.
+Never expose provider secrets, raw stack traces, internal object keys, or cross-user identifiers.
+Job status response
+Field
+Purpose
+jobId, type, projectId
+Identity and context
+status, progressPercent
+UI progress
+provider, model
+Support and audit
+resultReference
+Created script/transcript/export reference
+errorCode, userMessage
+Safe failure explanation
+createdAt, startedAt, completedAt
+Operational timing
+19. Security, Privacy, and Non-Functional Requirements
+Security requirements
+Area
+Requirement
+Private access
+Use a strong single-user password, passkey, or deployment-level access protection; no public registration.
+Authorization
+Reject any request not associated with the creator session; protect media, podcast, export, settings, and job endpoints.
+Secrets
+Backend environment or secret manager only; rotate and restrict provider keys.
+Uploads
+Signed URLs, size/type validation, optional malware scanning, and random object keys.
+Data transport
+HTTPS only; secure cookies and a restrictive CORS allowlist.
+Free-tier protection
+Local daily limits, route/IP throttling, duplicate-job prevention, and automatic provider pause.
+Privacy
+Explicit processing consent, deletion controls, and clear retention settings for personal media.
+Activity
+Record publishing actions, provider changes, deletion, login attempts, and processing errors.
+Non-functional requirements
+Category
+Target / behavior
+Availability
+Graceful degradation when an optional provider fails; health indicators
+Performance
+Dashboard endpoints usually under 2 seconds; text generation begins promptly
+Scalability
+Queue-based workers, stateless APIs, configurable concurrency
+Reliability
+Idempotent jobs, bounded retries, checksum verification, autosave
+Accessibility
+Keyboard navigation, labels, contrast, visible focus, captions
+Compatibility
+Responsive modern desktop/mobile web; Google Docs-compatible exports
+Observability
+Structured logs, metrics, job latency, provider error rate, storage usage
+Content governance
+The creator remains responsible for factual accuracy, advertising claims, copyright, and platform-policy review.
+Generated claims and reference imagery must be editable and clearly presented as drafts.
+Add local warnings and confirmation checks for potentially prohibited, abusive, or infringing content before export or publishing.
+20. Testing Strategy and Delivery Roadmap
+Testing scope
+Test type
+Coverage
+Unit
+Validation, duration calculations, RSS XML builders, personal limit logic, and adapters
+API integration
+Private access, project isolation, upload completion, provider fallback, and publishing
+Media
+Supported/unsupported types, corrupted files, long audio chunks, and timestamp merging
+RSS
+Required fields, escaping, GUID stability, enclosure reachability, and scheduling
+UI/E2E
+Create-edit-save-reopen-export workflows for all five modules from one dashboard
+Security
+Unauthenticated access, key exposure, rate limits, unsafe uploads, and public/private route separation
+Performance
+Concurrent personal jobs, queue backlog, large project lists, and public feed load
+Regression
+Provider switches, schema changes, export formatting, and autosave
+Recommended delivery phases
+Phase
+Deliverables
+1. Foundation
+Private access, one creator dashboard, projects, storage, jobs, usage, and settings
+2. Script Writer
+Structured generation, editor, versions, and export
+3. Subtitle Studio
+Upload, FFmpeg, transcription, editor, SRT/VTT
+4. Podcast
+Podcast/episode CRUD, audio, AI metadata, schedule, public pages, and RSS
+5. Thumbnail
+Suggestions, stock search/upload, canvas editor, and export
+6. Storyboard
+Brief, concepts, scenes, timeline, reference images, and exports
+7. Hardening
+Security, accessibility, backups, monitoring, free-tier tuning, deployment, and personal UAT
+Definition of done
+Accepted UI flow and business rules implemented.
+Automated tests pass and major errors are handled.
+No cross-user access is possible.
+Usage, storage, and processing jobs are visible to the creator in the dashboard.
+Relevant export/publish output validates successfully.
+Documentation and environment configuration are complete.
+21. Risks, Assumptions, and Final Acceptance
+Key risks and mitigations
+Risk
+Mitigation
+Free API quota or policy changes
+Provider adapters, personal provider switch, self-hosted fallback, and conservative limits
+Slow or failed media processing
+Queue, chunking, progress, retry, cancellation, and timeouts
+Storage growth from audio/video
+Personal caps, cleanup jobs, retention, and duplicate checksum detection
+Invalid RSS or unreachable audio
+Pre-publish validation, stable public URLs, and feed health checks
+AI output is inaccurate or malformed
+Strict schemas, backend validation, editable drafts, and creator confirmation
+Generated image inconsistency
+Stock/upload-first strategy, locked assets, and brand consistency controls
+Accidental overuse of free resources
+Private access, local limits, caching, usage warnings, and automatic provider pause
+Assumptions
+MVP targets individual creators and small workloads, not unlimited public SaaS scale.
+The creator confirms ownership or usage rights for uploaded media and remains responsible for final publishing decisions.
+External provider quotas, model names, and terms will be revalidated before launch.
+Podcast directories fetch the platform RSS URL; automatic submission integrations are later scope.
+AI-generated reference images are optional and not required for core product acceptance.
+Final acceptance summary
+Area
+Acceptance condition
+Personal workspace
+The creator opens one dashboard, creates/reopens projects, manages media, and sees personal usage.
+Five modules
+Each module completes its primary create-edit-save-export or publish journey.
+Podcast and RSS
+A valid episode can be scheduled/published and appears correctly in a valid public feed.
+Storyboard
+A timed, editable storyboard can be generated and exported with locked-scene preservation.
+Personal controls
+The creator can inspect jobs, change limits/providers, clean storage, and review activity.
+Security and quality
+Private access, validation, tests, monitoring, backups, and failure handling are verified.
+MVP release decision: Release when all Must requirements and acceptance scenarios pass in a production-like environment, RSS output validates, critical security findings are resolved, and personal free-tier limits are configured.
