@@ -128,13 +128,16 @@
         <p id="loginSubtitle" class="muted">Sign in to your creator workspace</p>
         <form id="loginForm">
           <input type="hidden" id="authModeInput" value="login">
-          <label id="nameField" hidden>Name <span class="required">*</span>
+          <label id="nameField" hidden>
+            <span>Name <span class="required" style="color: #ef4444;">*</span></span>
             <input type="text" id="nameInput" placeholder="Creator name">
           </label>
-          <label>Email <span class="required">*</span>
+          <label>
+            <span>Email <span class="required" style="color: #ef4444;">*</span></span>
             <input type="email" id="emailInput" required placeholder="you@example.com" autocomplete="email">
           </label>
-          <label>Password <span class="required">*</span>
+          <label>
+            <span>Password <span class="required" style="color: #ef4444;">*</span></span>
             <span class="password-field">
               <input type="password" id="passwordInput" required minlength="6" placeholder="Enter password" autocomplete="current-password">
               <button class="ghost reveal-password" id="passwordToggleBtn" type="button" aria-label="Show password">Show</button>
@@ -162,12 +165,8 @@
           <button class="ghost sidebar-collapse" id="sidebarCollapseBtn" type="button" aria-label="Collapse sidebar">&lt;</button>
         </div>
         <nav id="nav" class="nav" aria-label="Primary"></nav>
-        <div class="sidebar-footer">
-          <div class="profile-chip" id="sidebarUserChip">
-            <span>CW</span>
-            <div><strong>Creator Workspace</strong><p>Personal account</p></div>
-          </div>
-          <button id="logoutBtn" type="button" class="ghost">Log Out</button>
+        <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 8px;">
+          <button id="logoutBtn" type="button" class="ghost" style="width: 100%; border: 1px solid var(--border, #e2e8f0);">Log Out</button>
         </div>
       </aside>
 
@@ -178,10 +177,6 @@
             <span id="topbarSubtitle">Welcome back to your private workspace.</span>
           </div>
           <div class="top-actions">
-            <label class="top-search" aria-label="Search workspace">
-              <span aria-hidden="true">Search</span>
-              <input id="globalSearchInput" type="search" placeholder="Search projects">
-            </label>
             <div class="avatar-menu" id="userChip">
               <span>CW</span>
               <strong>Creator Workspace</strong>

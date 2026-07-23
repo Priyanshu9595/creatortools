@@ -58,6 +58,108 @@
   },
   "projects": [
     {
+      "id": "p-1784804558436-474944",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "storyboard",
+      "title": "Unlock Your App Development Potential",
+      "status": "READY",
+      "tags": [
+        "storyboard"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "concept": "Inspire and guide aspiring individuals to become app developers.",
+        "scenes": [
+          {
+            "sceneNumber": 1,
+            "number": 1,
+            "duration": 6,
+            "start": "0s",
+            "end": "6s",
+            "title": "The Dream Begins",
+            "visualDescription": "A person, late 20s, sits in a cozy, slightly cluttered room, gazing thoughtfully at a laptop screen filled with complex code snippets and app design mockups, looking a bit overwhelmed but hopeful. Natural light streams in.",
+            "cameraShot": "Medium shot, slightly low angle to emphasize aspiration, slowly zooming in on their contemplative face.",
+            "voiceOver": "Ever dreamt of bringing your brilliant ideas to life, right in the palm of everyone's hand?",
+            "onScreenText": "Dreaming of App Development?",
+            "transition": "Cut",
+            "stockSearchQuery": "Person looking thoughtfully at laptop, aspiring app developer, overwhelmed by code",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20person%2C%20late%2020s%2C%20sits%20in%20a%20cozy%2C%20slightly%20cluttered%20room%2C%20gazing%20thoughtfully%20at%20a%20laptop%20screen%20filled%20with%20complex%20code%20snippets%20and%20app%20design%20mockups%2C%20looking%20a%20bit%20overwhelmed%20but%20hopeful.%20Natural%20light%20streams%20in..%20Camera%3A%20Medium%20shot%2C%20slightly%20low%20angle%20to%20emphasize%20aspiration%2C%20slowly%20zooming%20in%20on%20their%20contemplative%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=d0ae6b3beddf&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20person%2C%20late%2020s%2C%20sits%20in%20a%20cozy%2C%20slightly%20cluttered%20room%2C%20gazing%20thoughtfully%20at%20a%20laptop%20screen%20filled%20with%20complex%20code%20snippets%20and%20app%20design%20mockups%2C%20looking%20a%20bit%20overwhelmed%20but%20hopeful.%20Natural%20light%20streams%20in..%20Camera%3A%20Medium%20shot%2C%20slightly%20low%20angle%20to%20emphasize%20aspiration%2C%20slowly%20zooming%20in%20on%20their%20contemplative%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=d0ae6b3beddf&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 2,
+            "number": 2,
+            "duration": 6,
+            "start": "6s",
+            "end": "12s",
+            "title": "Discovering the Path",
+            "visualDescription": "The same person, now looking engaged and focused, interacts with a sleek, user-friendly online learning platform on their laptop. The screen displays clear, step-by-step coding tutorials or an intuitive drag-and-drop app builder interface. Bright, encouraging visuals.",
+            "cameraShot": "Close-up on the screen showing the learning platform, then panning slightly to the person's focused, interested face.",
+            "voiceOver": "But where do you even begin? The world of app development can seem daunting, a maze of complex languages.",
+            "onScreenText": "Your Journey Starts Here.",
+            "transition": "Cross dissolve",
+            "stockSearchQuery": "Online coding course interface, person learning app development, easy coding platform",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20same%20person%2C%20now%20looking%20engaged%20and%20focused%2C%20interacts%20with%20a%20sleek%2C%20user-friendly%20online%20learning%20platform%20on%20their%20laptop.%20The%20screen%20displays%20clear%2C%20step-by-step%20coding%20tutorials%20or%20an%20intuitive%20drag-and-drop%20app%20builder%20interface.%20Bright%2C%20encouraging%20visuals..%20Camera%3A%20Close-up%20on%20the%20screen%20showing%20the%20learning%20platform%2C%20then%20panning%20slightly%20to%20the%20person's%20focused%2C%20interested%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=0c95467bb473&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20same%20person%2C%20now%20looking%20engaged%20and%20focused%2C%20interacts%20with%20a%20sleek%2C%20user-friendly%20online%20learning%20platform%20on%20their%20laptop.%20The%20screen%20displays%20clear%2C%20step-by-step%20coding%20tutorials%20or%20an%20intuitive%20drag-and-drop%20app%20builder%20interface.%20Bright%2C%20encouraging%20visuals..%20Camera%3A%20Close-up%20on%20the%20screen%20showing%20the%20learning%20platform%2C%20then%20panning%20slightly%20to%20the%20person's%20focused%2C%20interested%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=0c95467bb473&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 3,
+            "number": 3,
+            "duration": 6,
+            "start": "12s",
+            "end": "18s",
+            "title": "Building Your Vision",
+            "visualDescription": "A dynamic montage: Close-up shots of hands confidently typing code on a keyboard, then snippets of clean, understandable code appearing on a modern IDE. Followed by a phone screen showing an app prototype taking shape in real-time. Energetic and progressive.",
+            "cameraShot": "Rapid cuts between close-ups on typing hands, code editor screen, and a phone displaying an evolving app interface.",
+            "voiceOver": "With the right tools and expert guidance, transforming your unique concepts into functional, beautiful apps is entirely within your reach.",
+            "onScreenText": "Code. Create. Innovate.",
+            "transition": "Wipe left",
+            "stockSearchQuery": "Hands typing code, app development screen, software development process, app prototype",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20dynamic%20montage%3A%20Close-up%20shots%20of%20hands%20confidently%20typing%20code%20on%20a%20keyboard%2C%20then%20snippets%20of%20clean%2C%20understandable%20code%20appearing%20on%20a%20modern%20IDE.%20Followed%20by%20a%20phone%20screen%20showing%20an%20app%20prototype%20taking%20shape%20in%20real-time.%20Energetic%20and%20progressive..%20Camera%3A%20Rapid%20cuts%20between%20close-ups%20on%20typing%20hands%2C%20code%20editor%20screen%2C%20and%20a%20phone%20displaying%20an%20evolving%20app%20interface..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=317979b40291&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20dynamic%20montage%3A%20Close-up%20shots%20of%20hands%20confidently%20typing%20code%20on%20a%20keyboard%2C%20then%20snippets%20of%20clean%2C%20understandable%20code%20appearing%20on%20a%20modern%20IDE.%20Followed%20by%20a%20phone%20screen%20showing%20an%20app%20prototype%20taking%20shape%20in%20real-time.%20Energetic%20and%20progressive..%20Camera%3A%20Rapid%20cuts%20between%20close-ups%20on%20typing%20hands%2C%20code%20editor%20screen%2C%20and%20a%20phone%20displaying%20an%20evolving%20app%20interface..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=317979b40291&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 4,
+            "number": 4,
+            "duration": 6,
+            "start": "18s",
+            "end": "24s",
+            "title": "The App Comes Alive",
+            "visualDescription": "A diverse group of people (different ages, ethnicities) happily engaging with an app on their smartphones in various everyday settings (cafe, park, commute). The app interface is clean, intuitive, and visually appealing. The original person smiles proudly, watching their app being used.",
+            "cameraShot": "Montage of dynamic close-ups on users' hands interacting with the app, interspersed with reaction shots of their delighted faces, ending on a medium shot of the developer looking proud and satisfied.",
+            "voiceOver": "Watch your creations come alive, making a real impact on users everywhere, connecting people and solving problems.",
+            "onScreenText": "Your App. Your Impact.",
+            "transition": "Fade to black",
+            "stockSearchQuery": "People using mobile apps, successful app launch, user engagement with app",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20diverse%20group%20of%20people%20(different%20ages%2C%20ethnicities)%20happily%20engaging%20with%20an%20app%20on%20their%20smartphones%20in%20various%20everyday%20settings%20(cafe%2C%20park%2C%20commute).%20The%20app%20interface%20is%20clean%2C%20intuitive%2C%20and%20visually%20appealing.%20The%20original%20person%20smiles%20proudly%2C%20watching%20their%20app%20being%20used..%20Camera%3A%20Montage%20of%20dynamic%20close-ups%20on%20users'%20hands%20interacting%20with%20the%20app%2C%20interspersed%20with%20reaction%20shots%20of%20their%20delighted%20faces%2C%20ending%20on%20a%20medium%20shot%20of%20the%20developer%20looking%20proud%20and%20satisfied..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=723dcd626d73&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20diverse%20group%20of%20people%20(different%20ages%2C%20ethnicities)%20happily%20engaging%20with%20an%20app%20on%20their%20smartphones%20in%20various%20everyday%20settings%20(cafe%2C%20park%2C%20commute).%20The%20app%20interface%20is%20clean%2C%20intuitive%2C%20and%20visually%20appealing.%20The%20original%20person%20smiles%20proudly%2C%20watching%20their%20app%20being%20used..%20Camera%3A%20Montage%20of%20dynamic%20close-ups%20on%20users'%20hands%20interacting%20with%20the%20app%2C%20interspersed%20with%20reaction%20shots%20of%20their%20delighted%20faces%2C%20ending%20on%20a%20medium%20shot%20of%20the%20developer%20looking%20proud%20and%20satisfied..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=723dcd626d73&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 5,
+            "number": 5,
+            "duration": 6,
+            "start": "24s",
+            "end": "30s",
+            "title": "Become an App Developer",
+            "visualDescription": "The now confident and accomplished developer stands in a bright, modern, open-plan creative workspace, perhaps overlooking a city skyline. They look directly at the camera with a determined, inspiring smile. A subtle, generic 'Learn to Code' or 'Dev Platform' logo is visible on a nearby screen.",
+            "cameraShot": "Hero shot, slightly wide, empowering. The camera slowly pushes in on the developer's confident expression.",
+            "voiceOver": "Ready to build the next big thing? Start your app development journey today and turn your dreams into reality.",
+            "onScreenText": "Become an App Developer. Start Now! [Website/Platform Name]",
+            "transition": "None",
+            "stockSearchQuery": "Confident app developer, modern tech workspace, inspiring developer, start coding platform",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20now%20confident%20and%20accomplished%20developer%20stands%20in%20a%20bright%2C%20modern%2C%20open-plan%20creative%20workspace%2C%20perhaps%20overlooking%20a%20city%20skyline.%20They%20look%20directly%20at%20the%20camera%20with%20a%20determined%2C%20inspiring%20smile.%20A%20subtle%2C%20generic%20'Learn%20to%20Code'%20or%20'Dev%20Platform'%20logo%20is%20visible%20on%20a%20nearby%20screen..%20Camera%3A%20Hero%20shot%2C%20slightly%20wide%2C%20empowering.%20The%20camera%20slowly%20pushes%20in%20on%20the%20developer's%20confident%20expression..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=08e31f8da0f4&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20now%20confident%20and%20accomplished%20developer%20stands%20in%20a%20bright%2C%20modern%2C%20open-plan%20creative%20workspace%2C%20perhaps%20overlooking%20a%20city%20skyline.%20They%20look%20directly%20at%20the%20camera%20with%20a%20determined%2C%20inspiring%20smile.%20A%20subtle%2C%20generic%20'Learn%20to%20Code'%20or%20'Dev%20Platform'%20logo%20is%20visible%20on%20a%20nearby%20screen..%20Camera%3A%20Hero%20shot%2C%20slightly%20wide%2C%20empowering.%20The%20camera%20slowly%20pushes%20in%20on%20the%20developer's%20confident%20expression..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=08e31f8da0f4&model=flux&nologo=true&private=true&enhance=true"
+          }
+        ],
+        "title": "Unlock Your App Development Potential",
+        "duration": 30
+      },
+      "createdAt": "2026-07-23T11:02:38.436Z",
+      "updatedAt": "2026-07-23T11:02:38.440Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
       "id": "p-1784804478158-487cec",
       "creatorId": "user-1784797382509-d6efb1",
       "module": "script",
@@ -645,6 +747,101 @@
   ],
   "versions": [
     {
+      "id": "ver-1784804558436-46a397",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1784804558436-474944",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "concept": "Inspire and guide aspiring individuals to become app developers.",
+        "scenes": [
+          {
+            "sceneNumber": 1,
+            "number": 1,
+            "duration": 6,
+            "start": "0s",
+            "end": "6s",
+            "title": "The Dream Begins",
+            "visualDescription": "A person, late 20s, sits in a cozy, slightly cluttered room, gazing thoughtfully at a laptop screen filled with complex code snippets and app design mockups, looking a bit overwhelmed but hopeful. Natural light streams in.",
+            "cameraShot": "Medium shot, slightly low angle to emphasize aspiration, slowly zooming in on their contemplative face.",
+            "voiceOver": "Ever dreamt of bringing your brilliant ideas to life, right in the palm of everyone's hand?",
+            "onScreenText": "Dreaming of App Development?",
+            "transition": "Cut",
+            "stockSearchQuery": "Person looking thoughtfully at laptop, aspiring app developer, overwhelmed by code",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20person%2C%20late%2020s%2C%20sits%20in%20a%20cozy%2C%20slightly%20cluttered%20room%2C%20gazing%20thoughtfully%20at%20a%20laptop%20screen%20filled%20with%20complex%20code%20snippets%20and%20app%20design%20mockups%2C%20looking%20a%20bit%20overwhelmed%20but%20hopeful.%20Natural%20light%20streams%20in..%20Camera%3A%20Medium%20shot%2C%20slightly%20low%20angle%20to%20emphasize%20aspiration%2C%20slowly%20zooming%20in%20on%20their%20contemplative%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=d0ae6b3beddf&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%201%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20person%2C%20late%2020s%2C%20sits%20in%20a%20cozy%2C%20slightly%20cluttered%20room%2C%20gazing%20thoughtfully%20at%20a%20laptop%20screen%20filled%20with%20complex%20code%20snippets%20and%20app%20design%20mockups%2C%20looking%20a%20bit%20overwhelmed%20but%20hopeful.%20Natural%20light%20streams%20in..%20Camera%3A%20Medium%20shot%2C%20slightly%20low%20angle%20to%20emphasize%20aspiration%2C%20slowly%20zooming%20in%20on%20their%20contemplative%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=d0ae6b3beddf&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 2,
+            "number": 2,
+            "duration": 6,
+            "start": "6s",
+            "end": "12s",
+            "title": "Discovering the Path",
+            "visualDescription": "The same person, now looking engaged and focused, interacts with a sleek, user-friendly online learning platform on their laptop. The screen displays clear, step-by-step coding tutorials or an intuitive drag-and-drop app builder interface. Bright, encouraging visuals.",
+            "cameraShot": "Close-up on the screen showing the learning platform, then panning slightly to the person's focused, interested face.",
+            "voiceOver": "But where do you even begin? The world of app development can seem daunting, a maze of complex languages.",
+            "onScreenText": "Your Journey Starts Here.",
+            "transition": "Cross dissolve",
+            "stockSearchQuery": "Online coding course interface, person learning app development, easy coding platform",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20same%20person%2C%20now%20looking%20engaged%20and%20focused%2C%20interacts%20with%20a%20sleek%2C%20user-friendly%20online%20learning%20platform%20on%20their%20laptop.%20The%20screen%20displays%20clear%2C%20step-by-step%20coding%20tutorials%20or%20an%20intuitive%20drag-and-drop%20app%20builder%20interface.%20Bright%2C%20encouraging%20visuals..%20Camera%3A%20Close-up%20on%20the%20screen%20showing%20the%20learning%20platform%2C%20then%20panning%20slightly%20to%20the%20person's%20focused%2C%20interested%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=0c95467bb473&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%202%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20same%20person%2C%20now%20looking%20engaged%20and%20focused%2C%20interacts%20with%20a%20sleek%2C%20user-friendly%20online%20learning%20platform%20on%20their%20laptop.%20The%20screen%20displays%20clear%2C%20step-by-step%20coding%20tutorials%20or%20an%20intuitive%20drag-and-drop%20app%20builder%20interface.%20Bright%2C%20encouraging%20visuals..%20Camera%3A%20Close-up%20on%20the%20screen%20showing%20the%20learning%20platform%2C%20then%20panning%20slightly%20to%20the%20person's%20focused%2C%20interested%20face..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=0c95467bb473&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 3,
+            "number": 3,
+            "duration": 6,
+            "start": "12s",
+            "end": "18s",
+            "title": "Building Your Vision",
+            "visualDescription": "A dynamic montage: Close-up shots of hands confidently typing code on a keyboard, then snippets of clean, understandable code appearing on a modern IDE. Followed by a phone screen showing an app prototype taking shape in real-time. Energetic and progressive.",
+            "cameraShot": "Rapid cuts between close-ups on typing hands, code editor screen, and a phone displaying an evolving app interface.",
+            "voiceOver": "With the right tools and expert guidance, transforming your unique concepts into functional, beautiful apps is entirely within your reach.",
+            "onScreenText": "Code. Create. Innovate.",
+            "transition": "Wipe left",
+            "stockSearchQuery": "Hands typing code, app development screen, software development process, app prototype",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20dynamic%20montage%3A%20Close-up%20shots%20of%20hands%20confidently%20typing%20code%20on%20a%20keyboard%2C%20then%20snippets%20of%20clean%2C%20understandable%20code%20appearing%20on%20a%20modern%20IDE.%20Followed%20by%20a%20phone%20screen%20showing%20an%20app%20prototype%20taking%20shape%20in%20real-time.%20Energetic%20and%20progressive..%20Camera%3A%20Rapid%20cuts%20between%20close-ups%20on%20typing%20hands%2C%20code%20editor%20screen%2C%20and%20a%20phone%20displaying%20an%20evolving%20app%20interface..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=317979b40291&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%203%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20dynamic%20montage%3A%20Close-up%20shots%20of%20hands%20confidently%20typing%20code%20on%20a%20keyboard%2C%20then%20snippets%20of%20clean%2C%20understandable%20code%20appearing%20on%20a%20modern%20IDE.%20Followed%20by%20a%20phone%20screen%20showing%20an%20app%20prototype%20taking%20shape%20in%20real-time.%20Energetic%20and%20progressive..%20Camera%3A%20Rapid%20cuts%20between%20close-ups%20on%20typing%20hands%2C%20code%20editor%20screen%2C%20and%20a%20phone%20displaying%20an%20evolving%20app%20interface..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=317979b40291&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 4,
+            "number": 4,
+            "duration": 6,
+            "start": "18s",
+            "end": "24s",
+            "title": "The App Comes Alive",
+            "visualDescription": "A diverse group of people (different ages, ethnicities) happily engaging with an app on their smartphones in various everyday settings (cafe, park, commute). The app interface is clean, intuitive, and visually appealing. The original person smiles proudly, watching their app being used.",
+            "cameraShot": "Montage of dynamic close-ups on users' hands interacting with the app, interspersed with reaction shots of their delighted faces, ending on a medium shot of the developer looking proud and satisfied.",
+            "voiceOver": "Watch your creations come alive, making a real impact on users everywhere, connecting people and solving problems.",
+            "onScreenText": "Your App. Your Impact.",
+            "transition": "Fade to black",
+            "stockSearchQuery": "People using mobile apps, successful app launch, user engagement with app",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20diverse%20group%20of%20people%20(different%20ages%2C%20ethnicities)%20happily%20engaging%20with%20an%20app%20on%20their%20smartphones%20in%20various%20everyday%20settings%20(cafe%2C%20park%2C%20commute).%20The%20app%20interface%20is%20clean%2C%20intuitive%2C%20and%20visually%20appealing.%20The%20original%20person%20smiles%20proudly%2C%20watching%20their%20app%20being%20used..%20Camera%3A%20Montage%20of%20dynamic%20close-ups%20on%20users'%20hands%20interacting%20with%20the%20app%2C%20interspersed%20with%20reaction%20shots%20of%20their%20delighted%20faces%2C%20ending%20on%20a%20medium%20shot%20of%20the%20developer%20looking%20proud%20and%20satisfied..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=723dcd626d73&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%204%20for%20%22I%20want%20to%20become%20App%20developer%22.%20A%20diverse%20group%20of%20people%20(different%20ages%2C%20ethnicities)%20happily%20engaging%20with%20an%20app%20on%20their%20smartphones%20in%20various%20everyday%20settings%20(cafe%2C%20park%2C%20commute).%20The%20app%20interface%20is%20clean%2C%20intuitive%2C%20and%20visually%20appealing.%20The%20original%20person%20smiles%20proudly%2C%20watching%20their%20app%20being%20used..%20Camera%3A%20Montage%20of%20dynamic%20close-ups%20on%20users'%20hands%20interacting%20with%20the%20app%2C%20interspersed%20with%20reaction%20shots%20of%20their%20delighted%20faces%2C%20ending%20on%20a%20medium%20shot%20of%20the%20developer%20looking%20proud%20and%20satisfied..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=723dcd626d73&model=flux&nologo=true&private=true&enhance=true"
+          },
+          {
+            "sceneNumber": 5,
+            "number": 5,
+            "duration": 6,
+            "start": "24s",
+            "end": "30s",
+            "title": "Become an App Developer",
+            "visualDescription": "The now confident and accomplished developer stands in a bright, modern, open-plan creative workspace, perhaps overlooking a city skyline. They look directly at the camera with a determined, inspiring smile. A subtle, generic 'Learn to Code' or 'Dev Platform' logo is visible on a nearby screen.",
+            "cameraShot": "Hero shot, slightly wide, empowering. The camera slowly pushes in on the developer's confident expression.",
+            "voiceOver": "Ready to build the next big thing? Start your app development journey today and turn your dreams into reality.",
+            "onScreenText": "Become an App Developer. Start Now! [Website/Platform Name]",
+            "transition": "None",
+            "stockSearchQuery": "Confident app developer, modern tech workspace, inspiring developer, start coding platform",
+            "imageUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20now%20confident%20and%20accomplished%20developer%20stands%20in%20a%20bright%2C%20modern%2C%20open-plan%20creative%20workspace%2C%20perhaps%20overlooking%20a%20city%20skyline.%20They%20look%20directly%20at%20the%20camera%20with%20a%20determined%2C%20inspiring%20smile.%20A%20subtle%2C%20generic%20'Learn%20to%20Code'%20or%20'Dev%20Platform'%20logo%20is%20visible%20on%20a%20nearby%20screen..%20Camera%3A%20Hero%20shot%2C%20slightly%20wide%2C%20empowering.%20The%20camera%20slowly%20pushes%20in%20on%20the%20developer's%20confident%20expression..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=08e31f8da0f4&model=flux&nologo=true&private=true&enhance=true",
+            "thumbUrl": "https://image.pollinations.ai/prompt/Cinematic%20storyboard%20frame%205%20for%20%22I%20want%20to%20become%20App%20developer%22.%20The%20now%20confident%20and%20accomplished%20developer%20stands%20in%20a%20bright%2C%20modern%2C%20open-plan%20creative%20workspace%2C%20perhaps%20overlooking%20a%20city%20skyline.%20They%20look%20directly%20at%20the%20camera%20with%20a%20determined%2C%20inspiring%20smile.%20A%20subtle%2C%20generic%20'Learn%20to%20Code'%20or%20'Dev%20Platform'%20logo%20is%20visible%20on%20a%20nearby%20screen..%20Camera%3A%20Hero%20shot%2C%20slightly%20wide%2C%20empowering.%20The%20camera%20slowly%20pushes%20in%20on%20the%20developer's%20confident%20expression..%20No%20words%2C%20no%20captions%2C%20no%20logos%2C%20no%20UI%20text.?width=640&height=360&seed=08e31f8da0f4&model=flux&nologo=true&private=true&enhance=true"
+          }
+        ],
+        "title": "Unlock Your App Development Potential",
+        "duration": 30
+      },
+      "createdAt": "2026-07-23T11:02:38.436Z"
+    },
+    {
       "id": "ver-1784804478158-3f6e4c",
       "creatorId": "user-1784797382509-d6efb1",
       "projectId": "p-1784804478158-487cec",
@@ -1115,6 +1312,22 @@
   "media": [],
   "jobs": [
     {
+      "id": "job-1784804558436-fd2f6f",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "storyboard-generation",
+      "projectId": "p-1784804558436-474944",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Gemini Flash",
+      "model": "scene-json",
+      "resultReference": "p-1784804558436-474944",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-23T11:02:38.436Z",
+      "updatedAt": "2026-07-23T11:02:38.436Z"
+    },
+    {
       "id": "job-1784804478158-7cc495",
       "creatorId": "user-1784797382509-d6efb1",
       "type": "script-generation",
@@ -1214,6 +1427,20 @@
   "exports": [],
   "notifications": [],
   "activity": [
+    {
+      "id": "act-1784804558440-1c7fa1",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "storyboard.generated",
+      "message": "Storyboard Builder output generated for Unlock Your App Development Potential.",
+      "createdAt": "2026-07-23T11:02:38.440Z"
+    },
+    {
+      "id": "act-1784804558436-ccd8d5",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created Unlock Your App Development Potential.",
+      "createdAt": "2026-07-23T11:02:38.436Z"
+    },
     {
       "id": "act-1784804478159-2f1e70",
       "creatorId": "user-1784797382509-d6efb1",

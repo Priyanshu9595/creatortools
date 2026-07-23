@@ -474,7 +474,7 @@ function initNav() {
     </button>
   `).join("")}</div>`;
 
-  nav.innerHTML = `${group(primaryNav, "Production tools")}<div class="nav-divider"></div>${group(secondaryNav, "Workspace")}`;
+  nav.innerHTML = `${group(primaryNav, "Production tools")}`;
   nav.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-route]");
     if (button) setRoute(button.dataset.route);
@@ -1447,18 +1447,14 @@ function renderScriptScreen() {
     ${pageHead("AI Script Writer", "Generate structured scripts with hooks, scenes, voice-over, CTA, captions and hashtags.")}
     <section class="workspace">
       <form id="toolForm">
-        ${input("projectName", "Project name", "")}
         ${input("topic", "Topic", "")}
         ${select("platform", "Platform", ["YouTube", "Instagram Reels", "YouTube Shorts", "Product Ads"])}
         ${select("duration", "Duration", ["30", "45", "60", "90"], false, "45")}
-        ${input("audience", "Audience", "Content creators")}
         ${select("tone", "Tone", ["Informative", "Bold", "Friendly", "Cinematic"])}
         ${select("language", "Language", ["English", "Hindi", "Spanish"])}
-        <details class="advanced-options">
-          <summary>Advanced options</summary>
-          ${input("keywords", "Keywords", "AI productivity, creator workflow")}
-          ${input("cta", "Call to action", "Start creating smarter today")}
-        </details>
+        <input name="audience" type="hidden" value="Content creators">
+        <input name="keywords" type="hidden" value="AI productivity, creator workflow">
+        <input name="cta" type="hidden" value="Start creating smarter today">
         <div class="button-row">
           <button class="primary-wide" type="submit">Generate Script</button>
           <button class="ghost" type="reset">Reset</button>
@@ -1527,7 +1523,7 @@ function renderThumbnailScreen() {
   state.lastOutput = { title: "", subtitle: "", headlines: [], selectedHeadline: "", theme: "generated", imageUrl: "" };
   return `
     ${pageHead("Thumbnail Generator", "Create thumbnails with generated background concepts and editable foreground text.")}
-    <section class="thumbnail-layout three-panel">
+    <section class="workspace">
       <form id="toolForm">
         ${input("title", "Video title", "")}
         ${input("subtitle", "Subtitle on thumbnail", "")}
@@ -1539,14 +1535,7 @@ function renderThumbnailScreen() {
         <button class="primary-wide" type="submit">Generate Thumbnail</button>
       </form>
       <section class="panel preview-tools tool-output" id="toolOutput">${renderThumbnailEmptyState()}</section>
-      <aside class="panel layer-panel">
-        ${sectionHeader("Layer Settings")}
-        ${select("fontFamily", "Font", ["Inter", "Manrope", "Impact"])}
-        ${input("textColor", "Text colour", "#FFFFFF")}
-        ${input("accentColor", "Accent colour", "#FACC15")}
-        ${select("alignment", "Alignment", ["Left", "Center", "Right"])}
-        <p class="muted">Important thumbnail text is rendered as editable overlay text, not baked into the AI background.</p>
-      </aside>
+
     </section>
   `;
 }
@@ -1578,11 +1567,11 @@ function renderStoryboardScreen() {
       <form id="toolForm">
         ${input("title", "Campaign / Video Idea", "")}
         ${textarea("brief", "Campaign brief", "")}
-        ${input("product", "Product or offer", "")}
+        <input name="product" type="hidden" value="">
         ${select("goal", "Video Type", ["Video Ad", "Product launch", "Explainer"])}
         ${select("duration", "Duration (seconds)", ["30", "45", "60"])}
-        ${select("scenes", "Scenes", ["4", "5", "6"], false, "5")}
-        ${input("cta", "Call to action", "")}
+        <input name="scenes" type="hidden" value="5">
+        <input name="cta" type="hidden" value="">
         <button class="primary-wide" type="submit">Generate Storyboard</button>
       </form>
       <section class="panel storyboard-panel tool-output" id="toolOutput">
