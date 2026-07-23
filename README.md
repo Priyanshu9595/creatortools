@@ -44,9 +44,12 @@ Spotify cannot read `localhost`. Deploy the app to Render and set:
 
 ```bash
 APP_URL=https://your-app-name.onrender.com
+AUTH_SECRET=generate_a_long_random_secret
 GEMINI_API_KEY=your_gemini_key
 GROQ_API_KEY=your_groq_key
 ```
+
+Users sign up or log in with email and password. Each email gets one isolated creator workspace and one podcast channel.
 
 After deployment, create your podcast and publish at least one episode. Submit this public RSS URL to Spotify for Creators:
 

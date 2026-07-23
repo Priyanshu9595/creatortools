@@ -77,6 +77,7 @@ const {
   createReadStream,
   existsSync,
   mkdirSync,
+  readdirSync,
   readFileSync,
   statSync,
   writeFileSync,
@@ -98,6 +99,7 @@ function runMiddleware(req, res, fn) {
   });
 }
 const { randomUUID, createHash } = require("node:crypto");
+const { createHmac, pbkdf2Sync, timingSafeEqual } = require("node:crypto");
 
 const DEFAULT_PORT = Number(process.env.PORT || 4173);
 let activePort = DEFAULT_PORT;
@@ -105,7 +107,9 @@ const ROOT = join(__dirname, "..");
 const FRONTEND = join(ROOT, "frontend");
 const DATA_DIR = join(__dirname, "data");
 const STORE_FILE = join(DATA_DIR, "store.json");
-const creatorId = "single-creator";
+const USERS_FILE = join(DATA_DIR, "users.json");
+const USER_STORES_DIR = join(DATA_DIR, "stores");
+let creatorId = "single-creator";
 let store;
 
 const mimeTypes = {
@@ -392,7 +396,101 @@ const StoreSchema = new mongoose.Schema({
 }, { minimize: false, timestamps: true, strict: false });
 
 const StoreModel = mongoose.model('Store', StoreSchema);
+const UserSchema = new mongoose.Schema({
+  id: { type: String, unique: true, index: true },
+  email: { type: String, unique: true, index: true },
+  name: String,
+  passwordHash: String,
+  createdAt: String,
+  updatedAt: String
+}, { minimize: false, timestamps: true, strict: false });
+const UserModel = mongoose.model('User', UserSchema);
 let mongoReady = false;
+
+function authSecret() {
+  return process.env.AUTH_SECRET || process.env.SESSION_SECRET || process.env.JWT_SECRET || "creator-suite-local-dev-secret";
+}
+
+function base64Url(value) {
+  return Buffer.from(value).toString("base64url");
+}
+
+function normalizeEmail(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function hashPassword(password, salt = randomUUID()) {
+  const hash = pbkdf2Sync(String(password || ""), salt, 120000, 32, "sha256").toString("base64url");
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password, stored = "") {
+  const [salt, hash] = String(stored).split(":");
+  if (!salt || !hash) return false;
+  const expected = Buffer.from(hash, "base64url");
+  const actual = Buffer.from(hashPassword(password, salt).split(":")[1], "base64url");
+  return expected.length === actual.length && timingSafeEqual(expected, actual);
+}
+
+function signToken(user) {
+  const payload = {
+    sub: user.id,
+    email: user.email,
+    exp: Date.now() + (1000 * 60 * 60 * 24 * 30)
+  };
+  const body = base64Url(JSON.stringify(payload));
+  const signature = createHmac("sha256", authSecret()).update(body).digest("base64url");
+  return `${body}.${signature}`;
+}
+
+function verifyToken(token = "") {
+  const [body, signature] = String(token).split(".");
+  if (!body || !signature) return null;
+  const expected = createHmac("sha256", authSecret()).update(body).digest("base64url");
+  const expectedBuffer = Buffer.from(expected);
+  const signatureBuffer = Buffer.from(signature);
+  if (expectedBuffer.length !== signatureBuffer.length || !timingSafeEqual(expectedBuffer, signatureBuffer)) return null;
+  try {
+    const payload = JSON.parse(Buffer.from(body, "base64url").toString("utf8"));
+    if (!payload.sub || Number(payload.exp || 0) < Date.now()) return null;
+    return payload;
+  } catch {
+    return null;
+  }
+}
+
+function publicUser(user) {
+  return { id: user.id, email: user.email, name: user.name || user.email };
+}
+
+function localUsers() {
+  try {
+    if (existsSync(USERS_FILE)) return JSON.parse(readFileSync(USERS_FILE, "utf8"));
+  } catch (error) {
+    console.warn("Local users could not be read:", error.message);
+  }
+  return [];
+}
+
+function saveLocalUsers(users) {
+  if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
+  writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+}
+
+function userStoreFile(userId) {
+  return join(USER_STORES_DIR, `${String(userId).replace(/[^\w.-]+/g, "_")}.json`);
+}
+
+function storeForUser(user) {
+  creatorId = user.id;
+  const nextStore = defaultStore();
+  nextStore.creator.id = user.id;
+  nextStore.creator.email = user.email;
+  nextStore.creator.name = user.name || user.email.split("@")[0] || "Creator";
+  nextStore.creator.brand = nextStore.creator.name;
+  nextStore.podcast.creatorId = user.id;
+  return nextStore;
+}
 
 function loadLocalStore() {
   try {
@@ -405,6 +503,16 @@ function loadLocalStore() {
   const seeded = defaultStore();
   seeded.versions = seeded.projects.map((project) => versionFor(project, "Initial BRD seed"));
   return seeded;
+}
+
+function loadLocalStoreForUser(user) {
+  try {
+    const file = userStoreFile(user.id);
+    if (existsSync(file)) return JSON.parse(readFileSync(file, "utf8"));
+  } catch (error) {
+    console.warn("User store could not be read; starting with defaults:", error.message);
+  }
+  return storeForUser(user);
 }
 
 function withTimeout(promise, ms, message) {
@@ -449,15 +557,111 @@ async function initDb() {
 }
 
 function saveStore(nextStore = store) {
+  const nextCreatorId = nextStore?.creator?.id || creatorId;
   if (mongoReady) {
-    StoreModel.findOneAndUpdate({}, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err));
+    StoreModel.findOneAndUpdate({ "creator.id": nextCreatorId }, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err));
   }
   try {
     if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
-    writeFileSync(STORE_FILE, JSON.stringify(nextStore, null, 2));
+    if (nextCreatorId && nextCreatorId !== "single-creator") {
+      if (!existsSync(USER_STORES_DIR)) mkdirSync(USER_STORES_DIR, { recursive: true });
+      writeFileSync(userStoreFile(nextCreatorId), JSON.stringify(nextStore, null, 2));
+    } else {
+      writeFileSync(STORE_FILE, JSON.stringify(nextStore, null, 2));
+    }
   } catch (error) {
     console.error("Local store save error:", error);
   }
+}
+
+async function findUserByEmail(email) {
+  const normalized = normalizeEmail(email);
+  if (!normalized) return null;
+  if (mongoReady) return UserModel.findOne({ email: normalized }).lean();
+  return localUsers().find((user) => user.email === normalized) || null;
+}
+
+async function findUserById(userId) {
+  if (!userId) return null;
+  if (mongoReady) return UserModel.findOne({ id: userId }).lean();
+  return localUsers().find((user) => user.id === userId) || null;
+}
+
+async function createUserRecord({ email, password, name }) {
+  const normalized = normalizeEmail(email);
+  const createdAt = now();
+  const user = {
+    id: id("user"),
+    email: normalized,
+    name: clean(name, normalized.split("@")[0] || "Creator"),
+    passwordHash: hashPassword(password),
+    createdAt,
+    updatedAt: createdAt
+  };
+  if (mongoReady) {
+    await UserModel.create(user);
+  } else {
+    const users = localUsers();
+    users.push(user);
+    saveLocalUsers(users);
+  }
+  const userStore = storeForUser(user);
+  if (mongoReady) await StoreModel.findOneAndUpdate({ "creator.id": user.id }, userStore, { upsert: true, overwrite: true });
+  saveStore(userStore);
+  return user;
+}
+
+async function loadStoreForUser(user) {
+  creatorId = user.id;
+  if (mongoReady) {
+    let doc = await StoreModel.findOne({ "creator.id": user.id });
+    if (!doc) {
+      doc = await StoreModel.findOne({ $or: [{ "creator.email": user.email }, { "podcast.ownerEmail": user.email }] });
+    }
+    if (doc) {
+      store = doc.toObject();
+      store.creator ??= {};
+      store.creator.id = user.id;
+      store.creator.email = user.email;
+      store.creator.name ||= user.name || user.email.split("@")[0] || "Creator";
+      store.podcast ??= defaultStore().podcast;
+      store.podcast.creatorId = user.id;
+    } else {
+      store = storeForUser(user);
+    }
+  } else {
+    store = loadLocalStoreForUser(user);
+    store.creator.id = user.id;
+    store.creator.email = user.email;
+    store.creator.name ||= user.name || user.email.split("@")[0] || "Creator";
+    store.podcast.creatorId = user.id;
+  }
+  normalizeStore();
+  return store;
+}
+
+async function loadPublicStoreBySlug(slug) {
+  const targetSlug = slugify(slug);
+  if (mongoReady) {
+    const doc = await StoreModel.findOne({ "podcast.slug": targetSlug });
+    if (!doc) return null;
+    store = doc.toObject();
+  } else {
+    const stores = [];
+    try {
+      stores.push(loadLocalStore());
+      if (existsSync(USER_STORES_DIR)) {
+        for (const file of readdirSync(USER_STORES_DIR).filter((item) => item.endsWith(".json"))) {
+          stores.push(JSON.parse(readFileSync(join(USER_STORES_DIR, file), "utf8")));
+        }
+      }
+    } catch {}
+    store = stores.find((item) => item?.podcast?.slug === targetSlug) || null;
+  }
+  if (!store) return null;
+  creatorId = store.creator?.id || "single-creator";
+  normalizeStore();
+  return store;
 }
 
 
@@ -1139,7 +1343,7 @@ function validatePodcastFeed() {
   if (!store.podcast.language) issues.push("Podcast language is required.");
   if (!store.podcast.author) issues.push("Podcast author is required.");
   if (!store.podcast.ownerEmail) issues.push("Owner email is required.");
-  if (!store.podcast.coverImageUrl && !store.podcast.coverUrl) warnings.push("Podcast cover image is missing.");
+  if (!store.podcast.coverImageUrl && !store.podcast.coverUrl) issues.push("Podcast cover image is required for Spotify submission.");
 
   const guidSet = new Set();
   store.podcast.episodes.forEach((episodeItem) => {
@@ -1339,6 +1543,7 @@ function rssXml() {
     <itunes:author>${escapeXml(store.podcast.author)}</itunes:author>
     <itunes:owner><itunes:name>${escapeXml(store.podcast.ownerName || store.podcast.author)}</itunes:name><itunes:email>${escapeXml(store.podcast.ownerEmail)}</itunes:email></itunes:owner>
     <itunes:category text="${escapeXml(store.podcast.primaryCategory || store.podcast.category || "Technology")}" />
+    ${store.podcast.coverImageUrl || store.podcast.coverUrl ? `<image><url>${escapeXml(absoluteUrl(store.podcast.coverImageUrl || store.podcast.coverUrl))}</url><title>${escapeXml(store.podcast.title)}</title><link>${escapeXml(absoluteUrl(`/podcasts/${store.podcast.slug}`))}</link></image>` : ""}
     ${store.podcast.coverImageUrl || store.podcast.coverUrl ? `<itunes:image href="${escapeXml(absoluteUrl(store.podcast.coverImageUrl || store.podcast.coverUrl))}" />` : ""}
     <itunes:explicit>${store.podcast.explicit ? "yes" : "no"}</itunes:explicit>
     <itunes:type>${escapeXml(String(store.podcast.podcastType || "Episodic").toLowerCase())}</itunes:type>${items}
@@ -1541,7 +1746,70 @@ function createPodcastEpisodeFromBody(body) {
   return episodeItem;
 }
 
+function bearerToken(req) {
+  const header = req.headers.authorization || "";
+  if (header.toLowerCase().startsWith("bearer ")) return header.slice(7).trim();
+  return "";
+}
+
+async function currentUserFromRequest(req) {
+  const payload = verifyToken(bearerToken(req));
+  if (!payload) return null;
+  return findUserById(payload.sub);
+}
+
+async function requireApiUser(req, res) {
+  const user = await currentUserFromRequest(req);
+  if (!user) {
+    error(res, 401, "unauthorized", "Please sign in to continue.");
+    return null;
+  }
+  await loadStoreForUser(user);
+  return user;
+}
+
+async function handleAuthApi(req, res, pathname) {
+  if (req.method === "POST" && pathname === "/api/auth/signup") {
+    const body = await parseBody(req);
+    const email = normalizeEmail(body.email);
+    const password = String(body.password || "");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return error(res, 400, "bad_request", "Valid email is required.");
+    if (password.length < 6) return error(res, 400, "bad_request", "Password must be at least 6 characters.");
+    const existing = await findUserByEmail(email);
+    if (existing) return error(res, 409, "email_exists", "An account already exists for this email. Please log in.");
+    const user = await createUserRecord({ email, password, name: body.name });
+    await loadStoreForUser(user);
+    return send(res, 201, { token: signToken(user), user: publicUser(user) });
+  }
+
+  if (req.method === "POST" && pathname === "/api/auth/login") {
+    const body = await parseBody(req);
+    const user = await findUserByEmail(body.email);
+    if (!user || !verifyPassword(body.password, user.passwordHash)) {
+      return error(res, 401, "invalid_credentials", "Email or password is incorrect.");
+    }
+    await loadStoreForUser(user);
+    return send(res, 200, { token: signToken(user), user: publicUser(user) });
+  }
+
+  if (req.method === "GET" && pathname === "/api/auth/me") {
+    const user = await currentUserFromRequest(req);
+    if (!user) return error(res, 401, "unauthorized", "Please sign in to continue.");
+    await loadStoreForUser(user);
+    return send(res, 200, { user: publicUser(user) });
+  }
+
+  if (req.method === "POST" && pathname === "/api/auth/logout") {
+    return send(res, 200, { signedOut: true });
+  }
+
+  return error(res, 404, "not_found", "Auth route not found.");
+}
+
 async function handleApi(req, res, pathname, searchParams) {
+  if (pathname.startsWith("/api/auth/")) return handleAuthApi(req, res, pathname);
+  const user = await requireApiUser(req, res);
+  if (!user) return;
   publishDueScheduled();
   if (req.method === "GET" && pathname === "/api/dashboard") return send(res, 200, dashboard());
   if (req.method === "GET" && pathname === "/api/projects") return send(res, 200, store.projects.filter((project) => !project.trashedAt));
@@ -2398,12 +2666,27 @@ function staticFileExists(pathname) {
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host}`);
-    publishDueScheduled();
     if (staticFileExists(url.pathname)) return serveStatic(req, res, url.pathname);
-    if (store.podcast.slug && url.pathname === `/rss/${store.podcast.slug}.xml`) return send(res, 200, rssXml(), "application/rss+xml; charset=utf-8");
-    if (store.podcast.slug && (url.pathname === `/podcast/${store.podcast.slug}` || url.pathname === `/podcasts/${store.podcast.slug}`)) return send(res, 200, publicPodcastPage(), "text/html; charset=utf-8");
-    if (store.podcast.slug && url.pathname.startsWith(`/podcast/${store.podcast.slug}/`)) {
-      const episodeSlug = decodeURIComponent(url.pathname.slice(`/podcast/${store.podcast.slug}/`.length));
+    const rssMatch = url.pathname.match(/^\/rss\/([^/]+)\.xml$/);
+    if (rssMatch) {
+      const publicStore = await loadPublicStoreBySlug(decodeURIComponent(rssMatch[1]));
+      if (!publicStore) return error(res, 404, "not_found", "RSS feed not found.");
+      publishDueScheduled();
+      return send(res, 200, rssXml(), "application/rss+xml; charset=utf-8");
+    }
+    const podcastMatch = url.pathname.match(/^\/podcasts?\/([^/]+)$/);
+    if (podcastMatch) {
+      const publicStore = await loadPublicStoreBySlug(decodeURIComponent(podcastMatch[1]));
+      if (!publicStore) return error(res, 404, "not_found", "Podcast not found.");
+      publishDueScheduled();
+      return send(res, 200, publicPodcastPage(), "text/html; charset=utf-8");
+    }
+    const episodeMatch = url.pathname.match(/^\/podcast\/([^/]+)\/([^/]+)$/);
+    if (episodeMatch) {
+      const publicStore = await loadPublicStoreBySlug(decodeURIComponent(episodeMatch[1]));
+      if (!publicStore) return error(res, 404, "not_found", "Podcast not found.");
+      publishDueScheduled();
+      const episodeSlug = decodeURIComponent(episodeMatch[2]);
       const episodeItem = publishedEpisodes().find((item) => item.slug === episodeSlug);
       if (!episodeItem) return error(res, 404, "not_found", "Episode not found.");
       return send(res, 200, publicEpisodePage(episodeItem), "text/html; charset=utf-8");

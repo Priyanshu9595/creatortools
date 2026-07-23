@@ -2,10 +2,16 @@ const api = (path, options = {}) => {
   const isFormData = options.body instanceof FormData;
   const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
   if (isFormData) delete headers["Content-Type"];
+  const token = localStorage.getItem("creator_token");
+  if (token) headers.Authorization = `Bearer ${token}`;
 
   return fetch(path, { headers, ...options }).then(async (response) => {
     const contentType = response.headers.get("content-type") || "";
     const payload = contentType.includes("json") ? await response.json() : await response.text();
+    if (response.status === 401) {
+      clearAuth();
+      showLogin("login");
+    }
     if (!response.ok) throw new Error(payload?.data?.message || payload?.message || "Request failed");
     return payload.data ?? payload;
   });
@@ -15,6 +21,7 @@ const state = {
   route: "dashboard",
   dashboard: null,
   podcast: null,
+  user: null,
   selectedProjectId: "",
   lastOutput: null
 };
@@ -45,6 +52,54 @@ function notify(message) {
   toast.textContent = message;
   toast.classList.add("show");
   window.setTimeout(() => toast.classList.remove("show"), 2800);
+}
+
+function authUser() {
+  try {
+    return JSON.parse(localStorage.getItem("creator_user") || "null");
+  } catch {
+    return null;
+  }
+}
+
+function clearAuth() {
+  localStorage.removeItem("creator_token");
+  localStorage.removeItem("creator_user");
+  localStorage.removeItem("creator_auth");
+  state.user = null;
+}
+
+function setAuthSession(session) {
+  localStorage.setItem("creator_token", session.token);
+  localStorage.setItem("creator_user", JSON.stringify(session.user));
+  state.user = session.user;
+}
+
+function initialsForUser(user) {
+  const source = user?.name || user?.email || "Creator Workspace";
+  return source.split(/\s+|@/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "CW";
+}
+
+function updateUserChip() {
+  const user = state.user || authUser();
+  const avatar = document.querySelector("#logoutBtn span");
+  const label = document.querySelector("#logoutBtn strong");
+  if (avatar) avatar.textContent = initialsForUser(user);
+  if (label) label.textContent = user?.email || "Creator Workspace";
+}
+
+function showLogin(mode = "login") {
+  const isSignup = mode === "signup";
+  document.querySelector("#appContainer").style.display = "none";
+  document.querySelector("#landingContainer").style.display = "none";
+  document.querySelector("#loginContainer").style.display = "flex";
+  document.querySelector("#loginTitle").textContent = isSignup ? "Create Account" : "Welcome Back";
+  document.querySelector("#loginSubtitle").textContent = isSignup ? "Use one email for one podcast channel" : "Sign in to your creator workspace";
+  document.querySelector("#nameField").hidden = !isSignup;
+  document.querySelector("#authModeInput").value = isSignup ? "signup" : "login";
+  document.querySelector("#authSubmitBtn").textContent = isSignup ? "Sign Up" : "Sign In";
+  document.querySelector("#authToggleText").textContent = isSignup ? "Already have an account?" : "New here?";
+  document.querySelector("#authToggleBtn").textContent = isSignup ? "Sign in" : "Create account";
 }
 
 window.addEventListener("unhandledrejection", (event) => {
@@ -894,6 +949,7 @@ function podcastEpisodes(podcast) {
 }
 
 function renderPodcastSetup(podcast = {}) {
+  const user = state.user || authUser();
   return `
     <section class="panel podcast-form-panel">
       <h2>Create Your Podcast</h2>
@@ -904,7 +960,7 @@ function renderPodcastSetup(podcast = {}) {
         ${textarea("description", "Podcast Description", podcast.description || "")}
         ${input("author", "Author Name", podcast.author || "")}
         ${input("ownerName", "Owner Name", podcast.ownerName || podcast.author || "")}
-        ${input("ownerEmail", "Owner Email", podcast.ownerEmail || "", "email")}
+        ${input("ownerEmail", "Owner Email", podcast.ownerEmail || user?.email || "", "email")}
         ${input("language", "Primary Language", podcast.language || "en")}
         ${input("primaryCategory", "Category", podcast.primaryCategory || podcast.category || "")}
         ${input("secondaryCategory", "Secondary Category", podcast.secondaryCategory || "")}
@@ -1756,37 +1812,59 @@ document.querySelector("#newProjectBtn")?.addEventListener("click", async () => 
 });
 
 document.querySelector("#logoutBtn")?.addEventListener("click", () => {
-  localStorage.removeItem("creator_auth");
+  clearAuth();
   document.querySelector("#appContainer").style.display = "none";
   document.querySelector("#landingContainer").style.display = "block";
   document.querySelector("#navToDashboardBtn").hidden = true;
   document.querySelector("#showLoginBtn").style.display = "inline-flex";
 });
 
-document.querySelector("#loginForm")?.addEventListener("submit", (event) => {
+document.querySelector("#loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
-  localStorage.setItem("creator_auth", "true");
-  document.querySelector("#loginContainer").style.display = "none";
-  document.querySelector("#landingContainer").style.display = "none";
-  document.querySelector("#appContainer").style.display = "grid";
-  bootApp();
+  const mode = document.querySelector("#authModeInput").value || "login";
+  const submitBtn = document.querySelector("#authSubmitBtn");
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = mode === "signup" ? "Creating..." : "Signing in...";
+  submitBtn.disabled = true;
+  try {
+    const session = await api(`/api/auth/${mode}`, {
+      method: "POST",
+      body: JSON.stringify({
+        name: document.querySelector("#nameInput").value.trim(),
+        email: document.querySelector("#emailInput").value.trim(),
+        password: document.querySelector("#passwordInput").value
+      })
+    });
+    setAuthSession(session);
+    document.querySelector("#loginContainer").style.display = "none";
+    document.querySelector("#landingContainer").style.display = "none";
+    document.querySelector("#appContainer").style.display = "grid";
+    updateUserChip();
+    await bootApp();
+    notify(mode === "signup" ? "Account created." : "Signed in.");
+  } catch (error) {
+    notify(error.message);
+  } finally {
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
 });
 
 document.querySelector("#showLoginBtn")?.addEventListener("click", () => {
-  document.querySelector("#landingContainer").style.display = "none";
-  document.querySelector("#loginContainer").style.display = "flex";
+  showLogin("login");
+});
+
+document.querySelector("#authToggleBtn")?.addEventListener("click", () => {
+  showLogin(document.querySelector("#authModeInput").value === "signup" ? "login" : "signup");
 });
 
 function openDashboardOrLogin() {
-  if (localStorage.getItem("creator_auth")) {
+  if (localStorage.getItem("creator_token")) {
     document.querySelector("#landingContainer").style.display = "none";
     document.querySelector("#appContainer").style.display = "grid";
     bootApp();
   } else {
-    localStorage.setItem("creator_auth", "true");
-    document.querySelector("#landingContainer").style.display = "none";
-    document.querySelector("#appContainer").style.display = "grid";
-    bootApp();
+    showLogin("signup");
   }
 }
 
@@ -1794,13 +1872,11 @@ document.querySelector("#heroCtaBtn")?.addEventListener("click", openDashboardOr
 document.querySelector("#landingCtaDuplicate")?.addEventListener("click", openDashboardOrLogin);
 
 document.querySelector("#exploreBtn")?.addEventListener("click", () => {
-  openDashboardOrLogin();
+  showLogin("signup");
 });
 
 document.querySelector("#navToDashboardBtn")?.addEventListener("click", () => {
-  document.querySelector("#landingContainer").style.display = "none";
-  document.querySelector("#appContainer").style.display = "grid";
-  bootApp();
+  openDashboardOrLogin();
 });
 
 let isBooted = false;
@@ -1810,16 +1886,19 @@ async function bootApp() {
     state.route = window.location.hash.replace("#", "") || "dashboard";
     initNav();
   }
+  state.user = authUser();
+  updateUserChip();
   await refresh();
   setRoute(state.route);
 }
 
 (function checkAuth() {
-  if (localStorage.getItem("creator_auth")) {
+  if (localStorage.getItem("creator_token")) {
+    state.user = authUser();
     document.querySelector("#loginContainer").style.display = "none";
     document.querySelector("#landingContainer").style.display = "none";
     document.querySelector("#appContainer").style.display = "grid";
-    bootApp();
+    bootApp().catch((error) => notify(error.message));
   } else {
     document.querySelector("#appContainer").style.display = "none";
     document.querySelector("#loginContainer").style.display = "none";
