@@ -1,0 +1,341 @@
+{
+  "_id": "6a61e715da5914a6d1014b70",
+  "creator": {
+    "id": "user-1784797382509-d6efb1",
+    "name": "Priyanshu",
+    "brand": "Priyanshu",
+    "email": "priyanshuraj9595@gmail.com",
+    "timezone": "Asia/Calcutta",
+    "brandSettings": {
+      "voice": "Practical, crisp, creator-focused",
+      "colors": [
+        "#7c3aed",
+        "#2563eb",
+        "#06b6d4"
+      ],
+      "logoText": "CreatorTools",
+      "defaultLanguage": "English"
+    },
+    "providers": {
+      "text": {
+        "name": "Gemini Flash",
+        "status": "healthy",
+        "fallback": "Local structured draft"
+      },
+      "transcription": {
+        "name": "Groq Whisper",
+        "status": "healthy",
+        "fallback": "Faster-Whisper self-hosted"
+      },
+      "imageSearch": {
+        "name": "Unsplash",
+        "status": "healthy",
+        "fallback": "Uploaded or generated backgrounds"
+      },
+      "storage": {
+        "name": "Local object store",
+        "status": "healthy",
+        "fallback": "Cloudflare R2 adapter-ready"
+      },
+      "export": {
+        "name": "Browser/server export",
+        "status": "healthy",
+        "fallback": "Plain text download"
+      }
+    },
+    "limits": {
+      "maxStoryboardScenes": 10,
+      "storageCapMb": 200
+    },
+    "retention": {
+      "trashDays": 30,
+      "exportExpiryDays": 14,
+      "jobLogDays": 30
+    }
+  },
+  "usage": {
+    "storageMb": 0
+  },
+  "projects": [
+    {
+      "id": "p-1784801204801-979686",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "podcast",
+      "title": "song",
+      "status": "PUBLISHED",
+      "tags": [
+        "podcast"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "episodeId": "ep-1784801204800-dff668",
+        "id": "ep-1784801204800-dff668",
+        "podcastId": "pod-1",
+        "creatorId": "user-1784797382509-d6efb1",
+        "title": "song",
+        "slug": "song",
+        "subtitle": "song for you",
+        "status": "PUBLISHED",
+        "season": 1,
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeType": "Full",
+        "author": "Priyanshu",
+        "language": "en",
+        "keywords": [
+          "song",
+          "music",
+          "melody",
+          "sound",
+          "audio"
+        ],
+        "date": "2026-07-23T10:06:44.801Z",
+        "scheduledAt": null,
+        "publishedAt": "2026-07-23T10:06:44.801Z",
+        "duration": "00:00",
+        "durationSeconds": 0,
+        "bytes": 97389,
+        "audioFileSize": 97389,
+        "mimeType": "audio/mpeg",
+        "audioMimeType": "audio/mpeg",
+        "audioUrl": "/uploads/b4a1a64403d152d28b4fb03165b7e1d1.mp3",
+        "audioStorageKey": "",
+        "audioFileName": "_Ek_Hasina_Thi_Instrumental_Ringtone_(by Fringster.com).mp3",
+        "coverImageUrl": "",
+        "guid": "tech-with-priyanshu-guid-1784801204801-72501f",
+        "explicit": false,
+        "description": "Join us for a brief but insightful look into the power and essence of a single 'song', exploring its immediate impact.",
+        "showNotes": [
+          "The simple yet profound nature of a 'song'.",
+          "How music instantly connects with listeners.",
+          "The foundational elements that define a 'song'."
+        ],
+        "showNotesJson": {},
+        "transcript": "",
+        "chapters": [
+          {
+            "timestamp": "00:00",
+            "title": "The Power of 'Song'"
+          }
+        ],
+        "chaptersJson": [
+          {
+            "timestamp": "00:00",
+            "title": "The Power of 'Song'"
+          }
+        ],
+        "guests": [],
+        "createdAt": "2026-07-23T10:06:44.800Z",
+        "updatedAt": "2026-07-23T10:06:44.801Z"
+      },
+      "createdAt": "2026-07-23T10:06:44.801Z",
+      "updatedAt": "2026-07-23T10:06:44.801Z",
+      "archivedAt": null,
+      "trashedAt": null
+    }
+  ],
+  "versions": [],
+  "media": [],
+  "jobs": [],
+  "exports": [],
+  "notifications": [],
+  "activity": [
+    {
+      "id": "act-1784801204801-c9b552",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "episode.created",
+      "message": "Published podcast episode song.",
+      "createdAt": "2026-07-23T10:06:44.801Z"
+    },
+    {
+      "id": "act-1784801169514-92f3de",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "podcast.profile.created",
+      "message": "Saved podcast details for tech with priyanshu.",
+      "createdAt": "2026-07-23T10:06:09.514Z"
+    }
+  ],
+  "podcast": {
+    "id": "pod-1",
+    "creatorId": "user-1784797382509-d6efb1",
+    "title": "tech with priyanshu",
+    "subtitle": "",
+    "slug": "tech-with-priyanshu",
+    "author": "Priyanshu",
+    "ownerName": "Priyanshu",
+    "ownerEmail": "priyanshuraj9595@gmail.com",
+    "language": "en",
+    "country": "IN",
+    "category": "TEchnology",
+    "primaryCategory": "TEchnology",
+    "secondaryCategory": "",
+    "explicit": false,
+    "description": "tech with priyanshu",
+    "coverUrl": "https://tse4.mm.bing.net/th/id/OIP.VdDc3iT3PCrJnnsiThNzGgHaF_?r=0&pid=Api&P=0&h=180",
+    "coverImageUrl": "https://tse4.mm.bing.net/th/id/OIP.VdDc3iT3PCrJnnsiThNzGgHaF_?r=0&pid=Api&P=0&h=180",
+    "brandColor": "#7c3aed",
+    "websiteUrl": "",
+    "copyright": "",
+    "tagline": "",
+    "podcastType": "Episodic",
+    "defaultEpisodeAuthor": "Priyanshu",
+    "defaultEpisodeLanguage": "en",
+    "timezone": "Asia/Calcutta",
+    "accentColor": "#7c3aed",
+    "feedStatus": "ACTIVE",
+    "feedHealth": "Valid",
+    "lastPublishedAt": "2026-07-23T10:06:44.801Z",
+    "episodes": [
+      {
+        "id": "ep-1784801204800-dff668",
+        "podcastId": "pod-1",
+        "creatorId": "user-1784797382509-d6efb1",
+        "title": "song",
+        "slug": "song",
+        "subtitle": "song for you",
+        "status": "PUBLISHED",
+        "season": 1,
+        "seasonNumber": 1,
+        "episodeNumber": 1,
+        "episodeType": "Full",
+        "author": "Priyanshu",
+        "language": "en",
+        "keywords": [
+          "song",
+          "music",
+          "melody",
+          "sound",
+          "audio"
+        ],
+        "date": "2026-07-23T10:06:44.801Z",
+        "scheduledAt": null,
+        "publishedAt": "2026-07-23T10:06:44.801Z",
+        "duration": "00:00",
+        "durationSeconds": 0,
+        "bytes": 97389,
+        "audioFileSize": 97389,
+        "mimeType": "audio/mpeg",
+        "audioMimeType": "audio/mpeg",
+        "audioUrl": "/uploads/b4a1a64403d152d28b4fb03165b7e1d1.mp3",
+        "audioStorageKey": "",
+        "audioFileName": "_Ek_Hasina_Thi_Instrumental_Ringtone_(by Fringster.com).mp3",
+        "coverImageUrl": "",
+        "guid": "tech-with-priyanshu-guid-1784801204801-72501f",
+        "explicit": false,
+        "description": "Join us for a brief but insightful look into the power and essence of a single 'song', exploring its immediate impact.",
+        "showNotes": [
+          "The simple yet profound nature of a 'song'.",
+          "How music instantly connects with listeners.",
+          "The foundational elements that define a 'song'."
+        ],
+        "showNotesJson": {},
+        "transcript": "",
+        "chapters": [
+          {
+            "timestamp": "00:00",
+            "title": "The Power of 'Song'"
+          }
+        ],
+        "chaptersJson": [
+          {
+            "timestamp": "00:00",
+            "title": "The Power of 'Song'"
+          }
+        ],
+        "guests": [],
+        "createdAt": "2026-07-23T10:06:44.800Z",
+        "updatedAt": "2026-07-23T10:06:44.801Z"
+      }
+    ],
+    "settings": {
+      "maxAudioFileSizeMb": 200,
+      "storageLimitMb": 10240
+    },
+    "history": [
+      {
+        "id": "hist-1784801169514-a13618",
+        "creatorId": "user-1784797382509-d6efb1",
+        "type": "podcast.profile.created",
+        "message": "Saved podcast details for tech with priyanshu.",
+        "snapshot": {
+          "before": {
+            "id": "pod-1",
+            "creatorId": "user-1784797382509-d6efb1",
+            "title": "",
+            "subtitle": "",
+            "slug": "",
+            "author": "",
+            "ownerName": "",
+            "ownerEmail": "",
+            "language": "en",
+            "country": "IN",
+            "category": "",
+            "primaryCategory": "",
+            "secondaryCategory": "",
+            "explicit": false,
+            "description": "",
+            "coverUrl": "",
+            "coverImageUrl": "",
+            "brandColor": "#7c3aed",
+            "websiteUrl": "",
+            "copyright": "",
+            "tagline": "",
+            "podcastType": "Episodic",
+            "defaultEpisodeAuthor": "",
+            "defaultEpisodeLanguage": "en",
+            "timezone": "Asia/Calcutta",
+            "accentColor": "#7c3aed",
+            "feedStatus": "DRAFT",
+            "feedHealth": "Needs attention",
+            "lastPublishedAt": null,
+            "settings": {
+              "maxAudioFileSizeMb": 200,
+              "storageLimitMb": 10240
+            }
+          },
+          "after": {
+            "id": "pod-1",
+            "creatorId": "user-1784797382509-d6efb1",
+            "title": "tech with priyanshu",
+            "subtitle": "",
+            "slug": "tech-with-priyanshu",
+            "author": "Priyanshu",
+            "ownerName": "Priyanshu",
+            "ownerEmail": "priyanshuraj9595@gmail.com",
+            "language": "en",
+            "country": "IN",
+            "category": "TEchnology",
+            "primaryCategory": "TEchnology",
+            "secondaryCategory": "",
+            "explicit": false,
+            "description": "tech with priyanshu",
+            "coverUrl": "https://tse4.mm.bing.net/th/id/OIP.VdDc3iT3PCrJnnsiThNzGgHaF_?r=0&pid=Api&P=0&h=180",
+            "coverImageUrl": "https://tse4.mm.bing.net/th/id/OIP.VdDc3iT3PCrJnnsiThNzGgHaF_?r=0&pid=Api&P=0&h=180",
+            "brandColor": "#7c3aed",
+            "websiteUrl": "",
+            "copyright": "",
+            "tagline": "",
+            "podcastType": "Episodic",
+            "defaultEpisodeAuthor": "Priyanshu",
+            "defaultEpisodeLanguage": "en",
+            "timezone": "Asia/Calcutta",
+            "accentColor": "#7c3aed",
+            "feedStatus": "DRAFT",
+            "feedHealth": "Needs attention",
+            "lastPublishedAt": null,
+            "settings": {
+              "maxAudioFileSizeMb": 200,
+              "storageLimitMb": 10240
+            },
+            "updatedAt": "2026-07-23T10:06:09.514Z"
+          }
+        },
+        "createdAt": "2026-07-23T10:06:09.514Z"
+      }
+    ],
+    "updatedAt": "2026-07-23T10:06:09.514Z"
+  },
+  "createdAt": "2026-07-23T10:04:05.786Z",
+  "updatedAt": "2026-07-23T10:04:05.786Z",
+  "__v": 0
+}

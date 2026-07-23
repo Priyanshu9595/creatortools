@@ -564,7 +564,8 @@ function saveStore(nextStore = store) {
   const nextCreatorId = nextStore?.creator?.id || creatorId;
   const writes = [];
   if (mongoReady) {
-    writes.push(StoreModel.findOneAndUpdate({ "creator.id": nextCreatorId }, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err)));
+    const { _id, __v, ...updateDoc } = nextStore;
+    writes.push(StoreModel.replaceOne({ "creator.id": nextCreatorId }, updateDoc, { upsert: true }).catch(err => console.error('MongoDB save error:', err)));
   }
   try {
     if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
@@ -612,7 +613,10 @@ async function createUserRecord({ email, password, name }) {
     saveLocalUsers(users);
   }
   const userStore = storeForUser(user);
-  if (mongoReady) await StoreModel.findOneAndUpdate({ "creator.id": user.id }, userStore, { upsert: true, overwrite: true });
+  if (mongoReady) {
+    const { _id, __v, ...updateDoc } = userStore;
+    await StoreModel.replaceOne({ "creator.id": user.id }, updateDoc, { upsert: true });
+  }
   saveStore(userStore);
   return user;
 }
