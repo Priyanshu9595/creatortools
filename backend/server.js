@@ -374,6 +374,10 @@ function activity(type, message) {
   return { id: id("act"), creatorId, type, message, createdAt: now() };
 }
 
+function historyEntry(type, message, snapshot = {}) {
+  return { id: id("hist"), creatorId, type, message, snapshot, createdAt: now() };
+}
+
 function addDays(days) {
   const date = new Date();
   date.setDate(date.getDate() + days);
@@ -558,8 +562,9 @@ async function initDb() {
 
 function saveStore(nextStore = store) {
   const nextCreatorId = nextStore?.creator?.id || creatorId;
+  const writes = [];
   if (mongoReady) {
-    StoreModel.findOneAndUpdate({ "creator.id": nextCreatorId }, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err));
+    writes.push(StoreModel.findOneAndUpdate({ "creator.id": nextCreatorId }, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err)));
   }
   try {
     if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
@@ -572,6 +577,7 @@ function saveStore(nextStore = store) {
   } catch (error) {
     console.error("Local store save error:", error);
   }
+  return Promise.allSettled(writes);
 }
 
 async function findUserByEmail(email) {
@@ -690,8 +696,73 @@ function normalizeStore() {
   store.podcast.settings ??= {};
   store.podcast.settings.maxAudioFileSizeMb ??= 200;
   store.podcast.settings.storageLimitMb ??= 10240;
+  store.podcast.history ??= [];
   store.podcast.episodes = store.podcast.episodes.map(normalizeEpisode);
   saveStore();
+}
+
+function podcastSnapshot() {
+  const {
+    episodes,
+    history,
+    rssPreview,
+    validation,
+    ...profile
+  } = store.podcast || {};
+  return profile;
+}
+
+function podcastResponse() {
+  return {
+    ...store.podcast,
+    stats: podcastStats(),
+    validation: validatePodcastFeed(),
+    feedUrl: store.podcast.slug ? `/rss/${store.podcast.slug}.xml` : "",
+    publicUrl: store.podcast.slug ? `/podcast/${store.podcast.slug}` : ""
+  };
+}
+
+function podcastProfileFromBody(body = {}) {
+  return {
+    title: clean(body.title, store.podcast.title || ""),
+    subtitle: clean(body.subtitle, store.podcast.subtitle || ""),
+    description: clean(body.description, store.podcast.description || ""),
+    author: clean(body.author || body.ownerName, store.podcast.author || ""),
+    ownerName: clean(body.ownerName || body.author, store.podcast.ownerName || ""),
+    ownerEmail: clean(body.ownerEmail, store.podcast.ownerEmail || store.creator.email || ""),
+    language: clean(body.language, store.podcast.language || "en"),
+    country: clean(body.country, store.podcast.country || "IN"),
+    category: clean(body.primaryCategory || body.category, store.podcast.category || ""),
+    primaryCategory: clean(body.primaryCategory || body.category, store.podcast.primaryCategory || ""),
+    secondaryCategory: clean(body.secondaryCategory, store.podcast.secondaryCategory || ""),
+    websiteUrl: clean(body.websiteUrl, store.podcast.websiteUrl || ""),
+    copyright: clean(body.copyright, store.podcast.copyright || ""),
+    tagline: clean(body.tagline, store.podcast.tagline || ""),
+    podcastType: clean(body.podcastType, store.podcast.podcastType || "Episodic"),
+    explicit: truthy(body.explicit),
+    coverImageUrl: clean(body.coverImageUrl || body.coverUrl, store.podcast.coverImageUrl || ""),
+    coverUrl: clean(body.coverImageUrl || body.coverUrl, store.podcast.coverUrl || ""),
+    brandColor: clean(body.brandColor, store.podcast.brandColor || "#7c3aed"),
+    defaultEpisodeAuthor: clean(body.defaultEpisodeAuthor || body.author, store.podcast.defaultEpisodeAuthor || ""),
+    defaultEpisodeLanguage: clean(body.defaultEpisodeLanguage || body.language, store.podcast.defaultEpisodeLanguage || "en"),
+    timezone: clean(body.timezone, store.podcast.timezone || store.creator.timezone),
+    updatedAt: now()
+  };
+}
+
+function savePodcastProfile(body = {}, reason = "podcast.profile.saved") {
+  store.podcast.history ??= [];
+  const before = podcastSnapshot();
+  Object.assign(store.podcast, podcastProfileFromBody(body));
+  store.podcast.slug = slugify(body.slug || store.podcast.slug || store.podcast.title);
+  store.podcast.category = store.podcast.primaryCategory || store.podcast.category;
+  store.podcast.feedStatus = validatePodcastFeed().valid ? "ACTIVE" : "DRAFT";
+  store.podcast.feedHealth = validatePodcastFeed().valid ? "Valid" : "Needs attention";
+  const after = podcastSnapshot();
+  store.podcast.history.unshift(historyEntry(reason, `Saved podcast details for ${store.podcast.title || "podcast"}.`, { before, after }));
+  store.podcast.history = store.podcast.history.slice(0, 100);
+  store.activity.unshift(activity(reason, `Saved podcast details for ${store.podcast.title || "podcast"}.`));
+  return store.podcast;
 }
 
 function send(res, status, payload, contentType = "application/json; charset=utf-8") {
@@ -1820,49 +1891,21 @@ async function handleApi(req, res, pathname, searchParams) {
   if (req.method === "GET" && pathname === "/api/notifications") return send(res, 200, store.notifications);
   if (req.method === "GET" && pathname === "/api/settings") return send(res, 200, store.creator);
   if (req.method === "GET" && (pathname === "/api/podcasts" || pathname === "/api/podcasts/current")) {
-    return send(res, 200, { ...store.podcast, stats: podcastStats(), validation: validatePodcastFeed(), feedUrl: store.podcast.slug ? `/rss/${store.podcast.slug}.xml` : "", publicUrl: store.podcast.slug ? `/podcast/${store.podcast.slug}` : "" });
+    return send(res, 200, podcastResponse());
   }
 
   if (req.method === "POST" && pathname === "/api/podcasts") {
     const body = await parseBody(req);
-    Object.assign(store.podcast, {
-      title: clean(body.title, store.podcast.title || ""),
-      subtitle: clean(body.subtitle, store.podcast.subtitle || ""),
-      description: clean(body.description, store.podcast.description || ""),
-      author: clean(body.author || body.ownerName, store.podcast.author || ""),
-      ownerName: clean(body.ownerName || body.author, store.podcast.ownerName || ""),
-      ownerEmail: clean(body.ownerEmail, store.podcast.ownerEmail || ""),
-      language: clean(body.language, store.podcast.language || "en"),
-      country: clean(body.country, store.podcast.country || "IN"),
-      category: clean(body.primaryCategory || body.category, store.podcast.category || ""),
-      primaryCategory: clean(body.primaryCategory || body.category, store.podcast.primaryCategory || ""),
-      secondaryCategory: clean(body.secondaryCategory, store.podcast.secondaryCategory || ""),
-      websiteUrl: clean(body.websiteUrl, store.podcast.websiteUrl || ""),
-      copyright: clean(body.copyright, store.podcast.copyright || ""),
-      tagline: clean(body.tagline, store.podcast.tagline || ""),
-      podcastType: clean(body.podcastType, store.podcast.podcastType || "Episodic"),
-      explicit: truthy(body.explicit),
-      coverImageUrl: clean(body.coverImageUrl || body.coverUrl, store.podcast.coverImageUrl || ""),
-      brandColor: clean(body.brandColor, store.podcast.brandColor || "#7c3aed"),
-      defaultEpisodeAuthor: clean(body.defaultEpisodeAuthor || body.author, store.podcast.defaultEpisodeAuthor || ""),
-      defaultEpisodeLanguage: clean(body.defaultEpisodeLanguage || body.language, store.podcast.defaultEpisodeLanguage || "en"),
-      timezone: clean(body.timezone, store.podcast.timezone || store.creator.timezone),
-      updatedAt: now()
-    });
-    store.podcast.slug = slugify(body.slug || store.podcast.slug || store.podcast.title);
-    store.podcast.feedStatus = validatePodcastFeed().valid ? "ACTIVE" : "DRAFT";
-    store.podcast.feedHealth = validatePodcastFeed().valid ? "Valid" : "Needs attention";
-    saveStore();
-    return send(res, 200, { ...store.podcast, stats: podcastStats(), validation: validatePodcastFeed(), feedUrl: `/rss/${store.podcast.slug}.xml`, publicUrl: `/podcast/${store.podcast.slug}` });
+    savePodcastProfile(body, "podcast.profile.created");
+    await saveStore();
+    return send(res, 200, podcastResponse());
   }
 
   if (req.method === "PATCH" && /^\/api\/podcasts\/[^/]+$/.test(pathname)) {
     const body = await parseBody(req);
-    Object.assign(store.podcast, body, { updatedAt: now() });
-    if (body.title || body.slug) store.podcast.slug = slugify(body.slug || body.title || store.podcast.slug);
-    store.podcast.category = store.podcast.primaryCategory || store.podcast.category;
-    saveStore();
-    return send(res, 200, { ...store.podcast, stats: podcastStats(), validation: validatePodcastFeed(), feedUrl: store.podcast.slug ? `/rss/${store.podcast.slug}.xml` : "", publicUrl: store.podcast.slug ? `/podcast/${store.podcast.slug}` : "" });
+    savePodcastProfile(body, "podcast.profile.updated");
+    await saveStore();
+    return send(res, 200, podcastResponse());
   }
 
   if (req.method === "DELETE" && /^\/api\/podcasts\/[^/]+$/.test(pathname)) {

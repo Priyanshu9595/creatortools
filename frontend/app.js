@@ -942,7 +942,7 @@ function renderPodcast() {
     view.innerHTML = `
       ${pageHead("Podcast Manager", "Manage podcast episodes, generate show notes and publish your RSS feed.", '<button data-create-episode type="button">Upload New Episode</button>')}
       <div class="tabs">
-        ${["overview", "episodes", "details", "rss", "public", "settings"].map((tab, index) => `<button class="${index === 0 ? "active" : ""}" data-podcast-tab="${tab}" type="button">${html({ overview: "Overview", episodes: "Episodes", details: "Podcast Details", rss: "RSS Feed", public: "Public Page", settings: "Settings" }[tab])}</button>`).join("")}
+        ${["overview", "episodes", "details", "history", "rss", "public", "settings"].map((tab, index) => `<button class="${index === 0 ? "active" : ""}" data-podcast-tab="${tab}" type="button">${html({ overview: "Overview", episodes: "Episodes", details: "Podcast Details", history: "History", rss: "RSS Feed", public: "Public Page", settings: "Settings" }[tab])}</button>`).join("")}
       </div>
       <div id="podcastBody">${renderPodcastTab(podcast, "overview")}</div>
     `;
@@ -1046,6 +1046,27 @@ function renderPodcastTab(podcast, tab) {
       <section class="panel rss-preview">
         <h2>Preview XML</h2>
         <pre>${html(podcast.rssPreview || "Click Validate Feed to refresh RSS status.")}</pre>
+      </section>
+    `;
+  }
+
+  if (tab === "history") {
+    const history = podcast.history || [];
+    return `
+      <section class="panel">
+        <h2>Podcast History</h2>
+        <div class="list compact-list">
+          ${history.map((item) => `
+            <article class="row history-row">
+              <div>
+                <strong>${html(item.message || item.type || "Podcast updated")}</strong>
+                <p class="muted">${html(new Date(item.createdAt || Date.now()).toLocaleString())}</p>
+                ${item.snapshot?.after ? `<pre>${html(JSON.stringify(item.snapshot.after, null, 2))}</pre>` : ""}
+              </div>
+              ${badge(titleCase(String(item.type || "saved").replaceAll(".", " ")), "blue")}
+            </article>
+          `).join("") || '<p class="muted">No podcast history yet. Save podcast details to create the first entry.</p>'}
+        </div>
       </section>
     `;
   }
@@ -1391,9 +1412,13 @@ document.addEventListener("submit", async (event) => {
     try {
       const method = state.podcast?.title ? "PATCH" : "POST";
       const path = method === "PATCH" ? `/api/podcasts/${state.podcast.id || "pod-1"}` : "/api/podcasts";
-      await api(path, { method, body: JSON.stringify(payload) });
+      state.podcast = await api(path, { method, body: JSON.stringify(payload) });
       await refresh();
-      renderPodcast();
+      if (method === "PATCH" && document.querySelector("#podcastBody")) {
+        await renderPodcastBody("details");
+      } else {
+        renderPodcast();
+      }
       notify("Podcast profile saved.");
     } catch (error) {
       notify(error.message);
