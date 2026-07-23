@@ -930,7 +930,7 @@ function renderStoryboardOutput(result) {
 
 function renderPodcast() {
   view.innerHTML = `${pageHead("Podcast Manager", "Manage your podcast episodes, show notes and publish to RSS feed.", '<button data-create-episode type="button">Upload New Episode</button>')}<p class="muted">Loading podcast...</p>`;
-  api("/api/podcasts").then((podcast) => {
+  return api("/api/podcasts").then((podcast) => {
     state.podcast = podcast;
     if (!podcast.title) {
       view.innerHTML = `
@@ -1417,7 +1417,8 @@ document.addEventListener("submit", async (event) => {
       if (method === "PATCH" && document.querySelector("#podcastBody")) {
         await renderPodcastBody("details");
       } else {
-        renderPodcast();
+        await renderPodcast();
+        await renderPodcastBody("episodes");
       }
       notify("Podcast profile saved.");
     } catch (error) {
