@@ -376,23 +376,41 @@ function addDays(days) {
   return date.toISOString();
 }
 
-function loadStore() {
-  mkdirSync(DATA_DIR, { recursive: true });
-  if (!existsSync(STORE_FILE)) {
-    const seed = defaultStore();
-    seed.versions = seed.projects.map((project) => versionFor(project, "Initial BRD seed"));
-    saveStore(seed);
-    return seed;
+const mongoose = require('mongoose');
+
+const StoreSchema = new mongoose.Schema({
+  creator: mongoose.Schema.Types.Mixed,
+  usage: mongoose.Schema.Types.Mixed,
+  projects: [mongoose.Schema.Types.Mixed],
+  versions: [mongoose.Schema.Types.Mixed],
+  media: [mongoose.Schema.Types.Mixed],
+  jobs: [mongoose.Schema.Types.Mixed],
+  exports: [mongoose.Schema.Types.Mixed],
+  notifications: [mongoose.Schema.Types.Mixed],
+  activity: [mongoose.Schema.Types.Mixed],
+  podcast: mongoose.Schema.Types.Mixed
+}, { minimize: false, timestamps: true, strict: false });
+
+const StoreModel = mongoose.model('Store', StoreSchema);
+
+async function initDb() {
+  await mongoose.connect(process.env.MONGODB_URI, { dbName: 'creatortools' });
+  let doc = await StoreModel.findOne();
+  if (doc) {
+    store = doc.toObject();
+  } else {
+    store = defaultStore();
+    store.versions = store.projects.map((project) => versionFor(project, "Initial BRD seed"));
+    await StoreModel.create(store);
   }
-  return JSON.parse(readFileSync(STORE_FILE, "utf8"));
+  normalizeStore();
 }
 
 function saveStore(nextStore = store) {
-  writeFileSync(STORE_FILE, JSON.stringify(nextStore, null, 2));
+  if (!StoreModel) return;
+  StoreModel.findOneAndUpdate({}, nextStore, { upsert: true, overwrite: true }).catch(err => console.error('MongoDB save error:', err));
 }
 
-store = loadStore();
-normalizeStore();
 
 function normalizeStore() {
   store.creator.limits ??= {};
@@ -1183,24 +1201,26 @@ async function receivePodcastAudio(req, res) {
   const objectKey = `podcasts/${id("audio")}${ext}`;
   let publicUrl = `/uploads/${path.basename(storedPath)}`;
 
-  if (s3Client && objectBucketName) {
-    try {
-      await s3Client.send(new PutObjectCommand({
-        Bucket: objectBucketName,
-        Key: objectKey,
-        Body: fs.createReadStream(storedPath),
-        ContentType: inferredMimeType,
-        ACL: "public-read"
-      }));
-      publicUrl = objectPublicBaseUrl
-        ? `${objectPublicBaseUrl}/${objectKey}`
-        : process.env.R2_ACCOUNT_ID
-          ? `https://pub-${process.env.R2_ACCOUNT_ID}.r2.dev/${objectKey}`
-          : publicUrl;
-      fs.unlinkSync(storedPath);
-    } catch (err) {
-      console.error("Object storage upload failed, keeping local file:", err);
-    }
+  if (!s3Client || !objectBucketName) {
+    if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
+    throw Object.assign(new Error("Backblaze B2 is not fully configured for uploads."), { status: 500 });
+  }
+
+  try {
+    await s3Client.send(new PutObjectCommand({
+      Bucket: objectBucketName,
+      Key: objectKey,
+      Body: fs.createReadStream(storedPath),
+      ContentType: inferredMimeType
+    }));
+    publicUrl = objectPublicBaseUrl
+      ? `${objectPublicBaseUrl}/${objectKey}`
+      : publicUrl;
+    if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
+  } catch (err) {
+    if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
+    console.error("Object storage upload failed:", err);
+    throw Object.assign(new Error("Failed to upload file to Backblaze B2."), { status: 500 });
   }
 
   return {
@@ -1886,6 +1906,8 @@ Respond with ONLY the new text, formatted cleanly.`;
       };
       
       const created = createGenerationProject("subtitle", result.title, result, result.job);
+      if (fs.existsSync(inputPath)) fs.unlinkSync(inputPath);
+      if (transcriptionPath !== inputPath && fs.existsSync(transcriptionPath)) fs.unlinkSync(transcriptionPath);
       return send(res, 200, created.result);
     } catch (error) {
       console.error(error);
@@ -1998,15 +2020,18 @@ ${JSON.stringify(body.segments, null, 2)}`;
         transformation
       });
 
-      fs.unlinkSync(req.file.path);
-      fs.unlinkSync(srtPath);
-      
-      return send(res, 200, { url: renderUrl });
-    } catch (error) {
-      console.error(error);
-      const fs = require("node:fs");
+      if (fs.existsSync(srtPath)) fs.unlinkSync(srtPath);
       if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
-      return send(res, 500, { message: error.message || "Cloudinary render failed" });
+
+      return send(res, 200, {
+        url: renderUrl,
+        srtUrl: srtUpload.secure_url
+      });
+    } catch (err) {
+      if (fs.existsSync(req.file.path + ".srt")) fs.unlinkSync(req.file.path + ".srt");
+      if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+      console.error("Render failed:", err);
+      return send(res, 500, { message: err.message });
     }
   }
 
@@ -2348,9 +2373,11 @@ server.on("error", (caught) => {
   throw caught;
 });
 
-server.listen(activePort, () => {
-  console.log(`CreatorTools running at http://localhost:${activePort}`);
-});
+initDb().then(() => {
+  server.listen(activePort, () => {
+    console.log(`CreatorTools running at http://localhost:${activePort}`);
+  });
+}).catch(console.error);
 
 setInterval(() => {
   try {

@@ -26,3 +26,5 @@ services:
         sync: false
       - key: B2_PUBLIC_BASE_URL
         sync: false
+      - key: MONGODB_URI
+        sync: false
