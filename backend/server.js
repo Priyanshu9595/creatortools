@@ -594,6 +594,11 @@ async function findUserById(userId) {
   return localUsers().find((user) => user.id === userId) || null;
 }
 
+async function creatorAccountExists() {
+  if (mongoReady) return Boolean(await UserModel.exists({}));
+  return localUsers().length > 0;
+}
+
 async function createUserRecord({ email, password, name }) {
   const normalized = normalizeEmail(email);
   const createdAt = now();
@@ -866,7 +871,7 @@ function dashboard() {
     podcast: {
       title: store.podcast.title,
       feedUrl: `/rss/${store.podcast.slug}.xml`,
-      publicUrl: `/podcasts/${store.podcast.slug}`,
+      publicUrl: `/podcast/${store.podcast.slug}`,
       feedHealth: validatePodcastFeed().valid ? "Valid" : "Needs attention"
     }
   };
@@ -1633,6 +1638,8 @@ function rssXml() {
 function publicPodcastPage() {
   publishDueScheduled();
   const episodes = publishedEpisodes();
+  const cover = store.podcast.coverImageUrl || store.podcast.coverUrl || "";
+  const feedUrl = `/rss/${store.podcast.slug}.xml`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1643,27 +1650,57 @@ function publicPodcastPage() {
 </head>
 <body class="public-page">
   <main class="public-shell">
-    <section class="hero">
+    <section class="public-podcast-hero">
+      <div class="podcast-cover">${cover ? `<img src="${escapeXml(absoluteUrl(cover))}" alt="${escapeXml(store.podcast.title)} cover">` : `<span>${escapeXml((store.podcast.title || "CS").slice(0, 2).toUpperCase())}</span>`}</div>
       <div>
-        <p class="eyebrow">Public podcast page</p>
-        <h2>${escapeXml(store.podcast.title)}</h2>
+        <p class="eyebrow">Published podcast</p>
+        <h1>${escapeXml(store.podcast.title)}</h1>
         <p>${escapeXml(store.podcast.description)}</p>
-        <p><a class="public-link" href="/rss/${store.podcast.slug}.xml">RSS Feed</a></p>
+        <div class="public-meta">
+          <span>${escapeXml(store.podcast.author || "CreatorSuite")}</span>
+          <span>${escapeXml(store.podcast.primaryCategory || store.podcast.category || "Podcast")}</span>
+          <span>${escapeXml(store.podcast.language || "en")}</span>
+        </div>
+        <div class="button-row">
+          <a class="public-link" href="${escapeXml(feedUrl)}">RSS Feed</a>
+          <button class="ghost" data-copy-public="${escapeXml(absoluteUrl(feedUrl))}" type="button">Copy Feed</button>
+        </div>
       </div>
     </section>
-    <section class="panel">
+    <section class="public-section">
       <h2>Episodes</h2>
-      <div class="list">
-        ${episodes.map((episodeItem) => `<article class="row"><div><strong>${escapeXml(episodeItem.title)}</strong><p class="muted">${escapeXml(episodeItem.description)}</p><audio controls src="${escapeXml(absoluteUrl(episodeItem.audioUrl))}"></audio></div><a class="badge green" href="/podcast/${store.podcast.slug}/${episodeItem.slug}">${escapeXml(episodeItem.duration)}</a></article>`).join("") || '<p class="muted">No published episodes yet.</p>'}
+      <div class="public-episode-list">
+        ${episodes.map((episodeItem) => `
+          <article class="public-episode-card">
+            <div class="episode-art">${episodeItem.coverImageUrl ? `<img src="${escapeXml(absoluteUrl(episodeItem.coverImageUrl))}" alt="">` : `<span>${escapeXml(String(episodeItem.episodeNumber || "").padStart(2, "0"))}</span>`}</div>
+            <div>
+              <p class="muted">Episode ${escapeXml(episodeItem.episodeNumber || 1)} - ${escapeXml(new Date(episodeItem.publishedAt || episodeItem.date).toLocaleDateString())}</p>
+              <h3>${escapeXml(episodeItem.title)}</h3>
+              <p>${escapeXml(episodeItem.description)}</p>
+              <div class="public-audio" data-player>
+                <audio src="${escapeXml(absoluteUrl(episodeItem.audioUrl))}" preload="metadata"></audio>
+                <button data-audio-toggle type="button">Play</button>
+                <button class="ghost" data-audio-skip="-15" type="button">-15s</button>
+                <input data-audio-progress type="range" min="0" max="100" value="0" aria-label="Episode progress">
+                <span data-audio-time>0:00 / ${escapeXml(episodeItem.duration || "0:00")}</span>
+                <select data-audio-speed aria-label="Playback speed"><option>1</option><option>1.25</option><option>1.5</option><option>2</option></select>
+                <button class="ghost" data-audio-skip="30" type="button">+30s</button>
+              </div>
+            </div>
+            <a class="ghost-link" href="/podcast/${store.podcast.slug}/${episodeItem.slug}">Open Episode</a>
+          </article>
+        `).join("") || '<p class="muted">No published episodes yet.</p>'}
       </div>
     </section>
   </main>
+  <script>${publicAudioScript()}</script>
 </body>
 </html>`;
 }
 
 function publicEpisodePage(episodeItem) {
   const item = normalizeEpisode(episodeItem);
+  const cover = item.coverImageUrl || store.podcast.coverImageUrl || store.podcast.coverUrl || "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1674,16 +1711,30 @@ function publicEpisodePage(episodeItem) {
 </head>
 <body class="public-page">
   <main class="public-shell">
-    <section class="hero">
+    <section class="public-podcast-hero">
+      <div class="podcast-cover">${cover ? `<img src="${escapeXml(absoluteUrl(cover))}" alt="">` : `<span>${escapeXml(String(item.episodeNumber || "EP").padStart(2, "0"))}</span>`}</div>
       <div>
         <p class="eyebrow">${escapeXml(store.podcast.title)}</p>
-        <h2>${escapeXml(item.title)}</h2>
+        <h1>${escapeXml(item.title)}</h1>
         <p>${escapeXml(item.description)}</p>
+        <div class="public-meta">
+          <span>${escapeXml(new Date(item.publishedAt || item.date).toLocaleDateString())}</span>
+          <span>${escapeXml(item.duration)}</span>
+          <span>S${item.seasonNumber} E${item.episodeNumber}</span>
+        </div>
         <p><a class="public-link" href="/podcast/${store.podcast.slug}">Back to Podcast</a></p>
       </div>
     </section>
-    <section class="panel">
-      <audio controls src="${escapeXml(absoluteUrl(item.audioUrl))}" style="width:100%;"></audio>
+    <section class="panel public-content-panel">
+      <div class="public-audio" data-player>
+        <audio src="${escapeXml(absoluteUrl(item.audioUrl))}" preload="metadata"></audio>
+        <button data-audio-toggle type="button">Play</button>
+        <button class="ghost" data-audio-skip="-15" type="button">-15s</button>
+        <input data-audio-progress type="range" min="0" max="100" value="0" aria-label="Episode progress">
+        <span data-audio-time>0:00 / ${escapeXml(item.duration || "0:00")}</span>
+        <select data-audio-speed aria-label="Playback speed"><option>1</option><option>1.25</option><option>1.5</option><option>2</option></select>
+        <button class="ghost" data-audio-skip="30" type="button">+30s</button>
+      </div>
       <div class="list" style="margin-top:24px;">
         <article class="row"><strong>Published</strong><span>${escapeXml(new Date(item.publishedAt || item.date).toLocaleDateString())}</span></article>
         <article class="row"><strong>Duration</strong><span>${escapeXml(item.duration)}</span></article>
@@ -1694,8 +1745,13 @@ function publicEpisodePage(episodeItem) {
       ${item.transcript ? `<h2>Transcript</h2><p>${escapeXml(item.transcript)}</p>` : ""}
     </section>
   </main>
+  <script>${publicAudioScript()}</script>
 </body>
 </html>`;
+}
+
+function publicAudioScript() {
+  return `function fmt(s){s=Math.max(0,Math.floor(s||0));var m=Math.floor(s/60),r=s%60;return m+':'+String(r).padStart(2,'0')}document.addEventListener('click',function(e){var b=e.target.closest('[data-audio-toggle]');if(b){var p=b.closest('[data-player]'),a=p.querySelector('audio');if(a.paused){a.play();b.textContent='Pause'}else{a.pause();b.textContent='Play'}}var s=e.target.closest('[data-audio-skip]');if(s){var a=s.closest('[data-player]').querySelector('audio');a.currentTime=Math.max(0,(a.currentTime||0)+Number(s.dataset.audioSkip||0))}var c=e.target.closest('[data-copy-public]');if(c&&navigator.clipboard){navigator.clipboard.writeText(c.dataset.copyPublic)}});document.addEventListener('input',function(e){var r=e.target.closest('[data-audio-progress]');if(r){var a=r.closest('[data-player]').querySelector('audio');if(a.duration)a.currentTime=(Number(r.value)/100)*a.duration}var sp=e.target.closest('[data-audio-speed]');if(sp){sp.closest('[data-player]').querySelector('audio').playbackRate=Number(sp.value)}});document.querySelectorAll('[data-player] audio').forEach(function(a){a.addEventListener('timeupdate',function(){var p=a.closest('[data-player]'),r=p.querySelector('[data-audio-progress]'),t=p.querySelector('[data-audio-time]');if(a.duration)r.value=(a.currentTime/a.duration)*100;t.textContent=fmt(a.currentTime)+' / '+fmt(a.duration)});a.addEventListener('ended',function(){var b=a.closest('[data-player]').querySelector('[data-audio-toggle]');if(b)b.textContent='Play'})});`;
 }
 
 function escapeXml(value) {
@@ -1848,12 +1904,17 @@ async function requireApiUser(req, res) {
 }
 
 async function handleAuthApi(req, res, pathname) {
+  if (req.method === "GET" && pathname === "/api/auth/setup-status") {
+    return send(res, 200, { hasAccount: await creatorAccountExists() });
+  }
+
   if (req.method === "POST" && pathname === "/api/auth/signup") {
     const body = await parseBody(req);
     const email = normalizeEmail(body.email);
     const password = String(body.password || "");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return error(res, 400, "bad_request", "Valid email is required.");
     if (password.length < 6) return error(res, 400, "bad_request", "Password must be at least 6 characters.");
+    if (await creatorAccountExists()) return error(res, 403, "setup_closed", "Creator account setup is closed. Please sign in.");
     const existing = await findUserByEmail(email);
     if (existing) return error(res, 409, "email_exists", "Account already exists. Please sign in.");
     const user = await createUserRecord({ email, password, name: body.name });

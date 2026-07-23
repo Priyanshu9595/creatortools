@@ -2,7 +2,7 @@ const api = (path, options = {}) => {
   const isFormData = options.body instanceof FormData;
   const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
   if (isFormData) delete headers["Content-Type"];
-  const token = localStorage.getItem("creator_token");
+  const token = localStorage.getItem("creator_token") || sessionStorage.getItem("creator_token");
   if (token) headers.Authorization = `Bearer ${token}`;
 
   return fetch(path, { headers, ...options }).then(async (response) => {
@@ -28,7 +28,9 @@ const state = {
   podcast: null,
   user: null,
   selectedProjectId: "",
-  lastOutput: null
+  lastOutput: null,
+  setupStatus: null,
+  pendingRoute: ""
 };
 
 const primaryNav = [
@@ -40,12 +42,14 @@ const primaryNav = [
   ["storyboard", "grid", "Storyboard Builder"]
 ];
 
+const secondaryNav = [
+  ["projects", "folder", "My Projects"],
+  ["media", "layers", "Media Library"],
+  ["settings", "settings", "Settings"]
+];
+
 const routeTitles = {
-  ...Object.fromEntries(primaryNav.map(([route, , label]) => [route, label])),
-  projects: "My Projects",
-  media: "Media Library",
-  templates: "Templates",
-  settings: "Settings"
+  ...Object.fromEntries([...primaryNav, ...secondaryNav].map(([route, , label]) => [route, label]))
 };
 
 const view = document.querySelector("#view");
@@ -59,9 +63,26 @@ function notify(message) {
   window.setTimeout(() => toast.classList.remove("show"), 2800);
 }
 
+function setLoginError(message = "") {
+  const error = document.querySelector("#loginError");
+  if (!error) return;
+  error.textContent = message;
+  error.hidden = !message;
+}
+
+async function setupStatus() {
+  if (state.setupStatus) return state.setupStatus;
+  try {
+    state.setupStatus = await api("/api/auth/setup-status");
+  } catch {
+    state.setupStatus = { hasAccount: true };
+  }
+  return state.setupStatus;
+}
+
 function authUser() {
   try {
-    return JSON.parse(localStorage.getItem("creator_user") || "null");
+    return JSON.parse(localStorage.getItem("creator_user") || sessionStorage.getItem("creator_user") || "null");
   } catch {
     return null;
   }
@@ -70,13 +91,19 @@ function authUser() {
 function clearAuth() {
   localStorage.removeItem("creator_token");
   localStorage.removeItem("creator_user");
+  sessionStorage.removeItem("creator_token");
+  sessionStorage.removeItem("creator_user");
   localStorage.removeItem("creator_auth");
   state.user = null;
 }
 
-function setAuthSession(session) {
-  localStorage.setItem("creator_token", session.token);
-  localStorage.setItem("creator_user", JSON.stringify(session.user));
+function setAuthSession(session, persist = true) {
+  const storage = persist ? localStorage : sessionStorage;
+  const otherStorage = persist ? sessionStorage : localStorage;
+  otherStorage.removeItem("creator_token");
+  otherStorage.removeItem("creator_user");
+  storage.setItem("creator_token", session.token);
+  storage.setItem("creator_user", JSON.stringify(session.user));
   state.user = session.user;
 }
 
@@ -91,20 +118,29 @@ function updateUserChip() {
   const label = document.querySelector("#userChip strong");
   if (avatar) avatar.textContent = initialsForUser(user);
   if (label) label.textContent = user?.email || "Creator Workspace";
+  const sidebarAvatar = document.querySelector("#sidebarUserChip > span");
+  const sidebarName = document.querySelector("#sidebarUserChip strong");
+  const sidebarMeta = document.querySelector("#sidebarUserChip p");
+  if (sidebarAvatar) sidebarAvatar.textContent = initialsForUser(user);
+  if (sidebarName) sidebarName.textContent = user?.name || "Creator Workspace";
+  if (sidebarMeta) sidebarMeta.textContent = user?.email || "Personal account";
 }
 
 function showLogin(mode = "login") {
-  const isSignup = mode === "signup";
+  const isSetup = mode === "setup";
   document.querySelector("#appContainer").style.display = "none";
   document.querySelector("#landingContainer").style.display = "none";
   document.querySelector("#loginContainer").style.display = "flex";
-  document.querySelector("#loginTitle").textContent = isSignup ? "Create Account" : "Welcome Back";
-  document.querySelector("#loginSubtitle").textContent = isSignup ? "Use one email for one podcast channel" : "Sign in to your creator workspace";
-  document.querySelector("#nameField").hidden = !isSignup;
-  document.querySelector("#authModeInput").value = isSignup ? "signup" : "login";
-  document.querySelector("#authSubmitBtn").textContent = isSignup ? "Sign Up" : "Sign In";
-  document.querySelector("#authToggleText").textContent = isSignup ? "Already have an account?" : "New here?";
-  document.querySelector("#authToggleBtn").textContent = isSignup ? "Sign in" : "Create account";
+  document.querySelector("#loginTitle").textContent = isSetup ? "Set Up Creator Workspace" : "Welcome Back";
+  document.querySelector("#loginSubtitle").textContent = isSetup ? "Create the single private creator account for this installation." : "Sign in to your private creator workspace.";
+  document.querySelector("#nameField").hidden = !isSetup;
+  document.querySelector("#authModeInput").value = isSetup ? "signup" : "login";
+  document.querySelector("#authSubmitBtn").textContent = isSetup ? "Create Workspace" : "Sign In";
+  document.querySelector("#rememberRow").hidden = isSetup;
+  document.querySelector("#passwordInput").autocomplete = isSetup ? "new-password" : "current-password";
+  const authSwitch = document.querySelector("#authSwitch");
+  if (authSwitch) authSwitch.hidden = true;
+  setLoginError("");
 }
 
 window.addEventListener("unhandledrejection", (event) => {
@@ -421,18 +457,24 @@ function setRoute(route) {
     button.classList.toggle("active", button.dataset.route === route);
   });
   title.textContent = routeTitles[route] || "Dashboard";
+  const topbarTitle = document.querySelector("#topbarTitle");
+  const topbarSubtitle = document.querySelector("#topbarSubtitle");
+  if (topbarTitle) topbarTitle.textContent = routeTitles[route] || "Dashboard";
+  if (topbarSubtitle) topbarSubtitle.textContent = route === "dashboard"
+    ? "Welcome back to your private workspace."
+    : "CreatorSuite keeps drafts, media and podcast publishing in one place.";
 
   render();
 }
 
 function initNav() {
-  const group = (items) => `<div class="nav-group">${items.map(([route, iconName, label]) => `
-    <button class="${route === state.route ? "active" : ""}" data-route="${route}" type="button">
+  const group = (items, label) => `<div class="nav-group" aria-label="${html(label)}">${items.map(([route, iconName, label]) => `
+    <button class="${route === state.route ? "active" : ""}" data-route="${route}" type="button" title="${html(label)}">
       <span class="icon">${icon(iconName)}</span><span>${html(label)}</span>
     </button>
   `).join("")}</div>`;
 
-  nav.innerHTML = group(primaryNav);
+  nav.innerHTML = `${group(primaryNav, "Production tools")}<div class="nav-divider"></div>${group(secondaryNav, "Workspace")}`;
   nav.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-route]");
     if (button) setRoute(button.dataset.route);
@@ -455,10 +497,22 @@ function pageHead(titleText, subtitle, action = "") {
   `;
 }
 
-function statCard(label, value, iconName, tone) {
+function sectionHeader(titleText, action = "") {
+  return `<div class="section-header"><h2>${html(titleText)}</h2>${action}</div>`;
+}
+
+function emptyState(titleText, copy, iconName = "file", action = "") {
+  return `<div class="empty-state"><span>${icon(iconName)}</span><strong>${html(titleText)}</strong><p>${html(copy)}</p>${action}</div>`;
+}
+
+function loadingState(copy = "Loading workspace data...") {
+  return `<div class="skeleton-stack" aria-busy="true"><span></span><span></span><span></span><p>${html(copy)}</p></div>`;
+}
+
+function statCard(label, value, iconName, tone, support = "") {
   return `
-    <article class="card">
-      <div><p>${html(label)}</p><strong>${html(value)}</strong></div>
+    <article class="card stat-card">
+      <div><p>${html(label)}</p><strong>${html(value)}</strong>${support ? `<small>${html(support)}</small>` : ""}</div>
       <span class="stat-icon ${tone}">${icon(iconName)}</span>
     </article>
   `;
@@ -487,35 +541,40 @@ function quickButton(route, iconName, label) {
 function renderDashboard() {
   const data = state.dashboard;
   const recent = data.recentProjects || [];
+  const projects = data.projects || [];
+  const countByModule = (module) => projects.filter((project) => project.module === module || (module === "subtitle" && project.module === "subtitles")).length;
+  const aiRequests = (data.jobs || []).length;
   view.innerHTML = `
-    ${pageHead("Dashboard", "Welcome back! Here's what's happening with your projects.")}
+    ${pageHead("Dashboard", "Welcome back. Everything here is pulled from your private CreatorSuite workspace.")}
     <section class="grid stats">
-      ${statCard("Total Projects", data.stats?.totalProjects ?? 0, "folder", "purple")}
-      ${statCard("Videos Processed", data.stats?.videosProcessed ?? 0, "play-square", "orange")}
-      ${statCard("Podcast Episodes", data.stats?.podcastEpisodes ?? 0, "mic", "blue")}
-      ${statCard("Storage Used", data.stats?.storageUsed ?? "0 MB", "layers", "purple")}
+      ${statCard("Total Projects", data.stats?.totalProjects ?? projects.length, "folder", "purple", "Active private projects")}
+      ${statCard("Scripts Generated", countByModule("script"), "file", "blue", "Saved script outputs")}
+      ${statCard("Subtitle Projects", countByModule("subtitle"), "captions", "purple", "Transcription projects")}
+      ${statCard("Podcast Episodes", data.stats?.podcastEpisodes ?? 0, "mic", "green", "Draft and published")}
+      ${statCard("Thumbnails Created", countByModule("thumbnail"), "image", "orange", "Saved designs")}
+      ${statCard("Storyboards Created", countByModule("storyboard"), "grid", "blue", "Saved shot plans")}
+      ${statCard("Storage Used", data.stats?.storageUsed ?? "0 MB", "layers", "purple", "Registered media storage")}
+      ${statCard("AI Requests", aiRequests, "sparkle", "orange", "Recent generation jobs")}
     </section>
     <section class="grid columns">
       <div class="panel">
-        <h2>Recent Projects</h2>
-        <div class="list recent-list">
+        ${sectionHeader("Recent Projects", '<button class="ghost compact-button" data-jump="projects" type="button">View All</button>')}
+        <div class="list recent-list" aria-live="polite">
           ${recent.map((project) => `
             <article class="row project-row" data-project-id="${html(project.id)}">
               <span class="row-icon">${icon(iconForModule(project.module))}</span>
-              <strong>${html(project.title)}</strong>
-              ${badge(moduleName(project.module), toneForModule(project.module))}
+              <div><strong>${html(project.title)}</strong><p class="muted">${html(moduleName(project.module))} project</p></div>
+              ${badge(project.status || moduleName(project.module), toneForModule(project.module))}
               <span class="muted">${html(new Date(project.updatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }))}</span>
+              <button class="ghost compact-button" type="button">Open</button>
             </article>
-          `).join("") || '<p class="muted">No projects yet. Create or generate your first item.</p>'}
-        </div>
-        <div style="text-align:center; margin-top:28px;">
-          <button class="ghost" data-jump="projects" type="button">View All Projects</button>
+          `).join("") || emptyState("No projects yet", "Generate a script, subtitle file, thumbnail or storyboard to start your project history.", "folder")}
         </div>
       </div>
       <div class="panel">
-        <h2>Quick Actions</h2>
+        ${sectionHeader("Quick Actions")}
         <div class="quick-actions">
-          ${quickButton("script", "edit", "Create New Script")}
+          ${quickButton("script", "edit", "Create Script")}
           ${quickButton("subtitles", "captions", "Generate Subtitles")}
           ${quickButton("podcast", "mic", "Upload Podcast Episode")}
           ${quickButton("thumbnail", "image", "Design Thumbnail")}
@@ -666,12 +725,7 @@ function saveButton(payload, module, titleText) {
 }
 
 function panelTools() {
-  return `<div class="panel-tools">
-    <button class="ghost" type="button" aria-label="Refresh">${icon("refresh")}</button>
-    <button class="ghost" type="button" aria-label="Copy">${icon("copy")}</button>
-    <button class="ghost" type="button" aria-label="Edit">${icon("edit")}</button>
-    <button class="ghost" type="button" aria-label="Download">${icon("download")}</button>
-  </div>`;
+  return "";
 }
 
 function renderScriptScreen() {
@@ -1388,6 +1442,323 @@ function renderSettings() {
   });
 }
 
+function renderScriptScreen() {
+  return `
+    ${pageHead("AI Script Writer", "Generate structured scripts with hooks, scenes, voice-over, CTA, captions and hashtags.")}
+    <section class="workspace">
+      <form id="toolForm">
+        ${input("projectName", "Project name", "")}
+        ${input("topic", "Topic", "")}
+        ${select("platform", "Platform", ["YouTube", "Instagram Reels", "YouTube Shorts", "Product Ads"])}
+        ${select("duration", "Duration", ["30", "45", "60", "90"], false, "45")}
+        ${input("audience", "Audience", "Content creators")}
+        ${select("tone", "Tone", ["Informative", "Bold", "Friendly", "Cinematic"])}
+        ${select("language", "Language", ["English", "Hindi", "Spanish"])}
+        <details class="advanced-options">
+          <summary>Advanced options</summary>
+          ${input("keywords", "Keywords", "AI productivity, creator workflow")}
+          ${input("cta", "Call to action", "Start creating smarter today")}
+        </details>
+        <div class="button-row">
+          <button class="primary-wide" type="submit">Generate Script</button>
+          <button class="ghost" type="reset">Reset</button>
+        </div>
+      </form>
+      <section class="panel output script-output tool-output" id="toolOutput">
+        <div class="panel-header"><h2>Generated Script</h2></div>
+        ${emptyState("No generated script yet", "Add a topic and generate a script to review it here.", "edit")}
+      </section>
+    </section>
+  `;
+}
+
+function renderScriptOutput(script) {
+  const scenes = script.scenes || [];
+  return `
+    <h2>${html(script.title || "Generated Script")}</h2>
+    <div class="script-part"><h3>Hook</h3>${String(script.hook || "").split("\n").map((line) => `<p>${html(line)}</p>`).join("")}</div>
+    ${script.introduction ? `<div class="script-part"><h3>Introduction</h3><p>${html(script.introduction)}</p></div>` : ""}
+    ${scenes.map((scene, index) => `
+      <div class="script-part">
+        <h3>${html(scene.label || scene.title || `Scene ${scene.number || index + 1}`)}</h3>
+        <p>${html(scene.voiceOver || scene.voiceover || scene.onScreenText || "")}</p>
+        ${scene.onScreenText ? `<p><strong>On-screen text:</strong> ${html(scene.onScreenText)}</p>` : ""}
+      </div>
+    `).join("")}
+    <div class="script-part"><h3>CTA</h3>${String(script.cta || script.outro || "").split("\n").map((line) => `<p>${html(line)}</p>`).join("")}</div>
+    ${script.caption ? `<div class="script-part"><h3>Caption</h3><p>${html(script.caption)}</p></div>` : ""}
+    ${script.hashtags?.length ? `<div class="script-part"><h3>Hashtags</h3><p>${html(script.hashtags.join(" "))}</p></div>` : ""}
+    <div class="button-row">
+      ${saveButton(script, "script", script.title || "Generated Script")}
+      ${exportButton("pdf", script, "Download PDF")}
+      ${exportButton("docx", script, "Download DOCX")}
+    </div>
+  `;
+}
+
+function renderSubtitleScreen() {
+  return `
+    ${pageHead("Subtitles & Captions", "Upload media, process speech-to-text, edit subtitle rows and export captions.")}
+    <section class="workspace wide-left">
+      <form id="toolForm">
+        <div class="workflow-steps"><span class="active">Upload</span><span>Processing</span><span>Edit</span><span>Export</span></div>
+        <label class="upload-box">
+          <input name="file" type="file" accept="video/*,audio/*">
+          <span><span class="upload-cloud">${icon("upload")}</span><strong>Upload Video or Audio</strong><p>Drag and drop or click to upload</p><p>MP4, MOV, MP3, WAV up to 100MB</p><p id="selectedFileName" class="selected-file">No file selected</p></span>
+        </label>
+        ${select("language", "Language in Audio", ["Auto Detect", "English", "Hindi", "Spanish"])}
+        ${select("format", "Output Format", ["SRT", "VTT", "TXT"])}
+        ${select("style", "Caption Style", ["Default (White on Black)", "Bold Yellow", "Karaoke"])}
+        ${select("processing", "Processing options", ["Standard transcription", "Auto punctuation", "Remove filler words"])}
+        <div class="subtitle-actions">
+          <button type="submit">Generate Subtitles</button>
+          <button class="ghost" data-download-srt type="button">${icon("download")} Download SRT</button>
+        </div>
+      </form>
+      <section class="panel preview-panel tool-output" id="toolOutput">
+        ${sectionHeader("Preview")}
+        ${emptyState("No media loaded", "Upload audio or video to generate editable subtitle rows.", "captions")}
+      </section>
+    </section>
+  `;
+}
+
+function renderThumbnailScreen() {
+  state.lastOutput = { title: "", subtitle: "", headlines: [], selectedHeadline: "", theme: "generated", imageUrl: "" };
+  return `
+    ${pageHead("Thumbnail Generator", "Create thumbnails with generated background concepts and editable foreground text.")}
+    <section class="thumbnail-layout three-panel">
+      <form id="toolForm">
+        ${input("title", "Video title", "")}
+        ${input("subtitle", "Subtitle on thumbnail", "")}
+        ${select("emotion", "Style", ["Bold", "Urgent", "Curious", "Clean"])}
+        <input name="audience" type="hidden" value="Creators">
+        <input name="aspectRatio" type="hidden" value="16:9">
+        <input name="accent" type="hidden" value="#7c35f2">
+        <label>AI text suggestions<div class="suggestions" id="thumbnailSuggestions"><p class="muted inline-empty">Suggestions will appear after API generation.</p></div></label>
+        <button class="primary-wide" type="submit">Generate Thumbnail</button>
+      </form>
+      <section class="panel preview-tools tool-output" id="toolOutput">${renderThumbnailEmptyState()}</section>
+      <aside class="panel layer-panel">
+        ${sectionHeader("Layer Settings")}
+        ${select("fontFamily", "Font", ["Inter", "Manrope", "Impact"])}
+        ${input("textColor", "Text colour", "#FFFFFF")}
+        ${input("accentColor", "Accent colour", "#FACC15")}
+        ${select("alignment", "Alignment", ["Left", "Center", "Right"])}
+        <p class="muted">Important thumbnail text is rendered as editable overlay text, not baked into the AI background.</p>
+      </aside>
+    </section>
+  `;
+}
+
+function renderThumbnailOutput(result = {}) {
+  const headline = result.selectedHeadline || (result.headlines && result.headlines[0]) || result.headline || result.title || "";
+  const lines = thumbnailLines(headline);
+  const subtitle = result.subtitle || "";
+  if (!result.imageUrl) return renderThumbnailEmptyState();
+  const imageStyle = ` style="background-image: linear-gradient(90deg, rgba(0,0,0,.76), rgba(0,0,0,.08) 62%), url('${html(result.imageUrl)}');"`;
+  return `
+    <h2 style="margin:0 0 18px 20px;">Design Preview</h2>
+    <div class="thumb-canvas theme-generated"${imageStyle}>
+      <div class="thumb-text">${lines.slice(0, 3).map((line) => `<span>${html(line)}</span>`).join("")}</div>
+      ${subtitle ? `<div class="thumb-caption">${html(subtitle)}</div>` : ""}
+      ${result.imageProvider ? `<span class="image-provider">${html(result.imageProvider)}</span>` : ""}
+    </div>
+    <div class="thumb-export-row">
+      <button data-download-thumbnail type="button">${icon("download")} Download</button>
+      <button class="ghost" data-save-thumbnail type="button">${icon("save")} Save</button>
+    </div>
+  `;
+}
+
+function renderStoryboardScreen() {
+  return `
+    ${pageHead("Storyboard Builder", "Plan video advertisements with scene timing, visual direction and reference frames.")}
+    <section class="workspace wide-left storyboard-workspace">
+      <form id="toolForm">
+        ${input("title", "Campaign / Video Idea", "")}
+        ${textarea("brief", "Campaign brief", "")}
+        ${input("product", "Product or offer", "")}
+        ${select("goal", "Video Type", ["Video Ad", "Product launch", "Explainer"])}
+        ${select("duration", "Duration (seconds)", ["30", "45", "60"])}
+        ${select("scenes", "Scenes", ["4", "5", "6"], false, "5")}
+        ${input("cta", "Call to action", "")}
+        <button class="primary-wide" type="submit">Generate Storyboard</button>
+      </form>
+      <section class="panel storyboard-panel tool-output" id="toolOutput">
+        ${sectionHeader("Storyboard")}
+        ${emptyState("No storyboard yet", "Add a campaign idea to create scene-by-scene direction.", "grid")}
+      </section>
+    </section>
+  `;
+}
+
+function renderStoryboardOutput(result) {
+  const scenes = result.scenes || [];
+  return `
+    <h2>${html(result.title || `Storyboard (${scenes.length} Scenes)`)}</h2>
+    ${result.concept ? `<p class="story-concept">${html(result.concept)}</p>` : ""}
+    <div class="story-list">
+      ${scenes.map((scene, index) => `
+        <article class="story-row" draggable="true">
+          <span>${index + 1}</span>
+          <div>
+            <strong>${html(scene.title || scene.label || `Scene ${index + 1}`)}</strong>
+            <p>${html(scene.visualDescription || scene.onScreenText || "")}</p>
+            ${scene.voiceOver ? `<p>VO: ${html(scene.voiceOver)}</p>` : ""}
+            ${scene.onScreenText ? `<p>Text: ${html(scene.onScreenText)}</p>` : ""}
+            ${scene.cameraDirection ? `<p>Camera: ${html(scene.cameraDirection)}</p>` : ""}
+          </div>
+          <div class="story-image">${scene.imageUrl || scene.thumbUrl ? `<img src="${html(scene.thumbUrl || scene.imageUrl)}" alt="${html(scene.visualDescription || scene.title || `Scene ${index + 1}`)}">` : ""}</div>
+        </article>
+      `).join("")}
+    </div>
+    <div class="button-row" style="margin:24px 14px 0;">
+      <button data-download-storyboard type="button">${icon("download")} Download</button>
+      <button class="ghost" data-save-storyboard type="button">${icon("save")} Save</button>
+    </div>
+  `;
+}
+
+function renderProjects() {
+  const projects = state.dashboard?.projects || [];
+  view.innerHTML = `
+    ${pageHead("My Projects", "Search, filter and open saved CreatorSuite work.")}
+    <div class="filter-bar project-controls">
+      <input id="projectSearch" type="search" placeholder="Search projects">
+      <select id="projectTypeFilter"><option value="">All types</option>${["script", "subtitle", "podcast", "thumbnail", "storyboard"].map((item) => `<option value="${item}">${html(moduleName(item))}</option>`).join("")}</select>
+      <select id="projectStatusFilter"><option value="">All statuses</option><option>Draft</option><option>READY</option><option>PUBLISHED</option><option>ARCHIVED</option></select>
+      <select id="projectSort"><option value="updated">Recently updated</option><option value="title">Title</option><option value="type">Type</option></select>
+    </div>
+    <section class="project-grid" id="projectGrid">
+      ${projects.map((project) => `
+        <article class="project-card project-row" data-project-id="${html(project.id)}" data-title="${html(project.title)}" data-type="${html(project.module)}" data-status="${html(project.status || "")}">
+          <span class="project-preview">${icon(iconForModule(project.module))}</span>
+          <h3>${html(project.title)}</h3>
+          ${badge(moduleName(project.module), toneForModule(project.module))}
+          <p>${html(project.status || "Saved draft")} - ${html(new Date(project.updatedAt).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }))}</p>
+          <div class="card-actions"><button class="ghost compact-button" type="button">Open</button></div>
+        </article>
+      `).join("") || emptyState("No projects yet", "Generated scripts, subtitles, thumbnails and storyboards will appear here.", "folder")}
+    </section>
+  `;
+}
+
+function filterProjects() {
+  const query = document.querySelector("#projectSearch")?.value.trim().toLowerCase() || "";
+  const type = document.querySelector("#projectTypeFilter")?.value || "";
+  const status = document.querySelector("#projectStatusFilter")?.value || "";
+  document.querySelectorAll("#projectGrid [data-project-id]").forEach((card) => {
+    const matchesQuery = (card.dataset.title || "").toLowerCase().includes(query);
+    const matchesType = !type || card.dataset.type === type || (type === "subtitle" && card.dataset.type === "subtitles");
+    const matchesStatus = !status || (card.dataset.status || "").toLowerCase() === status.toLowerCase();
+    card.hidden = !(matchesQuery && matchesType && matchesStatus);
+  });
+}
+
+function renderMedia() {
+  const mediaItems = state.dashboard.media || [];
+  view.innerHTML = `
+    ${pageHead("Media Library", "Manage uploaded video, audio and image assets referenced by your projects.")}
+    <div class="filter-bar project-controls">
+      <input id="mediaSearch" type="search" placeholder="Search media">
+      <select id="mediaTypeFilter"><option value="">All media</option><option value="audio">Audio</option><option value="video">Video</option><option value="image">Image</option></select>
+      <span class="storage-pill">Storage: ${html(state.dashboard?.stats?.storageUsed || "0 MB")}</span>
+    </div>
+    <section class="grid columns">
+      <div class="panel">
+        ${sectionHeader("Recent Media")}
+        <div class="media-grid" id="mediaGrid">${mediaItems.map((asset) => `
+          <article class="media-card" data-media-name="${html(asset.filename)}" data-media-type="${html(asset.mimeType)}">
+            <span>${icon(asset.mimeType?.startsWith("audio") ? "mic" : asset.mimeType?.startsWith("image") ? "image" : "play-square")}</span>
+            <strong>${html(asset.filename)}</strong>
+            <p class="muted">${html(asset.mimeType)} - ${Math.round((asset.sizeBytes || 0) / 1024 / 1024)} MB</p>
+            ${badge(asset.status || "READY", asset.status === "READY" ? "green" : "amber")}
+          </article>
+        `).join("") || emptyState("No media yet", "Uploaded and registered media assets will appear here.", "layers")}</div>
+      </div>
+      <form class="panel" id="mediaForm">
+        ${sectionHeader("Register Upload")}
+        ${input("filename", "Filename", "")}
+        ${select("mimeType", "MIME type", ["video/mp4", "audio/mpeg", "audio/wav", "image/jpeg", "image/png"])}
+        ${input("sizeBytes", "Size bytes", "12500000", "number")}
+        ${input("duration", "Duration", "00:45")}
+        <button type="submit">Add Media</button>
+      </form>
+    </section>
+  `;
+  document.querySelector("#mediaForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    await api("/api/media", { method: "POST", body: JSON.stringify(Object.fromEntries(new FormData(event.currentTarget).entries())) });
+    await refresh();
+    renderMedia();
+    notify("Media registered.");
+  });
+}
+
+function filterMedia() {
+  const query = document.querySelector("#mediaSearch")?.value.trim().toLowerCase() || "";
+  const type = document.querySelector("#mediaTypeFilter")?.value || "";
+  document.querySelectorAll("#mediaGrid [data-media-name]").forEach((card) => {
+    const matchesQuery = (card.dataset.mediaName || "").toLowerCase().includes(query);
+    const matchesType = !type || (card.dataset.mediaType || "").startsWith(type);
+    card.hidden = !(matchesQuery && matchesType);
+  });
+}
+
+function maskedKey(name) {
+  return `<article class="row"><div><strong>${html(name)}</strong><p class="muted">************</p></div><button class="ghost compact-button" data-test-provider="${html(name)}" type="button">Test</button></article>`;
+}
+
+function renderSettings() {
+  const { creator } = state.dashboard;
+  view.innerHTML = `
+    ${pageHead("Settings", "Manage profile, provider visibility and private workspace preferences.")}
+    <section class="settings-tabs">
+      ${["Profile", "Appearance", "API Providers", "Storage", "Default Preferences", "Usage", "Privacy", "Data Backup"].map((item) => `<span>${html(item)}</span>`).join("")}
+    </section>
+    <section class="grid settings-grid">
+      <form class="panel" id="settingsForm">
+        ${sectionHeader("Profile")}
+        ${input("name", "Name", creator.name)}
+        ${input("brand", "Brand", creator.brand || "CreatorSuite")}
+        ${input("timezone", "Timezone", creator.timezone)}
+        ${input("voice", "Brand voice", creator.brandSettings?.voice || "")}
+        <button type="submit">Save Settings</button>
+      </form>
+      <div class="panel">
+        ${sectionHeader("API Providers")}
+        <div class="list compact-list">
+          ${maskedKey("GEMINI_API_KEY")}
+          ${maskedKey("GROQ_API_KEY")}
+          ${maskedKey("B2_APPLICATION_KEY")}
+        </div>
+      </div>
+      <div class="panel">
+        ${sectionHeader("Storage")}
+        <div class="progress-list">
+          <article class="row"><strong>Storage Used</strong><div class="mini-meter"><span style="width:${Math.min(100, Number(state.dashboard?.usage?.storageMb || 0))}%"></span></div><span>${html(state.dashboard?.stats?.storageUsed || "0 MB")}</span></article>
+        </div>
+      </div>
+      <div class="panel">
+        ${sectionHeader("Privacy")}
+        <p class="muted">Drafts, private projects and media library records require creator authentication. Public access is limited to published podcast pages, RSS feeds and intentionally shared content.</p>
+      </div>
+    </section>
+  `;
+  document.querySelector("#settingsForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = Object.fromEntries(new FormData(event.currentTarget).entries());
+    await api("/api/settings", {
+      method: "PATCH",
+      body: JSON.stringify({ name: data.name, brand: data.brand, timezone: data.timezone, brandSettings: { voice: data.voice } })
+    });
+    await refresh();
+    renderSettings();
+    notify("Settings saved.");
+  });
+}
+
 function render() {
   if (!state.dashboard) return;
   if (state.route === "dashboard") return renderDashboard();
@@ -1395,7 +1766,6 @@ function render() {
   if (state.route === "podcast") return renderPodcast();
   if (state.route === "projects") return renderProjects();
   if (state.route === "media") return renderMedia();
-  if (state.route === "templates") return renderTemplates();
   if (state.route === "settings") return renderSettings();
   return renderDashboard();
 }
@@ -1555,18 +1925,63 @@ document.addEventListener("change", (event) => {
 
   if (event.target.closest("#episodeStatusFilter")) {
     filterPodcastEpisodes();
+    return;
+  }
+
+  if (event.target.closest("#projectTypeFilter, #projectStatusFilter, #projectSort")) {
+    filterProjects();
+    return;
+  }
+
+  if (event.target.closest("#mediaTypeFilter")) {
+    filterMedia();
   }
 });
 
 document.addEventListener("input", (event) => {
   if (event.target.closest("#episodeSearch")) {
     filterPodcastEpisodes();
+    return;
+  }
+
+  if (event.target.closest("#projectSearch")) {
+    filterProjects();
+    return;
+  }
+
+  if (event.target.closest("#mediaSearch")) {
+    filterMedia();
+    return;
+  }
+
+  if (event.target.closest("#globalSearchInput")) {
+    const value = event.target.value.trim();
+    if (state.route !== "projects" && value.length > 1) setRoute("projects");
+    window.setTimeout(() => {
+      const projectSearch = document.querySelector("#projectSearch");
+      if (projectSearch) {
+        projectSearch.value = value;
+        filterProjects();
+      }
+    }, 0);
   }
 });
 
 document.addEventListener("click", async (event) => {
+  const landingTool = event.target.closest("[data-landing-tool]");
+  if (landingTool) {
+    await openDashboardOrLogin(landingTool.dataset.landingTool);
+    return;
+  }
+
   const jump = event.target.closest("[data-jump]");
   if (jump) return setRoute(jump.dataset.jump);
+
+  const providerTest = event.target.closest("[data-test-provider]");
+  if (providerTest) {
+    notify(`${providerTest.dataset.testProvider} is configured on the server if the related workflow succeeds.`);
+    return;
+  }
 
   const downloadSrt = event.target.closest("[data-download-srt]");
   if (downloadSrt) {
@@ -1845,7 +2260,8 @@ document.querySelector("#loginForm")?.addEventListener("submit", async (event) =
   const mode = document.querySelector("#authModeInput").value || "login";
   const submitBtn = document.querySelector("#authSubmitBtn");
   const originalText = submitBtn.textContent;
-  submitBtn.textContent = mode === "signup" ? "Creating..." : "Signing in...";
+  setLoginError("");
+  submitBtn.textContent = mode === "signup" ? "Creating workspace..." : "Signing in...";
   submitBtn.disabled = true;
   try {
     const session = await api(`/api/auth/${mode}`, {
@@ -1856,21 +2272,26 @@ document.querySelector("#loginForm")?.addEventListener("submit", async (event) =
         password: document.querySelector("#passwordInput").value
       })
     });
-    setAuthSession(session);
+    setAuthSession(session, document.querySelector("#rememberInput")?.checked !== false);
+    state.setupStatus = { hasAccount: true };
     document.querySelector("#loginContainer").style.display = "none";
     document.querySelector("#landingContainer").style.display = "none";
     document.querySelector("#appContainer").style.display = "grid";
     updateUserChip();
     await bootApp();
-    notify(mode === "signup" ? "Account created." : "Signed in.");
+    if (state.pendingRoute) {
+      setRoute(state.pendingRoute);
+      state.pendingRoute = "";
+    }
+    notify(mode === "signup" ? "Creator workspace created." : "Signed in.");
   } catch (error) {
     if (mode === "signup" && (error.status === 409 || error.code === "email_exists")) {
       showLogin("login");
       document.querySelector("#emailInput").value = document.querySelector("#emailInput").value.trim();
-      notify("Account already exists. Enter your password and sign in.");
+      setLoginError("Account already exists. Enter your password and sign in.");
       return;
     }
-    notify(error.message);
+    setLoginError(error.message || "Unable to sign in.");
   } finally {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
@@ -1881,25 +2302,52 @@ document.querySelector("#showLoginBtn")?.addEventListener("click", () => {
   showLogin("login");
 });
 
-document.querySelector("#authToggleBtn")?.addEventListener("click", () => {
-  showLogin(document.querySelector("#authModeInput").value === "signup" ? "login" : "signup");
+document.querySelector("#passwordToggleBtn")?.addEventListener("click", () => {
+  const input = document.querySelector("#passwordInput");
+  const button = document.querySelector("#passwordToggleBtn");
+  if (!input || !button) return;
+  const nextType = input.type === "password" ? "text" : "password";
+  input.type = nextType;
+  button.textContent = nextType === "password" ? "Show" : "Hide";
+  button.setAttribute("aria-label", nextType === "password" ? "Show password" : "Hide password");
 });
 
-function openDashboardOrLogin() {
-  if (localStorage.getItem("creator_token")) {
+document.querySelector("#backHomeBtn")?.addEventListener("click", () => {
+  document.querySelector("#loginContainer").style.display = "none";
+  document.querySelector("#landingContainer").style.display = "block";
+  setLoginError("");
+});
+
+document.querySelector("#sidebarCollapseBtn")?.addEventListener("click", () => {
+  const shell = document.querySelector("#appContainer");
+  shell?.classList.toggle("sidebar-collapsed");
+  const collapsed = shell?.classList.contains("sidebar-collapsed");
+  document.querySelector("#sidebarCollapseBtn").textContent = collapsed ? ">" : "<";
+});
+
+document.querySelector("#authToggleBtn")?.addEventListener("click", async () => {
+  const status = await setupStatus();
+  showLogin(status.hasAccount ? "login" : "setup");
+});
+
+async function openDashboardOrLogin(targetRoute = "dashboard") {
+  if (localStorage.getItem("creator_token") || sessionStorage.getItem("creator_token")) {
     document.querySelector("#landingContainer").style.display = "none";
     document.querySelector("#appContainer").style.display = "grid";
-    bootApp();
+    await bootApp();
+    setRoute(targetRoute);
   } else {
-    showLogin("signup");
+    state.pendingRoute = targetRoute;
+    const status = await setupStatus();
+    showLogin(status.hasAccount ? "login" : "setup");
   }
 }
 
-document.querySelector("#heroCtaBtn")?.addEventListener("click", openDashboardOrLogin);
-document.querySelector("#landingCtaDuplicate")?.addEventListener("click", openDashboardOrLogin);
+document.querySelector("#heroCtaBtn")?.addEventListener("click", () => openDashboardOrLogin());
+document.querySelector("#landingCtaDuplicate")?.addEventListener("click", () => openDashboardOrLogin());
 
 document.querySelector("#exploreBtn")?.addEventListener("click", () => {
-  showLogin("signup");
+  document.querySelector("#tools")?.scrollIntoView({ behavior: "smooth" });
 });
 
 document.querySelector("#navToDashboardBtn")?.addEventListener("click", () => {
@@ -1920,7 +2368,8 @@ async function bootApp() {
 }
 
 (function checkAuth() {
-  if (localStorage.getItem("creator_token")) {
+  document.querySelector("#copyrightYear").textContent = String(new Date().getFullYear());
+  if (localStorage.getItem("creator_token") || sessionStorage.getItem("creator_token")) {
     state.user = authUser();
     document.querySelector("#loginContainer").style.display = "none";
     document.querySelector("#landingContainer").style.display = "none";
