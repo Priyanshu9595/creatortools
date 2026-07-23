@@ -928,7 +928,7 @@ function renderStoryboardOutput(result) {
   `;
 }
 
-function renderPodcast() {
+function renderPodcast(activeTab = "overview") {
   view.innerHTML = `${pageHead("Podcast Manager", "Manage your podcast episodes, show notes and publish to RSS feed.", '<button data-create-episode type="button">Upload New Episode</button>')}<p class="muted">Loading podcast...</p>`;
   return api("/api/podcasts").then((podcast) => {
     state.podcast = podcast;
@@ -942,9 +942,9 @@ function renderPodcast() {
     view.innerHTML = `
       ${pageHead("Podcast Manager", "Manage podcast episodes, generate show notes and publish your RSS feed.", '<button data-create-episode type="button">Upload New Episode</button>')}
       <div class="tabs">
-        ${["overview", "episodes", "details", "history", "rss", "public", "settings"].map((tab, index) => `<button class="${index === 0 ? "active" : ""}" data-podcast-tab="${tab}" type="button">${html({ overview: "Overview", episodes: "Episodes", details: "Podcast Details", history: "History", rss: "RSS Feed", public: "Public Page", settings: "Settings" }[tab])}</button>`).join("")}
+        ${["overview", "episodes", "details", "history", "rss", "public", "settings"].map((tab, index) => `<button class="${tab === activeTab || (!activeTab && index === 0) ? "active" : ""}" data-podcast-tab="${tab}" type="button">${html({ overview: "Overview", episodes: "Episodes", details: "Podcast Details", history: "History", rss: "RSS Feed", public: "Public Page", settings: "Settings" }[tab])}</button>`).join("")}
       </div>
-      <div id="podcastBody">${renderPodcastTab(podcast, "overview")}</div>
+      <div id="podcastBody">${renderPodcastTab(podcast, activeTab || "overview")}</div>
     `;
   }).catch((error) => notify(error.message));
 }
@@ -1218,7 +1218,7 @@ async function renderPodcastBody(tab = "overview") {
   const podcast = await loadPodcast();
   const body = document.querySelector("#podcastBody");
   if (!body) {
-    renderPodcast();
+    await renderPodcast(tab);
     return;
   }
   body.innerHTML = renderPodcastTab(podcast, tab);
@@ -1414,12 +1414,7 @@ document.addEventListener("submit", async (event) => {
       const path = method === "PATCH" ? `/api/podcasts/${state.podcast.id || "pod-1"}` : "/api/podcasts";
       state.podcast = await api(path, { method, body: JSON.stringify(payload) });
       await refresh();
-      if (method === "PATCH" && document.querySelector("#podcastBody")) {
-        await renderPodcastBody("details");
-      } else {
-        await renderPodcast();
-        await renderPodcastBody("episodes");
-      }
+      await renderPodcast("episodes");
       notify("Podcast profile saved.");
     } catch (error) {
       notify(error.message);
