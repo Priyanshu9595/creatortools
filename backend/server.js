@@ -1250,6 +1250,9 @@ async function receivePodcastAudio(req, res) {
   const objectKey = `podcasts/${id("audio")}${ext}`;
   const hasObjectStorage = Boolean(s3Client && objectBucketName && objectPublicBaseUrl && !truthy(process.env.USE_LOCAL_UPLOADS));
   let publicUrl = `/uploads/${path.basename(storedPath)}`;
+  let storageKey = "";
+  let storageProvider = "local";
+  let storageWarning = "";
 
   if (hasObjectStorage) {
     try {
@@ -1260,20 +1263,23 @@ async function receivePodcastAudio(req, res) {
         ContentType: inferredMimeType
       }));
       publicUrl = `${objectPublicBaseUrl}/${objectKey}`;
+      storageKey = objectKey;
+      storageProvider = "object-storage";
       if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
     } catch (err) {
-      if (fs.existsSync(storedPath)) fs.unlinkSync(storedPath);
       console.error("Object storage upload failed:", err);
-      throw Object.assign(new Error("Failed to upload file to object storage. Check B2/R2 credentials and bucket permissions."), { status: 500 });
+      storageWarning = "Object storage upload failed; saved audio in local uploads.";
     }
   } else {
     console.warn("Object storage is not configured; keeping podcast audio in local uploads.");
+    storageWarning = "Object storage is not configured; saved audio in local uploads.";
   }
 
   return {
     url: publicUrl,
-    storageKey: hasObjectStorage ? objectKey : "",
-    storageProvider: hasObjectStorage ? "object-storage" : "local",
+    storageKey,
+    storageProvider,
+    storageWarning,
     bytes: req.file.size,
     mimeType: inferredMimeType,
     audioFileName: req.file.originalname,

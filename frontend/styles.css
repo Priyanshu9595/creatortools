@@ -1887,6 +1887,10 @@ textarea {
 }
 
 @media (max-width: 820px) {
+  body {
+    overflow-x: hidden;
+  }
+
   .landing-header,
   .landing-nav,
   .landing-actions,
@@ -1922,16 +1926,92 @@ textarea {
   }
 
   .sidebar {
-    position: static;
+    position: sticky;
+    z-index: 20;
+    top: 0;
     height: auto;
+    padding: 12px;
+    gap: 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
 
-  .view {
-    padding: 28px 18px 48px;
+  .sidebar-brand {
+    padding: 0 4px;
+    border-bottom: 0;
+  }
+
+  .sidebar-brand strong {
+    font-size: 18px;
+  }
+
+  .nav,
+  .nav-group {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar,
+  .nav-group::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav button {
+    width: auto;
+    min-width: max-content;
+    min-height: 42px;
+    padding: 0 12px;
+    grid-template-columns: 22px max-content;
+    gap: 8px;
+    font-size: 14px;
+    white-space: nowrap;
   }
 
   .topbar {
-    padding: 0 18px;
+    height: auto;
+    padding: 12px 14px;
+  }
+
+  .top-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .avatar-menu strong {
+    display: none;
+  }
+
+  .top-actions #newProjectBtn {
+    min-width: 0;
+  }
+
+  .view {
+    width: 100%;
+    min-width: 0;
+    padding: 24px 14px 44px;
+  }
+
+  .page-head {
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .page-head > button,
+  .page-head > .button-row {
+    width: 100%;
+  }
+
+  .page-title h1 {
+    font-size: 30px;
+  }
+
+  .page-title p {
+    font-size: 16px;
   }
 
   .stats,
@@ -1953,5 +2033,38 @@ textarea {
 
   .story-image {
     grid-column: 2;
+  }
+}
+
+@media (max-width: 460px) {
+  button {
+    padding-inline: 14px;
+  }
+
+  .top-actions {
+    justify-content: space-between;
+  }
+
+  .page-title h1 {
+    font-size: 28px;
+  }
+
+  .simple-table {
+    overflow-x: hidden;
+  }
+
+  .simple-table-row {
+    gap: 10px;
+  }
+
+  .episode-actions,
+  .button-row {
+    width: 100%;
+  }
+
+  .episode-actions button,
+  .button-row button,
+  .button-row .ghost-link {
+    width: 100%;
   }
 }

@@ -242,6 +242,25 @@ function storyboardText(result = state.lastOutput || { title: "Storyboard", scen
   }).join("\n\n")}`;
 }
 
+function exportPlainText(script = {}) {
+  const scenes = script.scenes || [];
+  const lines = [
+    script.title || "Generated Script",
+    "",
+    "Hook",
+    script.hook || "",
+    "",
+    ...scenes.flatMap((scene, index) => [
+      scene.label || `Scene ${scene.number || index + 1}`,
+      scene.voiceOver || scene.onScreenText || "",
+      ""
+    ]),
+    "Outro",
+    script.cta || script.outro || ""
+  ];
+  return lines.join("\n").trim();
+}
+
 function cleanThumbnailTitle(title) {
   return String(title || "")
     .replace(/\bbecame\b/gi, "become")
@@ -1665,6 +1684,11 @@ document.addEventListener("click", async (event) => {
       anchor.download = `${payload.payload.title || "script"}.docx`;
       anchor.click();
       notify("DOCX downloaded.");
+      return;
+    }
+    if (payload.type === "docx") {
+      downloadText(`${slug(payload.payload.title || "script")}.txt`, exportPlainText(payload.payload));
+      notify("DOCX export is unavailable in this browser. Text downloaded instead.");
       return;
     }
     const result = await api("/api/exports", { method: "POST", body: JSON.stringify(payload) });
