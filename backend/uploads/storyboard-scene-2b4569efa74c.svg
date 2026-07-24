@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111827"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="72" y="72" width="1136" height="576" rx="28" fill="#020617" opacity=".42"/>
+  <text x="112" y="150" fill="#ffffff" font-family="Arial, sans-serif" font-size="34" font-weight="700">Scene 1</text>
+  <text x="112" y="216" fill="#ffffff" font-family="Arial, sans-serif" font-size="54" font-weight="800">The Afternoon Slump</text>
+  <foreignObject x="112" y="270" width="960" height="220">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,sans-serif;color:#e5e7eb;font-size:32px;line-height:1.35;font-weight:600;">A dimly lit office cubicle. A young office worker, early 30s, looks visibly tired and unfocused, rubbing their temples. Their computer screen shows complex data, but their gaze is distant.</div>
+  </foreignObject>
+  <text x="112" y="596" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="24">Generated fallback frame</text>
+</svg>

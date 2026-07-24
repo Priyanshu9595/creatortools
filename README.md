@@ -51,6 +51,33 @@ GROQ_API_KEY=your_groq_key
 
 Users sign up or log in with email and password. Each email gets one isolated creator workspace and one podcast channel.
 
+## Storyboard Media Provider Fallbacks
+
+Storyboard images and story videos can use multiple providers. Set provider order in `.env`; the server tries each provider until one succeeds.
+
+```bash
+# Images: gemini, unsplash, custom, pollinations-url, pollinations-save
+STORYBOARD_IMAGE_PROVIDERS=gemini,unsplash,custom
+STORYBOARD_IMAGE_FETCH_TIMEOUT_MS=25000
+GEMINI_IMAGE_MODEL=gemini-3.1-flash-image
+STORYBOARD_IMAGE_API_URLS=https://your-image-api-1/generate,https://your-image-api-2/generate
+STORYBOARD_IMAGE_API_KEYS=key_for_api_1,key_for_api_2
+UNSPLASH_ACCESS_KEY=your_unsplash_key
+UNSPLASH_API_BASE_URL=https://api.unsplash.com
+
+# Real MP4 video only: veo, custom
+STORYBOARD_VIDEO_PROVIDERS=veo,custom
+GEMINI_VIDEO_MODEL=veo-3.1-fast-generate-preview
+GEMINI_VIDEO_MAX_WAIT_MS=300000
+STORYBOARD_VIDEO_API_URLS=https://your-video-api-1/generate,https://your-video-api-2/generate
+STORYBOARD_VIDEO_API_KEYS=key_for_video_api_1,key_for_video_api_2
+STORYBOARD_VIDEO_DOWNLOAD_REMOTE=true
+```
+
+Custom image APIs receive `{ prompt, title, scene, sceneIndex, aspectRatio, width, height }` and should return `imageUrl`, `url`, or base64 image data as `imageBase64` / `b64_json`.
+
+Custom video APIs receive `{ prompt, storyboard, aspectRatio }` and should return `videoUrl`, `url`, or `videoBase64`. If all real video providers fail, the UI shows the provider error instead of a fake slideshow.
+
 After deployment, create your podcast and publish at least one episode. Submit this public RSS URL to Spotify for Creators:
 
 ```text

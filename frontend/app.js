@@ -147,6 +147,24 @@ window.addEventListener("unhandledrejection", (event) => {
   notify(event.reason?.message || "Something went wrong.");
 });
 
+document.addEventListener("error", (event) => {
+  const image = event.target?.closest?.("img[data-fallback-src]");
+  if (!event.target?.matches?.(".story-image img")) return;
+  if (!image) {
+    const holder = event.target.closest(".story-image");
+    if (holder) holder.innerHTML = '<span class="story-image-missing">Image unavailable</span>';
+    return;
+  }
+  const fallbackSrc = image.dataset.fallbackSrc;
+  if (!fallbackSrc || image.src.endsWith(fallbackSrc)) {
+    const holder = image.closest(".story-image");
+    if (holder) holder.innerHTML = '<span class="story-image-missing">Image unavailable</span>';
+    return;
+  }
+  image.src = fallbackSrc;
+  image.removeAttribute("data-fallback-src");
+}, true);
+
 function html(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => ({
     "&": "&amp;",
@@ -336,6 +354,13 @@ function storyboardText(result = state.lastOutput || { title: "Storyboard", scen
   return `${result.title || "Storyboard"}\n\n${scenes.map((scene, index) => {
     return `${index + 1}. ${scene.title || scene.label || `Scene ${index + 1}`}\nVisual: ${scene.visualDescription || scene.onScreenText || ""}\nVO: ${scene.voiceOver || ""}`;
   }).join("\n\n")}`;
+}
+
+function storyboardImageTag(scene = {}, index = 0) {
+  const src = scene.thumbUrl || scene.imageUrl || scene.fallbackImageUrl || "";
+  if (!src) return `<span class="story-image-missing">${html(scene.imageError ? "Image provider failed" : "Image unavailable")}</span>`;
+  const fallback = scene.fallbackImageUrl && scene.fallbackImageUrl !== src ? ` data-fallback-src="${html(scene.fallbackImageUrl)}"` : "";
+  return `<img src="${html(src)}"${fallback} alt="${html(scene.visualDescription || scene.title || `Scene ${index + 1}`)}">`;
 }
 
 function exportPlainText(script = {}) {
@@ -941,9 +966,9 @@ function renderStoryboardScreen() {
         ${input("title", "Campaign / Video Idea", "")}
         <input name="brief" type="hidden" value="">
         <input name="product" type="hidden" value="">
-        ${select("goal", "Video Type", ["Video Ad", "Product launch", "Explainer"])}
+        ${select("goal", "Video Type", ["Video Ad", "Product launch", "Explainer", "Cinematic AI Ad Film"])}
         ${select("duration", "Duration (seconds)", ["30", "45", "60"])}
-        <input name="scenes" type="hidden" value="5">
+        ${select("scenes", "Number of scenes", ["5", "9", "12"], false, "9")}
         <input name="cta" type="hidden" value="">
         <button class="primary-wide" type="submit">Generate Storyboard</button>
       </form>
@@ -970,14 +995,16 @@ function renderStoryboardOutput(result) {
             <p>${scene.voiceOver ? `VO: ${html(scene.voiceOver)}` : ""}</p>
             ${scene.onScreenText ? `<p>Text: ${html(scene.onScreenText)}</p>` : ""}
           </div>
-          <div class="story-image">${scene.imageUrl || scene.thumbUrl ? `<img src="${html(scene.thumbUrl || scene.imageUrl)}" alt="${html(scene.visualDescription || scene.title || `Scene ${index + 1}`)}">` : ""}</div>
+          <div class="story-image">${storyboardImageTag(scene, index)}</div>
         </article>
       `).join("")}
     </div>
     <div class="button-row" style="margin:24px 14px 0;">
+      <button data-generate-video type="button" data-project-id="${html(result.id || "")}">${icon("play-square")} Generate Story Video</button>
       <button data-download-storyboard type="button">${icon("download")} Download</button>
       <button class="ghost" data-save-storyboard type="button">${icon("save")} Save</button>
     </div>
+    <div id="videoContainer" style="margin-top:24px; text-align: center;"></div>
   `;
 }
 
@@ -1563,21 +1590,28 @@ function renderThumbnailOutput(result = {}) {
 function renderStoryboardScreen() {
   return `
     ${pageHead("Storyboard Builder", "Plan video advertisements with scene timing, visual direction and reference frames.")}
-    <section class="workspace wide-left storyboard-workspace">
-      <form id="toolForm">
-        ${input("title", "Campaign / Video Idea", "")}
-        ${textarea("brief", "Campaign brief", "")}
+    <section class="storyboard-workspace-stacked" style="display: flex; flex-direction: column; gap: 24px;">
+      <form id="toolForm" class="panel" style="padding: 24px;">
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          ${input("title", "Campaign / Video Idea", "")}
+          ${select("goal", "Video Type", ["Video Ad", "Product launch", "Explainer", "Cinematic AI Ad Film"])}
+          ${select("duration", "Duration (seconds)", ["30", "45", "60"])}
+          ${select("scenes", "Number of scenes", ["5", "9", "12"], false, "9")}
+        </div>
+        <div style="margin-bottom: 24px;">
+          ${textarea("brief", "Campaign brief", "")}
+        </div>
         <input name="product" type="hidden" value="">
-        ${select("goal", "Video Type", ["Video Ad", "Product launch", "Explainer"])}
-        ${select("duration", "Duration (seconds)", ["30", "45", "60"])}
-        <input name="scenes" type="hidden" value="5">
         <input name="cta" type="hidden" value="">
-        <button class="primary-wide" type="submit">Generate Storyboard</button>
+        <div style="text-align: right;">
+          <button class="primary" type="submit" style="min-width: 200px;">Generate Storyboard</button>
+        </div>
       </form>
-      <section class="panel storyboard-panel tool-output" id="toolOutput">
+      <section class="panel storyboard-panel tool-output" id="toolOutput" style="padding: 24px;">
         ${sectionHeader("Storyboard")}
         ${emptyState("No storyboard yet", "Add a campaign idea to create scene-by-scene direction.", "grid")}
       </section>
+      <section id="videoSection" style="display: none;"></section>
     </section>
   `;
 }
@@ -1598,11 +1632,12 @@ function renderStoryboardOutput(result) {
             ${scene.onScreenText ? `<p>Text: ${html(scene.onScreenText)}</p>` : ""}
             ${scene.cameraDirection ? `<p>Camera: ${html(scene.cameraDirection)}</p>` : ""}
           </div>
-          <div class="story-image">${scene.imageUrl || scene.thumbUrl ? `<img src="${html(scene.thumbUrl || scene.imageUrl)}" alt="${html(scene.visualDescription || scene.title || `Scene ${index + 1}`)}">` : ""}</div>
+          <div class="story-image">${storyboardImageTag(scene, index)}</div>
         </article>
       `).join("")}
     </div>
     <div class="button-row" style="margin:24px 14px 0;">
+      <button data-generate-video type="button" data-project-id="${html(result.id || "")}">${icon("play-square")} Generate Story Video</button>
       <button data-download-storyboard type="button">${icon("download")} Download</button>
       <button class="ghost" data-save-storyboard type="button">${icon("save")} Save</button>
     </div>
@@ -2056,6 +2091,49 @@ document.addEventListener("click", async (event) => {
     });
     await refresh();
     notify("Storyboard saved to projects.");
+    return;
+  }
+
+  const generateVideo = event.target.closest("[data-generate-video]");
+  if (generateVideo) {
+    if (!state.lastOutput?.scenes?.length) {
+      notify("Generate a storyboard first.");
+      return;
+    }
+    const result = state.lastOutput;
+    const container = document.querySelector("#videoSection");
+    if (container) {
+      container.style.display = "block";
+      container.className = "panel";
+      container.style.padding = "24px";
+      container.style.textAlign = "center";
+      container.innerHTML = `<div style="padding: 40px; color: var(--text-secondary);">${icon("loader")} Generating story-based ad film...</div>`;
+    }
+    generateVideo.disabled = true;
+    try {
+      const response = await api("/api/storyboards/generate-video", {
+        method: "POST",
+        body: JSON.stringify({ storyboard: result })
+      });
+      if (container) {
+        if (!response.videoUrl) throw new Error("The video provider did not return an MP4 URL.");
+        container.innerHTML = `
+          <h3 style="margin-bottom: 20px; text-align: left;">Generated AI Ad Film</h3>
+          <video controls autoplay style="width: 100%; border-radius: 8px; border: 1px solid var(--border, #e2e8f0); background: #000; max-height: 560px;">
+            <source src="${html(response.videoUrl)}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        `;
+      }
+      notify("Video generated successfully.");
+    } catch (error) {
+      if (container) {
+        container.innerHTML = `<p class="form-error">${html(error.message || "Video generation failed. Try again later.")}</p>`;
+      }
+      notify(error.message);
+    } finally {
+      generateVideo.disabled = false;
+    }
     return;
   }
 

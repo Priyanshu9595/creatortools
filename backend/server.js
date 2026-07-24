@@ -121,6 +121,7 @@ const mimeTypes = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
   ".mp4": "video/mp4",
   ".m4v": "video/mp4",
   ".mov": "video/quicktime",
@@ -1083,7 +1084,8 @@ Do not include any letters, words, captions, logos, watermark, UI text, or gibbe
   const providerErrors = [];
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-image:generateContent?key=${encodeURIComponent(key)}`, {
+    const model = cleanModelName(process.env.GEMINI_IMAGE_MODEL, "gemini-3.1-flash-image");
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -1101,7 +1103,7 @@ Do not include any letters, words, captions, logos, watermark, UI text, or gibbe
 
     return {
       imageUrl: `data:${imagePart.inlineData.mimeType || "image/png"};base64,${imagePart.inlineData.data}`,
-      imageProvider: "gemini-3.1-flash-image",
+      imageProvider: model,
       imagePrompt: prompt
     };
   } catch (error) {
@@ -1148,6 +1150,486 @@ function pollinationsThumbnailImage(prompt, providerErrors = []) {
   };
 }
 
+function uploadPathFor(filename) {
+  return join(__dirname, "uploads", filename);
+}
+
+function writeUpload(filename, content) {
+  const fullPath = uploadPathFor(filename);
+  writeFileSync(fullPath, content);
+  return `/uploads/${filename}`;
+}
+
+function storyboardSceneImagePrompt(title, scene, index) {
+  const visual = clean(scene.visualDescription || scene.stockSearchQuery || scene.title, title);
+  const camera = clean(scene.cameraShot || scene.cameraDirection, "cinematic commercial frame");
+  const sceneTitle = clean(scene.title, `Scene ${index + 1}`);
+  return [
+    `Photorealistic 16:9 advertising still for campaign "${title}".`,
+    `Scene ${index + 1}, ${sceneTitle}: ${visual}`,
+    `Camera: ${camera}.`,
+    "Real people or real product objects only when implied by the campaign, cinematic lighting, premium commercial composition.",
+    "No captions, no logos, no readable text, no unrelated subjects."
+  ].join(" ");
+}
+
+function storyboardSceneImageUrl(title, scene, index) {
+  const prompt = storyboardSceneImagePrompt(title, scene, index);
+  const seed = createHash("sha256").update(prompt).digest("hex").slice(0, 12);
+  const safePrompt = encodeURIComponent(prompt);
+  return `https://image.pollinations.ai/prompt/${safePrompt}?width=640&height=360&seed=${seed}&model=flux&nologo=true&private=true&enhance=true`;
+}
+
+function generatedImageExtension(mimeType = "image/png") {
+  if (/jpe?g/i.test(mimeType)) return "jpg";
+  if (/webp/i.test(mimeType)) return "webp";
+  return "png";
+}
+
+function persistGeneratedImage(provider, prompt, mimeType, bytes) {
+  const ext = generatedImageExtension(mimeType);
+  const hash = createHash("sha256").update(`${provider}-${prompt}`).digest("hex").slice(0, 12);
+  return writeUpload(`storyboard-scene-${hash}.${ext}`, Buffer.from(bytes, "base64"));
+}
+
+let storyboardGeminiImageUnavailable = false;
+
+function csvEnv(name, fallback = "") {
+  return String(process.env[name] || fallback)
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function indexedValue(values, index) {
+  if (!values.length) return "";
+  return values[index] || values[0] || "";
+}
+
+function cleanModelName(value, fallback) {
+  return clean(value, fallback)
+    .split(/[,\s]+/)
+    .filter(Boolean)[0]
+    .replace(/^models\//, "");
+}
+
+async function fetchGeneratedImageToUpload(imageUrl, prompt, provider) {
+  const controller = new AbortController();
+  const timeoutMs = clamp(Number(process.env.STORYBOARD_IMAGE_FETCH_TIMEOUT_MS || 25000), 5000, 120000);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(imageUrl, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Image service returned ${response.status}`);
+    const mimeType = response.headers.get("content-type") || "image/png";
+    if (!mimeType.startsWith("image/")) throw new Error(`Image service returned ${mimeType}`);
+    const buffer = Buffer.from(await response.arrayBuffer());
+    return persistGeneratedImage(provider, prompt, mimeType, buffer.toString("base64"));
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function generateGeminiStoryboardImage(prompt) {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key || storyboardGeminiImageUnavailable) throw new Error("Gemini image provider is unavailable");
+  const model = cleanModelName(process.env.GEMINI_IMAGE_MODEL, "gemini-3.1-flash-image");
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: `${prompt}\nReturn only one image.` }] }]
+    })
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error?.message || "Gemini image generation failed");
+  const imagePart = (data.candidates?.[0]?.content?.parts || []).find((part) => part.inlineData?.data);
+  if (!imagePart) throw new Error("No image bytes returned");
+  const imageUrl = persistGeneratedImage(model, prompt, imagePart.inlineData.mimeType || "image/png", imagePart.inlineData.data);
+  return {
+    imageUrl,
+    thumbUrl: imageUrl,
+    fallbackImageUrl: "",
+    imageProvider: model,
+    imagePrompt: prompt
+  };
+}
+
+async function generateCustomStoryboardImage(prompt, title, scene, index) {
+  const urls = csvEnv("STORYBOARD_IMAGE_API_URLS", process.env.STORYBOARD_IMAGE_API_URL || "");
+  const keys = csvEnv("STORYBOARD_IMAGE_API_KEYS", process.env.STORYBOARD_IMAGE_API_KEY || "");
+  if (!urls.length) throw new Error("No custom image API URL configured");
+  const errors = [];
+  for (let providerIndex = 0; providerIndex < urls.length; providerIndex += 1) {
+    const url = urls[providerIndex];
+    try {
+      const headers = { "Content-Type": "application/json" };
+      const key = indexedValue(keys, providerIndex);
+      if (key) headers.Authorization = `Bearer ${key}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ prompt, title, scene, sceneIndex: index, aspectRatio: "16:9", width: 640, height: 360 })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || data.error?.message || data.error || `Custom image API returned ${response.status}`);
+      const imageUrl = data.imageUrl || data.url || data.output?.[0] || data.images?.[0]?.url || "";
+      const bytes = data.imageBase64 || data.b64_json || data.image?.imageBytes || data.data?.[0]?.b64_json || "";
+      if (bytes) {
+        const localImageUrl = persistGeneratedImage(`custom-image-${providerIndex + 1}`, prompt, data.mimeType || "image/png", bytes);
+        return { imageUrl: localImageUrl, thumbUrl: localImageUrl, fallbackImageUrl: imageUrl, imageProvider: `custom-image-${providerIndex + 1}`, imagePrompt: prompt };
+      }
+      if (!imageUrl) throw new Error("Custom image API did not return imageUrl or imageBase64");
+      let localImageUrl = imageUrl;
+      try {
+        localImageUrl = await fetchGeneratedImageToUpload(imageUrl, prompt, `custom-image-${providerIndex + 1}`);
+      } catch (downloadError) {
+        console.warn("Custom image download failed; using provider URL:", downloadError.message);
+      }
+      return { imageUrl: localImageUrl, thumbUrl: localImageUrl, fallbackImageUrl: imageUrl, imageProvider: `custom-image-${providerIndex + 1}`, imagePrompt: prompt };
+    } catch (error) {
+      errors.push(`custom-image-${providerIndex + 1}: ${error.message}`);
+    }
+  }
+  throw new Error(errors.join(" | ") || "Custom image APIs failed");
+}
+
+async function generatePollinationsStoryboardImage(title, scene, index, prompt, saveLocal) {
+  const generatedUrl = storyboardSceneImageUrl(title, scene, index);
+  if (!saveLocal) {
+    return { imageUrl: generatedUrl, thumbUrl: generatedUrl, fallbackImageUrl: "", imageProvider: "pollinations-flux-url", imagePrompt: prompt };
+  }
+  const localImageUrl = await fetchGeneratedImageToUpload(generatedUrl, prompt, "pollinations-flux");
+  return { imageUrl: localImageUrl, thumbUrl: localImageUrl, fallbackImageUrl: generatedUrl, imageProvider: "pollinations-flux", imagePrompt: prompt };
+}
+
+function cleanStockQuery(value) {
+  return String(value || "")
+    .replace(/https?:\/\/\S+/gi, " ")
+    .replace(/\b[\w.-]+\.(com|net|org|io|in)\b/gi, " ")
+    .replace(/\b[A-Z][a-z]+[A-Z][A-Za-z]*\b/g, " ")
+    .replace(/\b(VO|CTA|HydroTrack|logo|brand|caption|text|headline|notification|dashboard|interface|app|screen|website|url)\b/gi, " ")
+    .replace(/[^a-z0-9 ]+/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function uniq(items) {
+  return [...new Set(items.map((item) => String(item || "").trim()).filter(Boolean))];
+}
+
+function storyboardStockQueries(title, scene) {
+  const source = cleanStockQuery([
+    scene.visualDescription,
+    scene.stockSearchQuery,
+    scene.title,
+    title
+  ].join(" "));
+  const words = source.split(/\s+/).filter((word) => word.length > 2);
+  const hasWater = /\b(water|hydration|hydrate|bottle|drink|sip|refresh)\b/.test(source);
+  const hasOffice = /\b(office|desk|worker|professional|productivity|workday|computer|keyboard)\b/.test(source);
+  const hasPhone = /\b(phone|mobile|smartphone|alert)\b/.test(source);
+  const queries = [];
+
+  if (hasWater && hasOffice) queries.push("water bottle office desk professional");
+  if (hasWater) queries.push("reusable water bottle desk");
+  if (hasOffice) queries.push("office worker desk professional");
+  if (hasPhone) queries.push("smartphone office desk");
+  queries.push(words.slice(0, 7).join(" "));
+  queries.push(cleanStockQuery(title));
+  return uniq(queries).filter((query) => query.split(/\s+/).length >= 2).slice(0, 5);
+}
+
+function hexLuminance(hex = "") {
+  const match = String(hex).match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+  if (!match) return 128;
+  const [, r, g, b] = match.map((part, index) => index ? parseInt(part, 16) : part);
+  return (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+}
+
+function scoreUnsplashResult(photo, query, scene, title) {
+  const searchable = cleanStockQuery([
+    photo.alt_description,
+    photo.description,
+    photo.user?.name,
+    query
+  ].join(" "));
+  const wanted = cleanStockQuery(`${query} ${scene.visualDescription || ""} ${title}`).split(/\s+/).filter((word) => word.length > 3);
+  const badWords = ["logo", "brand", "sign", "poster", "billboard", "hbo", "max", "television", "tv", "nightclub", "concert", "stage", "neon", "dark"];
+  let score = 0;
+  for (const word of wanted) if (searchable.includes(word)) score += 2;
+  for (const word of badWords) if (searchable.includes(word)) score -= 8;
+  if (photo.width > photo.height) score += 4;
+  if (hexLuminance(photo.color) < 45) score -= 6;
+  if (photo.urls?.regular) score += 4;
+  return score;
+}
+
+async function generateUnsplashStoryboardImage(title, scene, index, prompt) {
+  const accessKey = process.env.UNSPLASH_ACCESS_KEY;
+  if (!accessKey || accessKey === "your_unsplash_access_key") throw new Error("Unsplash access key is not configured");
+  const baseUrl = clean(process.env.UNSPLASH_API_BASE_URL, "https://api.unsplash.com").replace(/\/$/, "");
+  const queries = storyboardStockQueries(title, scene);
+  const candidates = [];
+  const errors = [];
+
+  for (const query of queries) {
+    try {
+      const response = await fetch(`${baseUrl}/search/photos?query=${encodeURIComponent(query)}&orientation=landscape&content_filter=high&per_page=12`, {
+        headers: { "Authorization": `Client-ID ${accessKey}` }
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.errors?.join(", ") || "Unsplash image search failed");
+      for (const photo of data.results || []) {
+        candidates.push({ photo, query, score: scoreUnsplashResult(photo, query, scene, title) });
+      }
+    } catch (error) {
+      errors.push(`${query}: ${error.message}`);
+    }
+  }
+
+  candidates.sort((a, b) => b.score - a.score);
+  const result = candidates[0]?.photo;
+  if (!result) throw new Error(errors.join(" | ") || "Unsplash returned no images");
+  return {
+    imageUrl: result.urls.regular,
+    thumbUrl: result.urls.small,
+    fallbackImageUrl: "",
+    imageProvider: "unsplash",
+    imagePrompt: prompt,
+    stockSearchQuery: candidates[0]?.query || queries[0] || ""
+  };
+}
+
+async function generateStoryboardSceneImage(title, scene, index) {
+  const prompt = storyboardSceneImagePrompt(title, scene, index);
+  const providerErrors = [];
+  const providers = csvEnv("STORYBOARD_IMAGE_PROVIDERS", "gemini,unsplash,custom");
+
+  for (const provider of providers) {
+    try {
+      if (provider === "gemini") return await generateGeminiStoryboardImage(prompt);
+      if (provider === "custom") return await generateCustomStoryboardImage(prompt, title, scene, index);
+      if (provider === "pollinations-save") return await generatePollinationsStoryboardImage(title, scene, index, prompt, true);
+      if (provider === "pollinations-url") return await generatePollinationsStoryboardImage(title, scene, index, prompt, false);
+      if (provider === "unsplash") return await generateUnsplashStoryboardImage(title, scene, index, prompt);
+      providerErrors.push(`${provider}: unknown image provider`);
+    } catch (error) {
+      console.warn(`Storyboard image provider ${provider} failed:`, error.message);
+      if (provider === "gemini" && /quota|rate|not available|permission|api key/i.test(error.message)) storyboardGeminiImageUnavailable = true;
+      providerErrors.push(`${provider}: ${error.message}`);
+    }
+  }
+
+  return {
+    imageUrl: "",
+    thumbUrl: "",
+    fallbackImageUrl: "",
+    imageProvider: "none",
+    imagePrompt: prompt,
+    imageError: providerErrors.join(" | ")
+  };
+}
+
+async function attachStoryboardSceneImages(result, campaignTitle) {
+  if (!Array.isArray(result?.scenes)) return result;
+  const title = clean(campaignTitle || result.title, "Storyboard");
+  for (let index = 0; index < result.scenes.length; index += 1) {
+    const scene = result.scenes[index];
+    const image = await generateStoryboardSceneImage(title, scene, index);
+    result.scenes[index] = {
+      ...scene,
+      ...image,
+      thumbUrl: image.thumbUrl || image.imageUrl
+    };
+  }
+  return result;
+}
+
+function storyboardVideoPrompt(storyboard = {}) {
+  const scenes = Array.isArray(storyboard.scenes) ? storyboard.scenes : [];
+  const sceneLines = scenes.map((scene, index) => {
+    return `Scene ${index + 1}: ${clean(scene.title || scene.label, `Scene ${index + 1}`)}. Visual: ${clean(scene.visualDescription || scene.onScreenText, "")}. Camera: ${clean(scene.cameraShot || scene.cameraDirection, "")}. VO meaning: ${clean(scene.voiceOver || "", "")}`;
+  }).join("\n");
+  return `Create one continuous cinematic video advertisement, not a slideshow.
+Campaign title: ${clean(storyboard.title, "Storyboard")}
+Campaign concept: ${clean(storyboard.concept, "")}
+Use only this story and these scenes. Do not add unrelated characters, products, brands, objects, locations, jokes, or side plots.
+Make the action flow naturally with real motion, camera movement, product interaction, and continuity between shots.
+No captions, no subtitles, no readable UI text, no logos unless explicitly requested in the storyboard.
+${sceneLines}`;
+}
+
+function veoModelName() {
+  return cleanModelName(process.env.GEMINI_VIDEO_MODEL, "veo-3.1-fast-generate-preview");
+}
+
+function videoOutputFilename(storyboard, prompt) {
+  const hash = createHash("sha256").update(`${storyboard.title || "storyboard"}-${prompt}`).digest("hex").slice(0, 12);
+  return `story-video-${hash}.mp4`;
+}
+
+function videoUriFromOperation(operation = {}) {
+  return operation.response?.generateVideoResponse?.generatedSamples?.[0]?.video?.uri
+    || operation.response?.generatedVideos?.[0]?.video?.uri
+    || operation.response?.generated_videos?.[0]?.video?.uri
+    || operation.response?.generatedVideos?.[0]?.video?.downloadUri
+    || "";
+}
+
+async function generateVeoStoryVideo(storyboard = {}) {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) throw Object.assign(new Error("Real video generation needs GEMINI_API_KEY configured."), { status: 501 });
+
+  const prompt = storyboardVideoPrompt(storyboard);
+  const model = veoModelName();
+  const baseUrl = "https://generativelanguage.googleapis.com/v1beta";
+  const operationResponse = await fetch(`${baseUrl}/models/${encodeURIComponent(model)}:predictLongRunning`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": key
+    },
+    body: JSON.stringify({
+      instances: [{ prompt }],
+      parameters: {
+        aspectRatio: clean(storyboard.aspectRatio, "16:9")
+      }
+    })
+  });
+  const operationData = await operationResponse.json();
+  if (!operationResponse.ok) throw new Error(operationData.error?.message || "Veo video generation failed");
+  if (!operationData.name) throw new Error("Veo did not return an operation name");
+
+  const maxWaitMs = clamp(Number(process.env.GEMINI_VIDEO_MAX_WAIT_MS || 300000), 30000, 600000);
+  const startedAt = Date.now();
+  let operation = operationData;
+  while (!operation.done && Date.now() - startedAt < maxWaitMs) {
+    await new Promise((resolve) => setTimeout(resolve, 10000));
+    const pollResponse = await fetch(`${baseUrl}/${operationData.name}`, {
+      headers: { "x-goog-api-key": key }
+    });
+    operation = await pollResponse.json();
+    if (!pollResponse.ok) throw new Error(operation.error?.message || "Veo operation polling failed");
+  }
+  if (!operation.done) throw Object.assign(new Error("Video generation is still processing. Try again in a few minutes."), { status: 504 });
+  if (operation.error) throw new Error(operation.error.message || "Veo video generation failed");
+
+  const videoUri = videoUriFromOperation(operation);
+  if (!videoUri) throw new Error("Veo finished but did not return a downloadable video");
+
+  const videoResponse = await fetch(videoUri, {
+    headers: { "x-goog-api-key": key }
+  });
+  if (!videoResponse.ok) throw new Error(`Video download failed with ${videoResponse.status}`);
+  const filename = videoOutputFilename(storyboard, prompt);
+  writeUpload(filename, Buffer.from(await videoResponse.arrayBuffer()));
+  return {
+    provider: model,
+    videoUrl: `/uploads/${filename}`,
+    videoPrompt: prompt
+  };
+}
+
+async function downloadVideoToUpload(videoUrl, prompt, provider) {
+  const controller = new AbortController();
+  const timeoutMs = clamp(Number(process.env.STORYBOARD_VIDEO_DOWNLOAD_TIMEOUT_MS || 180000), 30000, 600000);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(videoUrl, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Video download returned ${response.status}`);
+    const contentType = response.headers.get("content-type") || "video/mp4";
+    if (!contentType.startsWith("video/") && !contentType.includes("octet-stream")) throw new Error(`Video download returned ${contentType}`);
+    const filename = `story-video-${createHash("sha256").update(`${provider}-${prompt}`).digest("hex").slice(0, 12)}.mp4`;
+    writeUpload(filename, Buffer.from(await response.arrayBuffer()));
+    return `/uploads/${filename}`;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function generateCustomStoryVideo(storyboard = {}) {
+  const urls = csvEnv("STORYBOARD_VIDEO_API_URLS", process.env.STORYBOARD_VIDEO_API_URL || "");
+  const keys = csvEnv("STORYBOARD_VIDEO_API_KEYS", process.env.STORYBOARD_VIDEO_API_KEY || "");
+  if (!urls.length) throw new Error("No custom video API URL configured");
+  const prompt = storyboardVideoPrompt(storyboard);
+  const errors = [];
+
+  for (let providerIndex = 0; providerIndex < urls.length; providerIndex += 1) {
+    const url = urls[providerIndex];
+    const provider = `custom-video-${providerIndex + 1}`;
+    try {
+      const headers = { "Content-Type": "application/json" };
+      const key = indexedValue(keys, providerIndex);
+      if (key) headers.Authorization = `Bearer ${key}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ prompt, storyboard, aspectRatio: clean(storyboard.aspectRatio, "16:9") })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || data.error?.message || data.error || `Custom video API returned ${response.status}`);
+      const remoteVideoUrl = data.videoUrl || data.url || data.output?.[0] || data.video?.url || "";
+      const videoBase64 = data.videoBase64 || data.video?.base64 || "";
+      if (videoBase64) {
+        const filename = `story-video-${createHash("sha256").update(`${provider}-${prompt}`).digest("hex").slice(0, 12)}.mp4`;
+        writeUpload(filename, Buffer.from(videoBase64, "base64"));
+        return { provider, videoUrl: `/uploads/${filename}`, videoPrompt: prompt };
+      }
+      if (!remoteVideoUrl) throw new Error("Custom video API did not return videoUrl or videoBase64");
+      if (truthy(process.env.STORYBOARD_VIDEO_DOWNLOAD_REMOTE || "true")) {
+        try {
+          const localVideoUrl = await downloadVideoToUpload(remoteVideoUrl, prompt, provider);
+          return { provider, videoUrl: localVideoUrl, videoPrompt: prompt };
+        } catch (downloadError) {
+          console.warn("Custom video download failed; using remote URL:", downloadError.message);
+        }
+      }
+      return { provider, videoUrl: remoteVideoUrl, videoPrompt: prompt };
+    } catch (error) {
+      errors.push(`${provider}: ${error.message}`);
+    }
+  }
+
+  throw new Error(errors.join(" | ") || "Custom video APIs failed");
+}
+
+async function generateStoryVideoWithFallback(storyboard = {}) {
+  const providers = csvEnv("STORYBOARD_VIDEO_PROVIDERS", "veo,custom");
+  const errors = [];
+  for (const provider of providers) {
+    try {
+      if (provider === "veo") return await generateVeoStoryVideo(storyboard);
+      if (provider === "custom") return await generateCustomStoryVideo(storyboard);
+      errors.push(`${provider}: unknown video provider`);
+    } catch (error) {
+      console.warn(`Storyboard video provider ${provider} failed:`, error.message);
+      errors.push(`${provider}: ${error.message}`);
+    }
+  }
+  const message = errors.length ? errors.join(" | ") : "No video provider generated a video";
+  const combined = new Error(userVideoErrorMessage(message));
+  combined.details = message;
+  throw combined;
+}
+
+function userVideoErrorMessage(message = "") {
+  const text = String(message || "");
+  if (/quota|resource_exhausted|rate.?limit|billing/i.test(text)) {
+    return "Video generation quota is currently exhausted. Try again after quota resets or configure another video provider.";
+  }
+  if (/No custom video API URL configured/i.test(text)) {
+    return "No backup video provider is configured. Add a custom video API or wait for Veo quota to reset.";
+  }
+  if (/still processing|timeout|timed out/i.test(text)) {
+    return "Video generation is still processing. Try again in a few minutes.";
+  }
+  if (/api key|permission|unauthorized|forbidden/i.test(text)) {
+    return "Video provider credentials need attention. Check the video API key and provider access.";
+  }
+  return "Video generation failed. Check provider settings or try again later.";
+}
+
 async function storyboardFromBrief(body) {
   const title = clean(body.title, "");
   if (!title) throw Object.assign(new Error("Campaign / video idea is required for storyboard generation."), { status: 400 });
@@ -1187,12 +1669,14 @@ DO NOT drift into generic ads or unrelated concepts. Every single scene, voiceov
 If the topic is a personal goal (like "I want to become App developer"), build the narrative around the journey, struggles, or motivation of that specific goal.
 
 Topic: ${title}
+Campaign Brief / Story Text: ${clean(body.brief, "Use only the campaign topic and do not invent unrelated context.")}
 Total Duration: ${duration} seconds
 Number of Scenes: ${requestedScenes}
 Video Type: ${clean(body.goal, "Video")}
 Character: ${clean(body.character, "Use the best subject for the campaign")}
 Product: ${clean(body.product, "Use the product or topic implied by the campaign")}
 Visual Style: ${clean(body.visualStyle, "Choose a fitting cinematic style")}
+Call To Action: ${clean(body.cta, "Use a fitting CTA only if the campaign needs one")}
 
 Create a high-quality, scene-by-scene storyboard. Generate exactly ${requestedScenes} scenes that total exactly ${duration} seconds.
 Include camera directions, visual descriptions, voiceovers, on-screen text, transitions, and image-generation search prompts.`;
@@ -1248,14 +1732,6 @@ function normalizeStoryboardResult(result, title, totalDuration, requestedScenes
     duration: totalDuration,
     scenes
   };
-}
-
-function storyboardSceneImageUrl(title, scene, index) {
-  const cleanDesc = (scene.visualDescription || title).replace(/[^a-zA-Z0-9., ]/g, "").substring(0, 300);
-  const prompt = `Scene ${index + 1}: ${cleanDesc}. Cinematic, no text, no logos`;
-  const safePrompt = encodeURIComponent(prompt);
-  const seed = Math.floor(Math.random() * 1000000);
-  return `https://image.pollinations.ai/prompt/${safePrompt}?width=640&height=360&seed=${seed}&nologo=true`;
 }
 
 function srtTime(seconds) {
@@ -2538,37 +3014,7 @@ ${JSON.stringify(body.segments, null, 2)}`;
       return send(res, error.status || 500, { message: error.message || "Storyboard generation failed" });
     }
 
-    if (result && Array.isArray(result.scenes)) {
-      const accessKey = process.env.UNSPLASH_ACCESS_KEY;
-      if (accessKey && accessKey !== "your_unsplash_access_key") {
-        await Promise.all(result.scenes.map(async (scene) => {
-          if (scene.stockSearchQuery) {
-            try {
-              const res = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(scene.stockSearchQuery)}&orientation=landscape&per_page=1`, {
-                headers: { "Authorization": `Client-ID ${accessKey}` }
-              });
-              if (res.ok) {
-                const data = await res.json();
-                if (data.results && data.results.length > 0) {
-                  scene.imageUrl = data.results[0].urls.regular;
-                  scene.thumbUrl = data.results[0].urls.small;
-                }
-              }
-            } catch (e) {
-              console.warn("Unsplash error for scene:", e.message);
-            }
-          }
-        }));
-      }
-    }
-
-    if (Array.isArray(result.scenes)) {
-      result.scenes = result.scenes.map((scene, index) => ({
-        ...scene,
-        imageUrl: scene.imageUrl || storyboardSceneImageUrl(result.title || body.title, scene, index),
-        thumbUrl: scene.thumbUrl || scene.imageUrl || storyboardSceneImageUrl(result.title || body.title, scene, index)
-      }));
-    }
+    result = await attachStoryboardSceneImages(result, result.title || body.title);
 
     return send(res, 200, createGenerationProject("storyboard", result.title || clean(body.title, "Storyboard"), result, job("storyboard-generation", "", "DONE", 100, store.creator.providers.text.name, "scene-json", "storyboard")).result);
   }
@@ -2585,7 +3031,29 @@ ${JSON.stringify(body.segments, null, 2)}`;
     if (Array.isArray(current.scenes)) {
       regenerated.scenes = regenerated.scenes.map((scene, index) => current.scenes[index]?.locked ? current.scenes[index] : scene);
     }
+    regenerated = await attachStoryboardSceneImages(regenerated, regenerated.title || current.title || body.title);
     return send(res, 200, regenerated);
+  }
+
+  if (req.method === "POST" && pathname === "/api/storyboards/generate-video") {
+    const body = await parseBody(req);
+    const storyboard = body.storyboard || {};
+    const scenes = Array.isArray(storyboard.scenes) ? storyboard.scenes : [];
+    if (!scenes.length) return send(res, 400, { message: "Storyboard scenes are required before video generation." });
+    try {
+      const video = await generateStoryVideoWithFallback(storyboard);
+      return send(res, 200, {
+        message: "Real story video generated.",
+        title: clean(storyboard.title, "Generated AI Ad Film"),
+        ...video
+      });
+    } catch (error) {
+      return send(res, error.status || 500, {
+        message: userVideoErrorMessage(error.message || ""),
+        provider: veoModelName(),
+        details: error.details || error.message || ""
+      });
+    }
   }
 
   if (req.method === "POST" && pathname === "/api/exports") {
