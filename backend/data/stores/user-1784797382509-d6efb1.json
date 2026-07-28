@@ -58,6 +58,105 @@
   },
   "projects": [
     {
+      "id": "p-1785233323283-1ce6a4",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "script",
+      "title": "From Creator to Trader: AI's Edge",
+      "status": "READY",
+      "tags": [
+        "script"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "From Creator to Trader: AI's Edge",
+        "platform": "Instagram Reels",
+        "language": "English",
+        "tone": "Bold",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "45 seconds",
+        "warning": "Trading involves risk. Always do your own research and consider consulting with a financial professional.",
+        "hook": "Dreaming of turning market moves into financial freedom?",
+        "problem": "But who has the time to master complex trading strategies when you're already building an empire?",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "Hook - The Trading Dream",
+            "seconds": 5,
+            "voiceOver": "Dreaming of turning market moves into financial freedom?",
+            "onScreenText": "FROM CREATOR TO TRADER?",
+            "productionNote": "Energetic visual of a content creator confidently looking at stock charts on a tablet, maybe a skyline in the background."
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "Problem - Creator's Dilemma",
+            "seconds": 8,
+            "voiceOver": "But who has the time to master complex trading strategies when you're already building an empire? The market is complex, and your schedule is packed.",
+            "onScreenText": "TIME CRUNCHED? MARKET OVERWHELM?",
+            "productionNote": "Quick cuts: creator looking stressed at a content calendar, then a confusing graph with many lines. Emphasize the struggle."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "Solution Intro - AI's Power",
+            "seconds": 7,
+            "voiceOver": "What if AI could be your secret weapon, transforming how content creators approach the market? Leverage intelligence, not just intuition.",
+            "onScreenText": "AI: YOUR TRADING EDGE",
+            "productionNote": "Transition to a sleek, futuristic animation. AI-powered insights overlaying simplified market data."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "AI Productivity for Trading",
+            "seconds": 8,
+            "voiceOver": "Harness AI productivity to cut through market noise. Get real-time insights, trend predictions, and smart alerts without spending hours on research.",
+            "onScreenText": "SMARTER INSIGHTS, FASTER DECISIONS",
+            "productionNote": "Visuals of AI analyzing data rapidly, simplified charts appearing, notifications popping up with clear buy/sell indicators. Show data visualization."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "Seamless Creator Workflow",
+            "seconds": 9,
+            "voiceOver": "Integrate trading seamlessly into your creator workflow. Automate analysis, identify opportunities, and execute trades with confidence. Free up your time to focus on what you do best: creating.",
+            "onScreenText": "TRADE SMARTER, CREATE MORE",
+            "productionNote": "Creator seen quickly checking a trading app on their phone while also managing a camera setup or editing. They look confident and in control. Split screen or quick cuts."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 8,
+            "voiceOver": "Stop just creating content, start creating wealth. It's time to elevate your financial game with the power of AI.",
+            "onScreenText": "READY TO TRADE LIKE A PRO? START CREATING SMARTER TODAY!",
+            "productionNote": "Bold, dynamic graphic with the CTA. Creator smiling, looking empowered, perhaps with a subtle overlay of financial growth charts."
+          }
+        ],
+        "caption": "Content creators, it's time to level up! 🚀 Dreaming of financial freedom through trading but short on time? AI is your game-changer. Learn how to integrate smart trading into your workflow and unlock new income streams without sacrificing your creative flow. Tap the link in bio to discover the future of creator wealth! #AITrading #CreatorEconomy",
+        "description": "Unlock the secrets to becoming a smarter trader as a content creator! This Reel reveals how AI can revolutionize your approach to the markets, providing real-time insights and automating complex analysis. Stop feeling overwhelmed and start making informed decisions that complement your busy creative schedule. Discover how to leverage AI productivity to identify opportunities, manage risks, and build wealth, all while continuing to create amazing content. Your journey from creator to empowered trader starts now!",
+        "hashtags": [
+          "#AITrading",
+          "#ContentCreator",
+          "#CreatorEconomy",
+          "#FinancialFreedom",
+          "#SmartTrading",
+          "#AIPartnership",
+          "#CreatorWorkflow",
+          "#PassiveIncome",
+          "#InvestSmart",
+          "#DigitalNomad"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "success"
+      },
+      "createdAt": "2026-07-28T10:08:43.283Z",
+      "updatedAt": "2026-07-28T10:08:43.296Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
       "id": "p-1784875184080-5d1d12",
       "creatorId": "user-1784797382509-d6efb1",
       "module": "storyboard",
@@ -3065,6 +3164,98 @@
   ],
   "versions": [
     {
+      "id": "ver-1785233323284-e0ae11",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785233323283-1ce6a4",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "From Creator to Trader: AI's Edge",
+        "platform": "Instagram Reels",
+        "language": "English",
+        "tone": "Bold",
+        "audience": "Content creators",
+        "requestedDurationSeconds": 45,
+        "estimatedDuration": "45 seconds",
+        "warning": "Trading involves risk. Always do your own research and consider consulting with a financial professional.",
+        "hook": "Dreaming of turning market moves into financial freedom?",
+        "problem": "But who has the time to master complex trading strategies when you're already building an empire?",
+        "scenes": [
+          {
+            "number": 1,
+            "locked": false,
+            "label": "Hook - The Trading Dream",
+            "seconds": 5,
+            "voiceOver": "Dreaming of turning market moves into financial freedom?",
+            "onScreenText": "FROM CREATOR TO TRADER?",
+            "productionNote": "Energetic visual of a content creator confidently looking at stock charts on a tablet, maybe a skyline in the background."
+          },
+          {
+            "number": 2,
+            "locked": false,
+            "label": "Problem - Creator's Dilemma",
+            "seconds": 8,
+            "voiceOver": "But who has the time to master complex trading strategies when you're already building an empire? The market is complex, and your schedule is packed.",
+            "onScreenText": "TIME CRUNCHED? MARKET OVERWHELM?",
+            "productionNote": "Quick cuts: creator looking stressed at a content calendar, then a confusing graph with many lines. Emphasize the struggle."
+          },
+          {
+            "number": 3,
+            "locked": false,
+            "label": "Solution Intro - AI's Power",
+            "seconds": 7,
+            "voiceOver": "What if AI could be your secret weapon, transforming how content creators approach the market? Leverage intelligence, not just intuition.",
+            "onScreenText": "AI: YOUR TRADING EDGE",
+            "productionNote": "Transition to a sleek, futuristic animation. AI-powered insights overlaying simplified market data."
+          },
+          {
+            "number": 4,
+            "locked": false,
+            "label": "AI Productivity for Trading",
+            "seconds": 8,
+            "voiceOver": "Harness AI productivity to cut through market noise. Get real-time insights, trend predictions, and smart alerts without spending hours on research.",
+            "onScreenText": "SMARTER INSIGHTS, FASTER DECISIONS",
+            "productionNote": "Visuals of AI analyzing data rapidly, simplified charts appearing, notifications popping up with clear buy/sell indicators. Show data visualization."
+          },
+          {
+            "number": 5,
+            "locked": false,
+            "label": "Seamless Creator Workflow",
+            "seconds": 9,
+            "voiceOver": "Integrate trading seamlessly into your creator workflow. Automate analysis, identify opportunities, and execute trades with confidence. Free up your time to focus on what you do best: creating.",
+            "onScreenText": "TRADE SMARTER, CREATE MORE",
+            "productionNote": "Creator seen quickly checking a trading app on their phone while also managing a camera setup or editing. They look confident and in control. Split screen or quick cuts."
+          },
+          {
+            "number": 6,
+            "locked": false,
+            "label": "Call to Action",
+            "seconds": 8,
+            "voiceOver": "Stop just creating content, start creating wealth. It's time to elevate your financial game with the power of AI.",
+            "onScreenText": "READY TO TRADE LIKE A PRO? START CREATING SMARTER TODAY!",
+            "productionNote": "Bold, dynamic graphic with the CTA. Creator smiling, looking empowered, perhaps with a subtle overlay of financial growth charts."
+          }
+        ],
+        "caption": "Content creators, it's time to level up! 🚀 Dreaming of financial freedom through trading but short on time? AI is your game-changer. Learn how to integrate smart trading into your workflow and unlock new income streams without sacrificing your creative flow. Tap the link in bio to discover the future of creator wealth! #AITrading #CreatorEconomy",
+        "description": "Unlock the secrets to becoming a smarter trader as a content creator! This Reel reveals how AI can revolutionize your approach to the markets, providing real-time insights and automating complex analysis. Stop feeling overwhelmed and start making informed decisions that complement your busy creative schedule. Discover how to leverage AI productivity to identify opportunities, manage risks, and build wealth, all while continuing to create amazing content. Your journey from creator to empowered trader starts now!",
+        "hashtags": [
+          "#AITrading",
+          "#ContentCreator",
+          "#CreatorEconomy",
+          "#FinancialFreedom",
+          "#SmartTrading",
+          "#AIPartnership",
+          "#CreatorWorkflow",
+          "#PassiveIncome",
+          "#InvestSmart",
+          "#DigitalNomad"
+        ],
+        "cta": "Start creating smarter today",
+        "schemaStatus": "success"
+      },
+      "createdAt": "2026-07-28T10:08:43.284Z"
+    },
+    {
       "id": "ver-1784875184080-2c02f5",
       "creatorId": "user-1784797382509-d6efb1",
       "projectId": "p-1784875184080-5d1d12",
@@ -5857,6 +6048,22 @@
   "media": [],
   "jobs": [
     {
+      "id": "job-1785233323283-1c5f06",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script-generation",
+      "projectId": "p-1785233323283-1ce6a4",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Gemini Flash",
+      "model": "structured-json",
+      "resultReference": "p-1785233323283-1ce6a4",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-28T10:08:43.283Z",
+      "updatedAt": "2026-07-28T10:08:43.283Z"
+    },
+    {
       "id": "job-1784875184080-9d20cd",
       "creatorId": "user-1784797382509-d6efb1",
       "type": "storyboard-generation",
@@ -6180,6 +6387,20 @@
   "exports": [],
   "notifications": [],
   "activity": [
+    {
+      "id": "act-1785233323296-6aceda",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "script.generated",
+      "message": "AI Script Writer output generated for From Creator to Trader: AI's Edge.",
+      "createdAt": "2026-07-28T10:08:43.296Z"
+    },
+    {
+      "id": "act-1785233323284-ec3480",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created From Creator to Trader: AI's Edge.",
+      "createdAt": "2026-07-28T10:08:43.284Z"
+    },
     {
       "id": "act-1784875184091-29527f",
       "creatorId": "user-1784797382509-d6efb1",

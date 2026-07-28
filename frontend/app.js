@@ -751,6 +751,15 @@ function select(name, label, options, withYouTube = false, selectedValue = "") {
   return `<label>${html(label)}<span class="${withYouTube ? "input-with-icon" : ""}">${withYouTube ? '<span class="platform-youtube"></span>' : ""}<select name="${html(name)}">${options.map((option) => `<option${String(option) === String(selectedValue) ? " selected" : ""}>${html(option)}</option>`).join("")}</select></span></label>`;
 }
 
+function buttonGroup(name, label, options, selectedValue = "") {
+  const defaultVal = selectedValue || options[0];
+  return `<label class="button-select-label">${html(label)}
+    <div class="button-group">
+      ${options.map(opt => `<label class="button-pill"><input type="radio" name="${html(name)}" value="${html(opt)}" ${String(opt) === String(defaultVal) ? "checked" : ""}> <span>${html(opt)}</span></label>`).join("")}
+    </div>
+  </label>`;
+}
+
 function textarea(name, label, value) {
   return `<label>${html(label)}<textarea name="${html(name)}">${html(value)}</textarea></label>`;
 }
@@ -1489,10 +1498,10 @@ function renderScriptScreen() {
     <section class="workspace">
       <form id="toolForm">
         ${input("topic", "Topic", "")}
-        ${select("platform", "Platform", ["YouTube", "Instagram Reels", "YouTube Shorts", "Product Ads"])}
-        ${select("duration", "Duration", ["30", "45", "60", "90"], false, "45")}
-        ${select("tone", "Tone", ["Informative", "Bold", "Friendly", "Cinematic"])}
-        ${select("language", "Language", ["English", "Hindi", "Spanish"])}
+        ${buttonGroup("platform", "Platform", ["YouTube", "Instagram Reels", "YouTube Shorts", "Product Ads"])}
+        ${buttonGroup("duration", "Duration", ["30", "45", "60", "90"], "45")}
+        ${buttonGroup("tone", "Tone", ["Informative", "Bold", "Friendly", "Cinematic"])}
+        ${buttonGroup("language", "Language", ["English", "Hindi", "Spanish"])}
         <input name="audience" type="hidden" value="Content creators">
         <input name="keywords" type="hidden" value="AI productivity, creator workflow">
         <input name="cta" type="hidden" value="Start creating smarter today">
