@@ -13,7 +13,19 @@ const api = (path, options = {}) => {
       showLogin("login");
     }
     if (!response.ok) {
-      const error = new Error(payload?.data?.message || payload?.message || "Request failed");
+      let rawMsg = payload?.data?.message || payload?.message || "Request failed";
+      let displayMsg = rawMsg;
+      const lower = rawMsg.toLowerCase();
+      
+      // Mask backend/model/technical errors with user-friendly messages
+      if (lower.includes("api") || lower.includes("model") || lower.includes("gemini") || lower.includes("openai") || lower.includes("groq") || lower.includes("key") || lower.includes("token") || lower.includes("rate limit") || lower.includes("failed to generate")) {
+        displayMsg = "Our AI services are currently busy or unavailable. Please try again shortly.";
+      } else if (lower.includes("fetch") || lower.includes("network") || lower.includes("timeout")) {
+        displayMsg = "Network error. Please check your connection and try again.";
+      }
+
+      const error = new Error(displayMsg);
+      error.rawMessage = rawMsg; // Keep it just in case, but displayMsg is what gets shown
       error.status = response.status;
       error.code = payload?.data?.error || payload?.error || "";
       throw error;
@@ -57,10 +69,12 @@ const nav = document.querySelector("#nav");
 const title = document.querySelector("#pageTitle");
 const toast = document.querySelector("#toast");
 
-function notify(message) {
+function notify(message, type = "success") {
   toast.textContent = message;
-  toast.classList.add("show");
-  window.setTimeout(() => toast.classList.remove("show"), 2800);
+  toast.className = `toast show ${type}`; // Support different styling via classes
+  window.setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3500); // Slightly longer duration
 }
 
 function setLoginError(message = "") {
@@ -144,7 +158,7 @@ function showLogin(mode = "login") {
 }
 
 window.addEventListener("unhandledrejection", (event) => {
-  notify(event.reason?.message || "Something went wrong.");
+  notify(event.reason?.message || "Something went wrong.", "error");
 });
 
 document.addEventListener("error", (event) => {
@@ -672,7 +686,7 @@ function renderToolForm(kind) {
         const output = document.querySelector("#toolOutput");
         if (output) output.innerHTML = renderThumbnailError(error.message);
       }
-      notify(error.message);
+      notify(error.message, "error");
     } finally {
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;

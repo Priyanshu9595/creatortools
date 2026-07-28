@@ -1,194 +1,238 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CreatorSuite</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="./styles.css?v=3">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  </head>
-  <body>
-    <div id="landingContainer" class="landing-page">
-      <header class="landing-header">
-        <a class="brand landing-brand" href="#" aria-label="CreatorSuite home">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CreatorSuite</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css?v=13">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+  <div id="landingContainer" class="landing-page">
+    <header class="landing-header">
+      <a class="brand landing-brand" href="#" aria-label="CreatorSuite home">
+        <span class="brand-mark"></span>
+        <strong>CreatorSuite</strong>
+      </a>
+      <nav class="landing-nav" aria-label="Landing">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="landing-actions">
+        <button class="ghost ghost-dark" id="showLoginBtn" type="button">Sign In</button>
+        <button id="heroCtaBtn" type="button">Open Workspace</button>
+        <button id="navToDashboardBtn" type="button" hidden>Open Workspace</button>
+      </div>
+    </header>
+
+    <section class="landing-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Private AI creator workspace</p>
+        <h1>All-in-One Video and <span>Media Production</span> Workspace</h1>
+        <p>Write scripts, generate subtitles, manage podcasts, create thumbnails and plan video advertisements from one
+          private creator workspace.</p>
+        <div class="trust-points">
+          <span>Free API powered</span>
+          <span>Private creator workspace</span>
+          <span>Podcast RSS publishing</span>
+          <span>Multiple export formats</span>
+        </div>
+        <div class="hero-buttons">
+          <button type="button" id="landingCtaDuplicate">Open Creator Workspace</button>
+          <button class="ghost ghost-dark" id="exploreBtn" type="button">Explore Tools</button>
+        </div>
+        <p class="built-for">Built for one focused creator workspace.</p>
+      </div>
+      <div class="hero-stage" aria-hidden="true">
+        <div class="hero-laptop">
+          <img src="./dashboard-mockup.png" alt="">
+        </div>
+        <span class="float-tile tile-ai">AI</span>
+        <span class="float-tile tile-cc">CC</span>
+        <span class="float-tile tile-mic"></span>
+        <span class="float-tile tile-board"></span>
+      </div>
+    </section>
+
+    <section id="tools" class="landing-section tools-section">
+      <div class="section-heading">
+        <p class="eyebrow">Tools</p>
+        <h2>Production modules for daily creator work</h2>
+      </div>
+      <div class="landing-tool-grid">
+        <article><span>AI</span>
+          <h3>AI Script Writer</h3>
+          <p>Generate structured scripts with hooks, scenes, voice-over, CTA and captions.</p><strong>PDF, DOCX,
+            TXT</strong><button data-landing-tool="script" type="button">Open Tool</button>
+        </article>
+        <article><span>CC</span>
+          <h3>Subtitles and Captions</h3>
+          <p>Upload audio or video, transcribe, edit subtitle rows and export captions.</p><strong>SRT, VTT,
+            TXT</strong><button data-landing-tool="subtitles" type="button">Open Tool</button>
+        </article>
+        <article><span>RSS</span>
+          <h3>Podcast Manager and RSS Publisher</h3>
+          <p>Create podcast profiles, upload episodes and maintain Spotify-compatible RSS.</p><strong>RSS XML, public
+            pages</strong><button data-landing-tool="podcast" type="button">Open Tool</button>
+        </article>
+        <article><span>IMG</span>
+          <h3>Thumbnail Generator</h3>
+          <p>Generate background concepts and keep important thumbnail text editable.</p><strong>SVG download, saved
+            projects</strong><button data-landing-tool="thumbnail" type="button">Open Tool</button>
+        </article>
+        <article><span>AD</span>
+          <h3>Storyboard Builder</h3>
+          <p>Plan ad scenes with timing, visual direction, voice-over and reference images.</p><strong>Shot list,
+            storyboard text</strong><button data-landing-tool="storyboard" type="button">Open Tool</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="landing-section split-section">
+      <div class="section-heading">
+        <p class="eyebrow">How it works</p>
+        <h2>Choose, process, review and export</h2>
+      </div>
+      <div class="step-grid">
+        <article><span>01</span>
+          <h3>Choose a Tool</h3>
+          <p>Pick the module that matches the current production task.</p>
+        </article>
+        <article><span>02</span>
+          <h3>Add Content</h3>
+          <p>Enter a brief, upload media or select an existing project context.</p>
+        </article>
+        <article><span>03</span>
+          <h3>Generate or Process</h3>
+          <p>Use connected AI, transcription, storage and export services.</p>
+        </article>
+        <article><span>04</span>
+          <h3>Review and Export</h3>
+          <p>Edit results, save drafts and export production-ready files.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="features" class="landing-section capability-section">
+      <div class="section-heading">
+        <p class="eyebrow">Real capabilities</p>
+        <h2>What CreatorSuite actually does</h2>
+      </div>
+      <div class="capability-grid">
+        <span>AI-assisted writing</span>
+        <span>Speech-to-text transcription</span>
+        <span>Podcast RSS publishing</span>
+        <span>Media file storage</span>
+        <span>Visual content planning</span>
+        <span>Export-ready projects</span>
+      </div>
+    </section>
+
+    <footer id="about" class="landing-footer">
+      <a class="brand landing-brand" href="#" aria-label="CreatorSuite home">
+        <span class="brand-mark"></span>
+        <strong>CreatorSuite</strong>
+      </a>
+      <p>CreatorSuite is a private AI-powered media production workspace for scripts, subtitles, podcasts, thumbnails
+        and storyboards.</p>
+      <nav aria-label="Footer">
+        <a href="#tools">Tools</a>
+        <a href="#features">Privacy</a>
+        <a href="mailto:creator@example.com">Contact</a>
+      </nav>
+      <small>Copyright <span id="copyrightYear">2026</span> CreatorSuite.</small>
+    </footer>
+  </div>
+
+  <div id="loginContainer" class="login-container" style="display: none;">
+    <div class="login-card">
+      <a class="brand" href="#" aria-label="CreatorSuite">
+        <span class="brand-mark"></span>
+        <strong>CreatorSuite</strong>
+      </a>
+      <h2 id="loginTitle">Welcome Back</h2>
+      <p id="loginSubtitle" class="muted">Sign in to your creator workspace</p>
+      <form id="loginForm">
+        <input type="hidden" id="authModeInput" value="login">
+        <label id="nameField" hidden>
+          <span>Name <span class="required" style="color: #ef4444;">*</span></span>
+          <input type="text" id="nameInput" placeholder="Creator name">
+        </label>
+        <label>
+          <span>Email <span class="required" style="color: #ef4444;">*</span></span>
+          <input type="email" id="emailInput" required placeholder="you@example.com" autocomplete="email">
+        </label>
+        <label>
+          <span>Password <span class="required" style="color: #ef4444;">*</span></span>
+          <span class="password-field">
+            <input type="password" id="passwordInput" required minlength="6" placeholder="Enter password"
+              autocomplete="current-password">
+            <button class="ghost reveal-password" id="passwordToggleBtn" type="button"
+              aria-label="Show password">Show</button>
+          </span>
+        </label>
+        <label class="remember-row" id="rememberRow">
+          <input type="checkbox" id="rememberInput" checked>
+          <span>Remember me</span>
+        </label>
+        <p id="loginError" class="form-error" role="alert" hidden></p>
+        <button id="authSubmitBtn" type="submit" class="login-btn">Sign In</button>
+      </form>
+      <p class="auth-switch" id="authSwitch" hidden><span id="authToggleText"></span> <button class="link-button"
+          id="authToggleBtn" type="button"></button></p>
+      <button class="link-button back-home" id="backHomeBtn" type="button">Back to Home</button>
+    </div>
+  </div>
+
+  <div id="appContainer" class="app-container" style="display: none;">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <a class="brand sidebar-brand" href="#dashboard" aria-label="CreatorSuite dashboard">
           <span class="brand-mark"></span>
           <strong>CreatorSuite</strong>
         </a>
-        <nav class="landing-nav" aria-label="Landing">
-          <a href="#features">Features</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="#tools">Tools</a>
-          <a href="#about">About</a>
-        </nav>
-        <div class="landing-actions">
-          <button class="ghost ghost-dark" id="showLoginBtn" type="button">Sign In</button>
-          <button id="heroCtaBtn" type="button">Open Workspace</button>
-          <button id="navToDashboardBtn" type="button" hidden>Open Workspace</button>
+        <button class="ghost sidebar-collapse" id="sidebarCollapseBtn" type="button"
+          aria-label="Collapse sidebar">&lt;</button>
+      </div>
+      <nav id="nav" class="nav" aria-label="Primary"></nav>
+      <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 8px;">
+        <button id="logoutBtn" type="button" class="ghost"
+          style="width: 100%; border: 1px solid var(--border, #e2e8f0);">Log Out</button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div class="topbar-copy">
+          <strong id="topbarTitle">Dashboard</strong>
+          <span id="topbarSubtitle">Welcome back to your private workspace.</span>
+        </div>
+        <div class="top-actions">
+          <div class="avatar-menu" id="userChip">
+            <span>CW</span>
+            <strong>Creator Workspace</strong>
+          </div>
         </div>
       </header>
+      <h1 id="pageTitle" class="sr-only">Dashboard</h1>
+      <section id="toast" class="toast" aria-live="polite"></section>
+      <section id="view" class="view"></section>
+    </main>
+  </div>
 
-      <section class="landing-hero">
-        <div class="hero-copy">
-          <p class="eyebrow">Private AI creator workspace</p>
-          <h1>All-in-One Video and <span>Media Production</span> Workspace</h1>
-          <p>Write scripts, generate subtitles, manage podcasts, create thumbnails and plan video advertisements from one private creator workspace.</p>
-          <div class="trust-points">
-            <span>Free API powered</span>
-            <span>Private creator workspace</span>
-            <span>Podcast RSS publishing</span>
-            <span>Multiple export formats</span>
-          </div>
-          <div class="hero-buttons">
-            <button type="button" id="landingCtaDuplicate">Open Creator Workspace</button>
-            <button class="ghost ghost-dark" id="exploreBtn" type="button">Explore Tools</button>
-          </div>
-          <p class="built-for">Built for one focused creator workspace.</p>
-        </div>
-        <div class="hero-stage" aria-hidden="true">
-          <div class="hero-laptop">
-            <img src="./dashboard-mockup.png" alt="">
-          </div>
-          <span class="float-tile tile-ai">AI</span>
-          <span class="float-tile tile-cc">CC</span>
-          <span class="float-tile tile-mic"></span>
-          <span class="float-tile tile-board"></span>
-        </div>
-      </section>
+  <script src="./app.js?v=5"></script>
+</body>
 
-      <section id="tools" class="landing-section tools-section">
-        <div class="section-heading">
-          <p class="eyebrow">Tools</p>
-          <h2>Production modules for daily creator work</h2>
-        </div>
-        <div class="landing-tool-grid">
-          <article><span>AI</span><h3>AI Script Writer</h3><p>Generate structured scripts with hooks, scenes, voice-over, CTA and captions.</p><strong>PDF, DOCX, TXT</strong><button data-landing-tool="script" type="button">Open Tool</button></article>
-          <article><span>CC</span><h3>Subtitles and Captions</h3><p>Upload audio or video, transcribe, edit subtitle rows and export captions.</p><strong>SRT, VTT, TXT</strong><button data-landing-tool="subtitles" type="button">Open Tool</button></article>
-          <article><span>RSS</span><h3>Podcast Manager and RSS Publisher</h3><p>Create podcast profiles, upload episodes and maintain Spotify-compatible RSS.</p><strong>RSS XML, public pages</strong><button data-landing-tool="podcast" type="button">Open Tool</button></article>
-          <article><span>IMG</span><h3>Thumbnail Generator</h3><p>Generate background concepts and keep important thumbnail text editable.</p><strong>SVG download, saved projects</strong><button data-landing-tool="thumbnail" type="button">Open Tool</button></article>
-          <article><span>AD</span><h3>Storyboard Builder</h3><p>Plan ad scenes with timing, visual direction, voice-over and reference images.</p><strong>Shot list, storyboard text</strong><button data-landing-tool="storyboard" type="button">Open Tool</button></article>
-        </div>
-      </section>
-
-      <section id="how-it-works" class="landing-section split-section">
-        <div class="section-heading">
-          <p class="eyebrow">How it works</p>
-          <h2>Choose, process, review and export</h2>
-        </div>
-        <div class="step-grid">
-          <article><span>01</span><h3>Choose a Tool</h3><p>Pick the module that matches the current production task.</p></article>
-          <article><span>02</span><h3>Add Content</h3><p>Enter a brief, upload media or select an existing project context.</p></article>
-          <article><span>03</span><h3>Generate or Process</h3><p>Use connected AI, transcription, storage and export services.</p></article>
-          <article><span>04</span><h3>Review and Export</h3><p>Edit results, save drafts and export production-ready files.</p></article>
-        </div>
-      </section>
-
-      <section id="features" class="landing-section capability-section">
-        <div class="section-heading">
-          <p class="eyebrow">Real capabilities</p>
-          <h2>What CreatorSuite actually does</h2>
-        </div>
-        <div class="capability-grid">
-          <span>AI-assisted writing</span>
-          <span>Speech-to-text transcription</span>
-          <span>Podcast RSS publishing</span>
-          <span>Media file storage</span>
-          <span>Visual content planning</span>
-          <span>Export-ready projects</span>
-        </div>
-      </section>
-
-      <footer id="about" class="landing-footer">
-        <a class="brand landing-brand" href="#" aria-label="CreatorSuite home">
-          <span class="brand-mark"></span>
-          <strong>CreatorSuite</strong>
-        </a>
-        <p>CreatorSuite is a private AI-powered media production workspace for scripts, subtitles, podcasts, thumbnails and storyboards.</p>
-        <nav aria-label="Footer">
-          <a href="#tools">Tools</a>
-          <a href="#features">Privacy</a>
-          <a href="mailto:creator@example.com">Contact</a>
-        </nav>
-        <small>Copyright <span id="copyrightYear">2026</span> CreatorSuite.</small>
-      </footer>
-    </div>
-
-    <div id="loginContainer" class="login-container" style="display: none;">
-      <div class="login-card">
-        <a class="brand" href="#" aria-label="CreatorSuite">
-          <span class="brand-mark"></span>
-          <strong>CreatorSuite</strong>
-        </a>
-        <h2 id="loginTitle">Welcome Back</h2>
-        <p id="loginSubtitle" class="muted">Sign in to your creator workspace</p>
-        <form id="loginForm">
-          <input type="hidden" id="authModeInput" value="login">
-          <label id="nameField" hidden>
-            <span>Name <span class="required" style="color: #ef4444;">*</span></span>
-            <input type="text" id="nameInput" placeholder="Creator name">
-          </label>
-          <label>
-            <span>Email <span class="required" style="color: #ef4444;">*</span></span>
-            <input type="email" id="emailInput" required placeholder="you@example.com" autocomplete="email">
-          </label>
-          <label>
-            <span>Password <span class="required" style="color: #ef4444;">*</span></span>
-            <span class="password-field">
-              <input type="password" id="passwordInput" required minlength="6" placeholder="Enter password" autocomplete="current-password">
-              <button class="ghost reveal-password" id="passwordToggleBtn" type="button" aria-label="Show password">Show</button>
-            </span>
-          </label>
-          <label class="remember-row" id="rememberRow">
-            <input type="checkbox" id="rememberInput" checked>
-            <span>Remember me</span>
-          </label>
-          <p id="loginError" class="form-error" role="alert" hidden></p>
-          <button id="authSubmitBtn" type="submit" class="login-btn">Sign In</button>
-        </form>
-        <p class="auth-switch" id="authSwitch" hidden><span id="authToggleText"></span> <button class="link-button" id="authToggleBtn" type="button"></button></p>
-        <button class="link-button back-home" id="backHomeBtn" type="button">Back to Home</button>
-      </div>
-    </div>
-
-    <div id="appContainer" class="app-container" style="display: none;">
-      <aside class="sidebar">
-        <div class="sidebar-top">
-          <a class="brand sidebar-brand" href="#dashboard" aria-label="CreatorSuite dashboard">
-            <span class="brand-mark"></span>
-            <strong>CreatorSuite</strong>
-          </a>
-          <button class="ghost sidebar-collapse" id="sidebarCollapseBtn" type="button" aria-label="Collapse sidebar">&lt;</button>
-        </div>
-        <nav id="nav" class="nav" aria-label="Primary"></nav>
-        <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 8px;">
-          <button id="logoutBtn" type="button" class="ghost" style="width: 100%; border: 1px solid var(--border, #e2e8f0);">Log Out</button>
-        </div>
-      </aside>
-
-      <main>
-        <header class="topbar">
-          <div class="topbar-copy">
-            <strong id="topbarTitle">Dashboard</strong>
-            <span id="topbarSubtitle">Welcome back to your private workspace.</span>
-          </div>
-          <div class="top-actions">
-            <div class="avatar-menu" id="userChip">
-              <span>CW</span>
-              <strong>Creator Workspace</strong>
-            </div>
-          </div>
-        </header>
-        <h1 id="pageTitle" class="sr-only">Dashboard</h1>
-        <section id="toast" class="toast" aria-live="polite"></section>
-        <section id="view" class="view"></section>
-      </main>
-    </div>
-
-    <script src="./app.js?v=5"></script>
-  </body>
 </html>
