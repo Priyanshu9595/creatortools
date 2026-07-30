@@ -58,6 +58,398 @@
   },
   "projects": [
     {
+      "id": "p-1785396287409-77f1ea",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "podcast",
+      "title": "Ek hassena thi",
+      "status": "SCHEDULED",
+      "tags": [
+        "podcast"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "episodeId": "ep-1785396287408-da338d",
+        "id": "ep-1785396287408-da338d",
+        "podcastId": "pod-1",
+        "creatorId": "user-1784797382509-d6efb1",
+        "title": "Ek hassena thi",
+        "slug": "ek-hassena-thi",
+        "subtitle": "",
+        "status": "SCHEDULED",
+        "season": 1,
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeType": "Full",
+        "author": "Priyanshu",
+        "language": "en",
+        "keywords": [
+          "Ek hassena thi",
+          "storytelling",
+          "narrative",
+          "character introduction",
+          "mystery"
+        ],
+        "date": "2026-07-30T07:24:47.408Z",
+        "scheduledAt": "2026-07-30T07:26:00.000Z",
+        "publishedAt": null,
+        "duration": "00:00",
+        "durationSeconds": 0,
+        "bytes": 830637,
+        "audioFileSize": 830637,
+        "mimeType": "audio/mpeg",
+        "audioMimeType": "audio/mpeg",
+        "audioUrl": "/uploads/f49c6127e19c96779af9820380e221fc.mp3",
+        "audioStorageKey": "",
+        "audioFileName": "ytmp3free.cc_ek-haseena-thi-par-must-watch-singing-superstar-singer-3-superstarsingerseason3-shortsyoutube-youtubemp3free.org.mp3",
+        "coverImageUrl": "",
+        "guid": "tech-with-priyanshu-guid-1785396287409-f466b2",
+        "explicit": false,
+        "description": "Dive into the intriguing world of 'Ek hassena thi,' a captivating narrative hinting at the story of an enigmatic character.",
+        "showNotes": [
+          "Introducing the central theme of 'Ek hassena thi'",
+          "Setting the stage for a compelling narrative",
+          "Exploring the initial premise of the story"
+        ],
+        "showNotesJson": {},
+        "transcript": "",
+        "chapters": [
+          {
+            "timestamp": "00:00",
+            "title": "The Beginning of Her Story"
+          }
+        ],
+        "chaptersJson": [
+          {
+            "timestamp": "00:00",
+            "title": "The Beginning of Her Story"
+          }
+        ],
+        "guests": [],
+        "createdAt": "2026-07-30T07:24:47.408Z",
+        "updatedAt": "2026-07-30T07:24:47.409Z"
+      },
+      "createdAt": "2026-07-30T07:24:47.409Z",
+      "updatedAt": "2026-07-30T07:24:47.409Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785395606101-a8326f",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "thumbnail",
+      "title": "I want to crack BPSC Exam",
+      "status": "READY",
+      "tags": [
+        "thumbnail"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "headlines": [
+          "BPSC CRACKED!",
+          "EXAM STRATEGY",
+          "SUCCESS GUIDE"
+        ],
+        "backgroundQuery": "focused student studying hard exam success",
+        "textPosition": "right",
+        "subjectPosition": "left",
+        "style": "motivational academic success",
+        "overlay": "dark blue gradient",
+        "title": "I want to crack BPSC Exam",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/A%20clean%2C%20professional%20YouTube%20thumbnail%20background%20artwork%20without%20any%20text.%0AVisual%20concept%3A%20A%20blurred%20image%20of%20a%20person%20studying%20intensely%20in%20a%20quiet%2C%20dimly%20lit%20library%20with%20old%20books%20stacked%20high%20on%20shelves%20and%20a%20faint%20glow%20of%20a%20desk%20lamp%20in%20the%20background.%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20completely%20empty%20and%20dark.%0AIMPORTANT%3A%20ABSOLUTELY%20NO%20TEXT%2C%20NO%20LETTERS%2C%20NO%20WORDS%2C%20NO%20CAPTIONS%2C%20NO%20WATERMARKS%20in%20the%20image.?width=1280&height=720&seed=b52b3cfe9fb0&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "A clean, professional YouTube thumbnail background artwork without any text.\nVisual concept: A blurred image of a person studying intensely in a quiet, dimly lit library with old books stacked high on shelves and a faint glow of a desk lamp in the background.\nStyle: Bold, high contrast, cinematic, modern creator economy, premium.\n16:9 composition, leave the left side completely empty and dark.\nIMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 39.16802514s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:13:26.101Z",
+      "updatedAt": "2026-07-30T07:13:26.112Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785395195809-eb488d",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "thumbnail",
+      "title": "What is Noun?",
+      "status": "READY",
+      "tags": [
+        "thumbnail"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "headlines": [
+          "Noun: Easy!",
+          "What's Noun?",
+          "Master Noun"
+        ],
+        "backgroundQuery": "confused student lightbulb moment grammar",
+        "textPosition": "left",
+        "subjectPosition": "right",
+        "style": "bright educational",
+        "overlay": "soft blue gradient",
+        "title": "What is Noun?",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/A%20clean%2C%20professional%20YouTube%20thumbnail%20background%20artwork%20without%20any%20text.%0AVisual%20concept%3A%20What%20is%20Noun%3F%20%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20completely%20empty%20and%20dark.%0AIMPORTANT%3A%20ABSOLUTELY%20NO%20TEXT%2C%20NO%20LETTERS%2C%20NO%20WORDS%2C%20NO%20CAPTIONS%2C%20NO%20WATERMARKS%20in%20the%20image.?width=1280&height=720&seed=9c2374e41592&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "A clean, professional YouTube thumbnail background artwork without any text.\nVisual concept: What is Noun? \nStyle: Bold, high contrast, cinematic, modern creator economy, premium.\n16:9 composition, leave the left side completely empty and dark.\nIMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 28.528184497s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:06:35.809Z",
+      "updatedAt": "2026-07-30T07:06:35.818Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785395058118-4e75ce",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "thumbnail",
+      "title": "WHat is Noun?",
+      "status": "READY",
+      "tags": [
+        "thumbnail"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "headlines": [
+          "WHAT IS NOUN?",
+          "SIMPLIFIED",
+          "MASTER IT!"
+        ],
+        "backgroundQuery": "confused student eureka moment",
+        "textPosition": "left",
+        "subjectPosition": "right",
+        "style": "bright and engaging educational",
+        "overlay": "subtle blue gradient",
+        "title": "WHat is Noun?",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/A%20clean%2C%20professional%20YouTube%20thumbnail%20background%20artwork%20without%20any%20text.%0AVisual%20concept%3A%20WHat%20is%20Noun%3F%20%0AStyle%3A%20Urgent%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20completely%20empty%20and%20dark.%0AIMPORTANT%3A%20ABSOLUTELY%20NO%20TEXT%2C%20NO%20LETTERS%2C%20NO%20WORDS%2C%20NO%20CAPTIONS%2C%20NO%20WATERMARKS%20in%20the%20image.?width=1280&height=720&seed=d1f09bea85ce&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "A clean, professional YouTube thumbnail background artwork without any text.\nVisual concept: WHat is Noun? \nStyle: Urgent, high contrast, cinematic, modern creator economy, premium.\n16:9 composition, leave the left side completely empty and dark.\nIMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 50.550262575s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:04:18.118Z",
+      "updatedAt": "2026-07-30T07:04:18.126Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785394809143-8d7639",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "thumbnail",
+      "title": "What is Noun?",
+      "status": "READY",
+      "tags": [
+        "thumbnail"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "headlines": [
+          "Noun Definition",
+          "What is a Noun?",
+          "Noun Explained"
+        ],
+        "backgroundQuery": "confused child looking at a dictionary",
+        "textPosition": "center",
+        "subjectPosition": "left",
+        "style": "bright and minimal",
+        "overlay": "soft yellow gradient",
+        "title": "What is Noun?",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/Create%20a%20professional%20YouTube%20thumbnail%20background%20image%20for%20the%20video%20title%3A%20%22What%20is%20Noun%3F%22.%0ASubtitle%2Fcontext%3A%20%22%22.%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20clickable%20but%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20clean%20and%20dark%20for%20large%20readable%20overlay%20text.%0ADo%20not%20include%20any%20letters%2C%20words%2C%20captions%2C%20logos%2C%20watermark%2C%20UI%20text%2C%20or%20gibberish%20text%20inside%20the%20image.?width=1280&height=720&seed=72cf2d41ae1a&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "Create a professional YouTube thumbnail background image for the video title: \"What is Noun?\".\nSubtitle/context: \"\".\nStyle: Bold, high contrast, cinematic, modern creator economy, clickable but premium.\n16:9 composition, leave the left side clean and dark for large readable overlay text.\nDo not include any letters, words, captions, logos, watermark, UI text, or gibberish text inside the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 55.069096793s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:00:09.143Z",
+      "updatedAt": "2026-07-30T07:00:09.152Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785394693553-dc9ef3",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "subtitle",
+      "title": "What is a noun_  Learn English Grammar.mp4",
+      "status": "READY",
+      "tags": [
+        "subtitle"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/e16d270e5701c5b9a8fa51f9404230ab.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1785394693553-6622b7",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1785394693553-dc9ef3",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1785394693553-dc9ef3",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-30T06:58:13.553Z",
+          "updatedAt": "2026-07-30T06:58:13.553Z"
+        },
+        "language": "Auto Detect",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-30T06:58:13.553Z",
+      "updatedAt": "2026-07-30T06:58:13.564Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785394492279-688891",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "subtitle",
+      "title": "What is a noun_  Learn English Grammar.mp4",
+      "status": "READY",
+      "tags": [
+        "subtitle"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/4b923a142360ee6a0e2f23d4de7af2c1.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1785394492279-b86365",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1785394492279-688891",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1785394492279-688891",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-30T06:54:52.279Z",
+          "updatedAt": "2026-07-30T06:54:52.279Z"
+        },
+        "language": "English",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-30T06:54:52.279Z",
+      "updatedAt": "2026-07-30T06:54:52.289Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
+      "id": "p-1785394156620-91f535",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "subtitle",
+      "title": "What is a noun_  Learn English Grammar.mp4",
+      "status": "READY",
+      "tags": [
+        "subtitle"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/a922af6504461a7cd8c616b231b6d917.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1785394156620-66bca3",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1785394156620-91f535",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1785394156620-91f535",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-30T06:49:16.620Z",
+          "updatedAt": "2026-07-30T06:49:16.620Z"
+        },
+        "language": "Auto Detect",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-30T06:49:16.620Z",
+      "updatedAt": "2026-07-30T06:49:16.627Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
       "id": "p-1785233323283-1ce6a4",
       "creatorId": "user-1784797382509-d6efb1",
       "module": "script",
@@ -3164,6 +3556,273 @@
   ],
   "versions": [
     {
+      "id": "ver-1785395606101-e38719",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785395606101-a8326f",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "headlines": [
+          "BPSC CRACKED!",
+          "EXAM STRATEGY",
+          "SUCCESS GUIDE"
+        ],
+        "backgroundQuery": "focused student studying hard exam success",
+        "textPosition": "right",
+        "subjectPosition": "left",
+        "style": "motivational academic success",
+        "overlay": "dark blue gradient",
+        "title": "I want to crack BPSC Exam",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/A%20clean%2C%20professional%20YouTube%20thumbnail%20background%20artwork%20without%20any%20text.%0AVisual%20concept%3A%20A%20blurred%20image%20of%20a%20person%20studying%20intensely%20in%20a%20quiet%2C%20dimly%20lit%20library%20with%20old%20books%20stacked%20high%20on%20shelves%20and%20a%20faint%20glow%20of%20a%20desk%20lamp%20in%20the%20background.%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20completely%20empty%20and%20dark.%0AIMPORTANT%3A%20ABSOLUTELY%20NO%20TEXT%2C%20NO%20LETTERS%2C%20NO%20WORDS%2C%20NO%20CAPTIONS%2C%20NO%20WATERMARKS%20in%20the%20image.?width=1280&height=720&seed=b52b3cfe9fb0&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "A clean, professional YouTube thumbnail background artwork without any text.\nVisual concept: A blurred image of a person studying intensely in a quiet, dimly lit library with old books stacked high on shelves and a faint glow of a desk lamp in the background.\nStyle: Bold, high contrast, cinematic, modern creator economy, premium.\n16:9 composition, leave the left side completely empty and dark.\nIMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 39.16802514s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:13:26.101Z"
+    },
+    {
+      "id": "ver-1785395195809-5fa05a",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785395195809-eb488d",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "headlines": [
+          "Noun: Easy!",
+          "What's Noun?",
+          "Master Noun"
+        ],
+        "backgroundQuery": "confused student lightbulb moment grammar",
+        "textPosition": "left",
+        "subjectPosition": "right",
+        "style": "bright educational",
+        "overlay": "soft blue gradient",
+        "title": "What is Noun?",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/A%20clean%2C%20professional%20YouTube%20thumbnail%20background%20artwork%20without%20any%20text.%0AVisual%20concept%3A%20What%20is%20Noun%3F%20%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20completely%20empty%20and%20dark.%0AIMPORTANT%3A%20ABSOLUTELY%20NO%20TEXT%2C%20NO%20LETTERS%2C%20NO%20WORDS%2C%20NO%20CAPTIONS%2C%20NO%20WATERMARKS%20in%20the%20image.?width=1280&height=720&seed=9c2374e41592&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "A clean, professional YouTube thumbnail background artwork without any text.\nVisual concept: What is Noun? \nStyle: Bold, high contrast, cinematic, modern creator economy, premium.\n16:9 composition, leave the left side completely empty and dark.\nIMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 28.528184497s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:06:35.809Z"
+    },
+    {
+      "id": "ver-1785395058118-706868",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785395058118-4e75ce",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "headlines": [
+          "WHAT IS NOUN?",
+          "SIMPLIFIED",
+          "MASTER IT!"
+        ],
+        "backgroundQuery": "confused student eureka moment",
+        "textPosition": "left",
+        "subjectPosition": "right",
+        "style": "bright and engaging educational",
+        "overlay": "subtle blue gradient",
+        "title": "WHat is Noun?",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/A%20clean%2C%20professional%20YouTube%20thumbnail%20background%20artwork%20without%20any%20text.%0AVisual%20concept%3A%20WHat%20is%20Noun%3F%20%0AStyle%3A%20Urgent%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20completely%20empty%20and%20dark.%0AIMPORTANT%3A%20ABSOLUTELY%20NO%20TEXT%2C%20NO%20LETTERS%2C%20NO%20WORDS%2C%20NO%20CAPTIONS%2C%20NO%20WATERMARKS%20in%20the%20image.?width=1280&height=720&seed=d1f09bea85ce&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "A clean, professional YouTube thumbnail background artwork without any text.\nVisual concept: WHat is Noun? \nStyle: Urgent, high contrast, cinematic, modern creator economy, premium.\n16:9 composition, leave the left side completely empty and dark.\nIMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 50.550262575s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:04:18.118Z"
+    },
+    {
+      "id": "ver-1785394809143-106338",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785394809143-8d7639",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "headlines": [
+          "Noun Definition",
+          "What is a Noun?",
+          "Noun Explained"
+        ],
+        "backgroundQuery": "confused child looking at a dictionary",
+        "textPosition": "center",
+        "subjectPosition": "left",
+        "style": "bright and minimal",
+        "overlay": "soft yellow gradient",
+        "title": "What is Noun?",
+        "subtitle": "",
+        "imageUrl": "https://image.pollinations.ai/prompt/Create%20a%20professional%20YouTube%20thumbnail%20background%20image%20for%20the%20video%20title%3A%20%22What%20is%20Noun%3F%22.%0ASubtitle%2Fcontext%3A%20%22%22.%0AStyle%3A%20Bold%2C%20high%20contrast%2C%20cinematic%2C%20modern%20creator%20economy%2C%20clickable%20but%20premium.%0A16%3A9%20composition%2C%20leave%20the%20left%20side%20clean%20and%20dark%20for%20large%20readable%20overlay%20text.%0ADo%20not%20include%20any%20letters%2C%20words%2C%20captions%2C%20logos%2C%20watermark%2C%20UI%20text%2C%20or%20gibberish%20text%20inside%20the%20image.?width=1280&height=720&seed=72cf2d41ae1a&model=flux&nologo=true&private=true&enhance=true",
+        "imageProvider": "pollinations-flux",
+        "imagePrompt": "Create a professional YouTube thumbnail background image for the video title: \"What is Noun?\".\nSubtitle/context: \"\".\nStyle: Bold, high contrast, cinematic, modern creator economy, clickable but premium.\n16:9 composition, leave the left side clean and dark for large readable overlay text.\nDo not include any letters, words, captions, logos, watermark, UI text, or gibberish text inside the image.",
+        "imageError": "Gemini image: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-flash-image\nPlease retry in 55.069096793s. | Imagen: This model models/imagen-4.0-generate-001 is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "schemaStatus": "AI image generated"
+      },
+      "createdAt": "2026-07-30T07:00:09.143Z"
+    },
+    {
+      "id": "ver-1785394693554-ae4516",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785394693553-dc9ef3",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/e16d270e5701c5b9a8fa51f9404230ab.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1785394693553-6622b7",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1785394693553-dc9ef3",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1785394693553-dc9ef3",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-30T06:58:13.553Z",
+          "updatedAt": "2026-07-30T06:58:13.553Z"
+        },
+        "language": "Auto Detect",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-30T06:58:13.554Z"
+    },
+    {
+      "id": "ver-1785394492279-be7638",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785394492279-688891",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/4b923a142360ee6a0e2f23d4de7af2c1.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1785394492279-b86365",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1785394492279-688891",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1785394492279-688891",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-30T06:54:52.279Z",
+          "updatedAt": "2026-07-30T06:54:52.279Z"
+        },
+        "language": "English",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-30T06:54:52.279Z"
+    },
+    {
+      "id": "ver-1785394156620-acb298",
+      "creatorId": "user-1784797382509-d6efb1",
+      "projectId": "p-1785394156620-91f535",
+      "version": 1,
+      "reason": "Project created",
+      "snapshot": {
+        "title": "What is a noun_  Learn English Grammar.mp4",
+        "mediaUrl": "/uploads/a922af6504461a7cd8c616b231b6d917.mp4",
+        "mediaType": "video/mp4",
+        "mediaName": "What is a noun_  Learn English Grammar.mp4",
+        "job": {
+          "id": "job-1785394156620-66bca3",
+          "creatorId": "user-1784797382509-d6efb1",
+          "type": "transcription",
+          "projectId": "p-1785394156620-91f535",
+          "status": "DONE",
+          "progressPercent": 100,
+          "provider": "Groq Whisper",
+          "model": "audio",
+          "resultReference": "p-1785394156620-91f535",
+          "errorCode": "",
+          "userMessage": "",
+          "retryCount": 0,
+          "createdAt": "2026-07-30T06:49:16.620Z",
+          "updatedAt": "2026-07-30T06:49:16.620Z"
+        },
+        "language": "Auto Detect",
+        "format": "SRT",
+        "correctionState": "NEEDS_REVIEW",
+        "segments": [
+          {
+            "id": "seg-1",
+            "start": "00:00:00,000",
+            "end": "00:00:18,000",
+            "text": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer.",
+            "locked": false,
+            "confidence": 0.87108715
+          },
+          {
+            "id": "seg-2",
+            "start": "00:00:18,000",
+            "end": "00:00:37,780",
+            "text": "Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+            "locked": false,
+            "confidence": 0.90796958
+          }
+        ],
+        "fullText": "Let us see what is a noun. A noun is a naming word. It names a person, animal, thing, place or quality. See example for person. Arun name of a person. Lawyer. Next, animal examples, rat, dog, etc. Things example, table, house, etc. Next, places, market, temple, etc. Quality, quality means kindness, joy, etc. All these comes under examples for now.",
+        "schemaStatus": "READY"
+      },
+      "createdAt": "2026-07-30T06:49:16.620Z"
+    },
+    {
       "id": "ver-1785233323284-e0ae11",
       "creatorId": "user-1784797382509-d6efb1",
       "projectId": "p-1785233323283-1ce6a4",
@@ -6048,6 +6707,118 @@
   "media": [],
   "jobs": [
     {
+      "id": "job-1785395606101-8c5b17",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail-image",
+      "projectId": "p-1785395606101-a8326f",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "pollinations-flux",
+      "model": "16:9-image",
+      "resultReference": "p-1785395606101-a8326f",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T07:13:26.101Z",
+      "updatedAt": "2026-07-30T07:13:26.101Z"
+    },
+    {
+      "id": "job-1785395195809-ca00d8",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail-image",
+      "projectId": "p-1785395195809-eb488d",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "pollinations-flux",
+      "model": "16:9-image",
+      "resultReference": "p-1785395195809-eb488d",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T07:06:35.809Z",
+      "updatedAt": "2026-07-30T07:06:35.809Z"
+    },
+    {
+      "id": "job-1785395058117-2d2d28",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail-image",
+      "projectId": "p-1785395058118-4e75ce",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "pollinations-flux",
+      "model": "16:9-image",
+      "resultReference": "p-1785395058118-4e75ce",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T07:04:18.118Z",
+      "updatedAt": "2026-07-30T07:04:18.118Z"
+    },
+    {
+      "id": "job-1785394809143-d98959",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail-image",
+      "projectId": "p-1785394809143-8d7639",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "pollinations-flux",
+      "model": "16:9-image",
+      "resultReference": "p-1785394809143-8d7639",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T07:00:09.143Z",
+      "updatedAt": "2026-07-30T07:00:09.143Z"
+    },
+    {
+      "id": "job-1785394693553-6622b7",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "transcription",
+      "projectId": "p-1785394693553-dc9ef3",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Groq Whisper",
+      "model": "audio",
+      "resultReference": "p-1785394693553-dc9ef3",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T06:58:13.553Z",
+      "updatedAt": "2026-07-30T06:58:13.553Z"
+    },
+    {
+      "id": "job-1785394492279-b86365",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "transcription",
+      "projectId": "p-1785394492279-688891",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Groq Whisper",
+      "model": "audio",
+      "resultReference": "p-1785394492279-688891",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T06:54:52.279Z",
+      "updatedAt": "2026-07-30T06:54:52.279Z"
+    },
+    {
+      "id": "job-1785394156620-66bca3",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "transcription",
+      "projectId": "p-1785394156620-91f535",
+      "status": "DONE",
+      "progressPercent": 100,
+      "provider": "Groq Whisper",
+      "model": "audio",
+      "resultReference": "p-1785394156620-91f535",
+      "errorCode": "",
+      "userMessage": "",
+      "retryCount": 0,
+      "createdAt": "2026-07-30T06:49:16.620Z",
+      "updatedAt": "2026-07-30T06:49:16.620Z"
+    },
+    {
       "id": "job-1785233323283-1c5f06",
       "creatorId": "user-1784797382509-d6efb1",
       "type": "script-generation",
@@ -6388,6 +7159,118 @@
   "notifications": [],
   "activity": [
     {
+      "id": "act-1785396389444-e9e995",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "episode.scheduled_published",
+      "message": "Scheduled episode Ek hassena thi published.",
+      "createdAt": "2026-07-30T07:26:29.445Z"
+    },
+    {
+      "id": "act-1785396287409-5082cd",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "episode.created",
+      "message": "Scheduled podcast episode Ek hassena thi.",
+      "createdAt": "2026-07-30T07:24:47.409Z"
+    },
+    {
+      "id": "act-1785395606112-42cfa1",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail.generated",
+      "message": "Thumbnail Studio output generated for I want to crack BPSC Exam.",
+      "createdAt": "2026-07-30T07:13:26.112Z"
+    },
+    {
+      "id": "act-1785395606101-129066",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created I want to crack BPSC Exam.",
+      "createdAt": "2026-07-30T07:13:26.101Z"
+    },
+    {
+      "id": "act-1785395195818-e57ea7",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail.generated",
+      "message": "Thumbnail Studio output generated for What is Noun?.",
+      "createdAt": "2026-07-30T07:06:35.818Z"
+    },
+    {
+      "id": "act-1785395195809-4f9d31",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created What is Noun?.",
+      "createdAt": "2026-07-30T07:06:35.809Z"
+    },
+    {
+      "id": "act-1785395058126-94ee2f",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail.generated",
+      "message": "Thumbnail Studio output generated for WHat is Noun?.",
+      "createdAt": "2026-07-30T07:04:18.126Z"
+    },
+    {
+      "id": "act-1785395058118-7f9eb4",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created WHat is Noun?.",
+      "createdAt": "2026-07-30T07:04:18.118Z"
+    },
+    {
+      "id": "act-1785394809152-ad95fa",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "thumbnail.generated",
+      "message": "Thumbnail Studio output generated for What is Noun?.",
+      "createdAt": "2026-07-30T07:00:09.152Z"
+    },
+    {
+      "id": "act-1785394809143-fcc004",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created What is Noun?.",
+      "createdAt": "2026-07-30T07:00:09.143Z"
+    },
+    {
+      "id": "act-1785394693565-efad71",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "subtitle.generated",
+      "message": "Subtitle Studio output generated for What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-30T06:58:13.565Z"
+    },
+    {
+      "id": "act-1785394693554-8d73f1",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-30T06:58:13.554Z"
+    },
+    {
+      "id": "act-1785394492290-815c60",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "subtitle.generated",
+      "message": "Subtitle Studio output generated for What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-30T06:54:52.290Z"
+    },
+    {
+      "id": "act-1785394492279-3253d3",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-30T06:54:52.279Z"
+    },
+    {
+      "id": "act-1785394156627-19883c",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "subtitle.generated",
+      "message": "Subtitle Studio output generated for What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-30T06:49:16.627Z"
+    },
+    {
+      "id": "act-1785394156620-bd0bdf",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "project.created",
+      "message": "Created What is a noun_  Learn English Grammar.mp4.",
+      "createdAt": "2026-07-30T06:49:16.620Z"
+    },
+    {
       "id": "act-1785233323296-6aceda",
       "creatorId": "user-1784797382509-d6efb1",
       "type": "script.generated",
@@ -6725,8 +7608,68 @@
     "accentColor": "#7c3aed",
     "feedStatus": "ACTIVE",
     "feedHealth": "Valid",
-    "lastPublishedAt": "2026-07-23T10:06:44.801Z",
+    "lastPublishedAt": "2026-07-30T07:26:29.444Z",
     "episodes": [
+      {
+        "id": "ep-1785396287408-da338d",
+        "podcastId": "pod-1",
+        "creatorId": "user-1784797382509-d6efb1",
+        "title": "Ek hassena thi",
+        "slug": "ek-hassena-thi",
+        "subtitle": "",
+        "status": "PUBLISHED",
+        "season": 1,
+        "seasonNumber": 1,
+        "episodeNumber": 2,
+        "episodeType": "Full",
+        "author": "Priyanshu",
+        "language": "en",
+        "keywords": [
+          "Ek hassena thi",
+          "storytelling",
+          "narrative",
+          "character introduction",
+          "mystery"
+        ],
+        "date": "2026-07-30T07:26:00.000Z",
+        "scheduledAt": null,
+        "publishedAt": "2026-07-30T07:26:00.000Z",
+        "duration": "00:00",
+        "durationSeconds": 0,
+        "bytes": 830637,
+        "audioFileSize": 830637,
+        "mimeType": "audio/mpeg",
+        "audioMimeType": "audio/mpeg",
+        "audioUrl": "/uploads/f49c6127e19c96779af9820380e221fc.mp3",
+        "audioStorageKey": "",
+        "audioFileName": "ytmp3free.cc_ek-haseena-thi-par-must-watch-singing-superstar-singer-3-superstarsingerseason3-shortsyoutube-youtubemp3free.org.mp3",
+        "coverImageUrl": "",
+        "guid": "tech-with-priyanshu-guid-1785396287409-f466b2",
+        "explicit": false,
+        "description": "Dive into the intriguing world of 'Ek hassena thi,' a captivating narrative hinting at the story of an enigmatic character.",
+        "showNotes": [
+          "Introducing the central theme of 'Ek hassena thi'",
+          "Setting the stage for a compelling narrative",
+          "Exploring the initial premise of the story"
+        ],
+        "showNotesJson": {},
+        "transcript": "",
+        "chapters": [
+          {
+            "timestamp": "00:00",
+            "title": "The Beginning of Her Story"
+          }
+        ],
+        "chaptersJson": [
+          {
+            "timestamp": "00:00",
+            "title": "The Beginning of Her Story"
+          }
+        ],
+        "guests": [],
+        "createdAt": "2026-07-30T07:24:47.408Z",
+        "updatedAt": "2026-07-30T07:26:29.444Z"
+      },
       {
         "id": "ep-1784801204800-dff668",
         "podcastId": "pod-1",

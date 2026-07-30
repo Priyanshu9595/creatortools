@@ -46,24 +46,29 @@ textarea {
 }
 
 button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   padding: 0 16px;
-  background: #1e88e5;
+  background: #8B5CF6;
   color: #ffffff;
   font-family: var(--header-font);
   font-weight: 600;
   font-size: 14px;
+  line-height: 1;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(30, 136, 229, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: all 0.2s ease;
 }
 
 button:hover {
   transform: translateY(-1px);
-  background: #1565c0;
-  box-shadow: 0 4px 8px rgba(30, 136, 229, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: #7C3AED;
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 button:disabled {
@@ -73,16 +78,17 @@ button:disabled {
 
 .ghost {
   background: transparent;
-  border-color: var(--line);
-  color: var(--text);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-color: #8B5CF6;
+  color: #8B5CF6;
+  box-shadow: 0 1px 2px rgba(139, 92, 246, 0.05);
 }
 
 .ghost:hover {
-  background: var(--panel-soft);
-  color: var(--ink);
-  transform: none;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background: rgba(139, 92, 246, 0.05);
+  color: #7C3AED;
+  border-color: #7C3AED;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.1);
 }
 
 .ghost-dark {
@@ -1351,13 +1357,14 @@ textarea {
   position: relative;
   display: block;
   background: #05070f;
+  aspect-ratio: auto;
 }
 
 .video-preview video {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 70vh;
   object-fit: contain;
   display: block;
   background: #000;
@@ -1564,7 +1571,7 @@ textarea {
   min-height: 86px;
   padding: 0 27px;
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) 140px 150px 100px minmax(170px, auto);
+  grid-template-columns: minmax(0, 1fr) 120px 170px 100px 300px;
   align-items: center;
   gap: 20px;
 }

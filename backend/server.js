@@ -50,25 +50,26 @@ cloudinary.config({
 
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 let s3Client = null;
-const objectBucketName = process.env.B2_BUCKET_NAME || process.env.R2_BUCKET_NAME || "";
-const objectPublicBaseUrl = (process.env.B2_PUBLIC_BASE_URL || process.env.R2_PUBLIC_BASE_URL || "").replace(/\/$/, "");
+const cleanEnvVar = (v) => (v || "").trim().replace(/^['"]|['"]$/g, '');
+const objectBucketName = cleanEnvVar(process.env.B2_BUCKET_NAME || process.env.R2_BUCKET_NAME);
+const objectPublicBaseUrl = cleanEnvVar(process.env.B2_PUBLIC_BASE_URL || process.env.R2_PUBLIC_BASE_URL).replace(/\/$/, "");
 if (process.env.B2_ENDPOINT && process.env.B2_KEY_ID && process.env.B2_APP_KEY) {
   s3Client = new S3Client({
-    region: process.env.B2_REGION || "us-west-004",
-    endpoint: process.env.B2_ENDPOINT,
+    region: cleanEnvVar(process.env.B2_REGION) || "us-west-004",
+    endpoint: cleanEnvVar(process.env.B2_ENDPOINT),
     forcePathStyle: true,
     credentials: {
-      accessKeyId: process.env.B2_KEY_ID,
-      secretAccessKey: process.env.B2_APP_KEY,
+      accessKeyId: cleanEnvVar(process.env.B2_KEY_ID),
+      secretAccessKey: cleanEnvVar(process.env.B2_APP_KEY),
     }
   });
 } else if (process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY) {
   s3Client = new S3Client({
     region: "auto",
-    endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    endpoint: `https://${cleanEnvVar(process.env.R2_ACCOUNT_ID)}.r2.cloudflarestorage.com`,
     credentials: {
-      accessKeyId: process.env.R2_ACCESS_KEY_ID,
-      secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+      accessKeyId: cleanEnvVar(process.env.R2_ACCESS_KEY_ID),
+      secretAccessKey: cleanEnvVar(process.env.R2_SECRET_ACCESS_KEY),
     }
   });
 }
@@ -1070,11 +1071,30 @@ async function generateThumbnailImage(body) {
   if (!title) throw Object.assign(new Error("Video title is required for thumbnail generation."), { status: 400 });
   const subtitle = clean(body.subtitle, "");
   const style = clean(body.emotion || body.style, "Bold");
-  const prompt = `Create a professional YouTube thumbnail background image for the video title: "${title}".
-Subtitle/context: "${subtitle}".
-Style: ${style}, high contrast, cinematic, modern creator economy, clickable but premium.
-16:9 composition, leave the left side clean and dark for large readable overlay text.
-Do not include any letters, words, captions, logos, watermark, UI text, or gibberish text inside the image.`;
+  
+  let visualConcept = `${title} ${subtitle}`.trim();
+  try {
+    if (typeof groqOpenAi !== "undefined" && groqOpenAi) {
+      const groqResponse = await groqOpenAi.chat.completions.create({
+        model: process.env.GROQ_TEXT_MODEL || "llama-3.1-8b-instant",
+        temperature: 0.7,
+        messages: [
+          { role: "system", content: "You are an expert YouTube thumbnail designer. Describe ONLY the visual background scene for a thumbnail based on the given title. Do NOT include any text, titles, or words in your description. Keep it under 2 sentences." },
+          { role: "user", content: `Video Title: "${title}". Subtitle: "${subtitle}". Style: ${style}.` }
+        ]
+      });
+      visualConcept = groqResponse.choices?.[0]?.message?.content?.trim() || visualConcept;
+    }
+  } catch (err) {
+    console.warn("Groq thumbnail concept generation failed:", err.message);
+  }
+
+  const prompt = `A clean, professional YouTube thumbnail background artwork without any text.
+Visual concept: ${visualConcept}
+Style: ${style}, high contrast, cinematic, modern creator economy, premium.
+16:9 composition, leave the left side completely empty and dark.
+IMPORTANT: ABSOLUTELY NO TEXT, NO LETTERS, NO WORDS, NO CAPTIONS, NO WATERMARKS in the image.`;
+
 
   const key = process.env.GEMINI_API_KEY;
   if (!key) {
@@ -1112,7 +1132,7 @@ Do not include any letters, words, captions, logos, watermark, UI text, or gibbe
   }
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${encodeURIComponent(key)}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:predict?key=${encodeURIComponent(key)}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -1129,7 +1149,7 @@ Do not include any letters, words, captions, logos, watermark, UI text, or gibbe
 
     return {
       imageUrl: `data:image/png;base64,${bytes}`,
-      imageProvider: "imagen-4.0-generate-001",
+      imageProvider: "imagen-3.0-generate-001",
       imagePrompt: prompt
     };
   } catch (error) {
@@ -1802,9 +1822,7 @@ function publishedEpisodes() {
     .map(normalizeEpisode)
     .filter((episodeItem) => episodeItem.status === "PUBLISHED"
       && new Date(episodeItem.publishedAt || episodeItem.date).getTime() <= nowTime
-      && episodeItem.audioUrl
-      && episodeItem.audioFileSize
-      && episodeItem.audioMimeType)
+      && episodeItem.audioUrl)
     .sort((a, b) => new Date(b.publishedAt || b.date) - new Date(a.publishedAt || a.date));
 }
 
@@ -2816,8 +2834,7 @@ Respond with ONLY the new text, formatted cleanly.`;
       };
       
       const created = createGenerationProject("subtitle", result.title, result, result.job);
-      if (fs.existsSync(inputPath)) fs.unlinkSync(inputPath);
-      if (transcriptionPath !== inputPath && fs.existsSync(transcriptionPath)) fs.unlinkSync(transcriptionPath);
+      // Keep file for frontend preview
       return send(res, 200, created.result);
     } catch (error) {
       console.error(error);

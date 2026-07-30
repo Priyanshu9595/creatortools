@@ -912,11 +912,7 @@ function renderThumbnailScreen() {
         <input name="audience" type="hidden" value="Creators">
         <input name="aspectRatio" type="hidden" value="16:9">
         <input name="accent" type="hidden" value="#7c35f2">
-        <label>Text Suggestion (AI)
-          <div class="suggestions" id="thumbnailSuggestions">
-            <p class="muted inline-empty">Suggestions will appear after API generation.</p>
-          </div>
-        </label>
+
         <button class="primary-wide" type="submit">Generate Thumbnail</button>
       </form>
       <section class="panel preview-tools tool-output" id="toolOutput">
@@ -1216,7 +1212,7 @@ function renderPodcastTab(podcast, tab) {
       <section class="simple-table">
         <div class="simple-table-row podcast-row head"><span>Episode</span><span>Status</span><span>Date</span><span>Duration</span><span>Actions</span></div>
         ${episodes.map((episode) => {
-          const date = new Date(episode.publishedAt || episode.scheduledAt || episode.date || episode.createdAt).toLocaleDateString(undefined, { month: "short", day: "2-digit", year: "numeric" });
+          const date = new Date(episode.publishedAt || episode.scheduledAt || episode.date || episode.createdAt).toLocaleString(undefined, { month: "short", day: "2-digit", year: "numeric", hour: "numeric", minute: "2-digit" });
           return `<div class="simple-table-row podcast-row" data-episode-row data-title="${html(episode.title)}" data-status="${html(episode.status)}">
             <span><strong>${html(episode.title)}</strong><p class="muted">S${html(episode.seasonNumber || episode.season || 1)} E${html(episode.episodeNumber || 1)} - ${html(episode.episodeType || "Full")}</p>${episode.audioUrl ? `<audio controls src="${html(episode.audioUrl)}"></audio>` : ""}</span>
             <span>${badge(titleCase(episode.status), podcastStatusTone(episode.status))}</span>
@@ -1581,7 +1577,7 @@ function renderThumbnailScreen() {
         <input name="audience" type="hidden" value="Creators">
         <input name="aspectRatio" type="hidden" value="16:9">
         <input name="accent" type="hidden" value="#7c35f2">
-        <label>AI text suggestions<div class="suggestions" id="thumbnailSuggestions"><p class="muted inline-empty">Suggestions will appear after API generation.</p></div></label>
+
         <button class="primary-wide" type="submit">Generate Thumbnail</button>
       </form>
       <section class="panel preview-tools tool-output" id="toolOutput">${renderThumbnailEmptyState()}</section>
@@ -2072,8 +2068,48 @@ document.addEventListener("click", async (event) => {
   const downloadThumbnail = event.target.closest("[data-download-thumbnail]");
   if (downloadThumbnail) {
     const payload = currentThumbnailPayload();
-    downloadText(`${slug(payload.title)}.svg`, thumbnailSvg(payload), "image/svg+xml");
-    notify("Thumbnail downloaded.");
+    notify("Preparing thumbnail for download...");
+    
+    const finalizeDownload = (svgPayload) => {
+      const svgString = thumbnailSvg(svgPayload);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1280;
+        canvas.height = 720;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((pngBlob) => {
+          if (pngBlob) {
+            const url = URL.createObjectURL(pngBlob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${slug(payload.title || "thumbnail")}.png`;
+            a.click();
+            URL.revokeObjectURL(url);
+            notify("Thumbnail downloaded.");
+          }
+        }, "image/png");
+      };
+      img.onerror = () => {
+        downloadText(`${slug(payload.title || "thumbnail")}.svg`, svgString, "image/svg+xml");
+        notify("Fallback to SVG format.");
+      };
+      img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgString)));
+    };
+
+    if (payload.imageUrl && payload.imageUrl.startsWith("http")) {
+      fetch(payload.imageUrl)
+        .then(r => r.blob())
+        .then(blob => {
+          const reader = new FileReader();
+          reader.onload = () => finalizeDownload({ ...payload, imageUrl: reader.result });
+          reader.readAsDataURL(blob);
+        })
+        .catch(() => finalizeDownload(payload));
+    } else {
+      finalizeDownload(payload);
+    }
     return;
   }
 
