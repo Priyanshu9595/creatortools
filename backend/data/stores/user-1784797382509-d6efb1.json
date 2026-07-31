@@ -58,6 +58,114 @@
   },
   "projects": [
     {
+      "id": "p-1785400881924-6401a0",
+      "creatorId": "user-1784797382509-d6efb1",
+      "module": "podcast",
+      "title": "Ek haseena thi",
+      "status": "PUBLISHED",
+      "tags": [
+        "podcast"
+      ],
+      "latestVersion": 1,
+      "content": {
+        "episodeId": "ep-1785400881924-5b6b69",
+        "id": "ep-1785400881924-5b6b69",
+        "podcastId": "pod-1",
+        "creatorId": "user-1784797382509-d6efb1",
+        "title": "Ek haseena thi",
+        "slug": "ek-haseena-thi",
+        "subtitle": "",
+        "status": "PUBLISHED",
+        "season": 1,
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeType": "Full",
+        "author": "Priyanshu",
+        "language": "en",
+        "keywords": [
+          "Ek Haseena Thi",
+          "Mystery",
+          "Thriller",
+          "Psychology",
+          "Deception"
+        ],
+        "date": "2026-07-30T08:41:21.924Z",
+        "scheduledAt": null,
+        "publishedAt": "2026-07-30T08:41:21.924Z",
+        "duration": "0:12",
+        "durationSeconds": 12.144,
+        "bytes": 97389,
+        "audioFileSize": 97389,
+        "mimeType": "audio/mpeg",
+        "audioMimeType": "audio/mpeg",
+        "audioUrl": "/uploads/55d7635002f974b767add0a4fe790e19.mp3",
+        "audioStorageKey": "",
+        "audioFileName": "_Ek_Hasina_Thi_Instrumental_Ringtone_(by Fringster.com).mp3",
+        "coverImageUrl": "",
+        "guid": "tech-with-priyanshu-guid-1785400881924-3e674b",
+        "explicit": false,
+        "description": "In this episode, we explore the captivating story of Ek Haseena Thi. Join us as we delve into the world of mystery and intrigue.",
+        "showNotes": [
+          "Discover the twists and turns of the Ek Haseena Thi story",
+          "Understand the complexities of the human psyche behind the mystery",
+          "Explore the themes of deception and truth"
+        ],
+        "showNotesJson": {},
+        "transcript": "",
+        "chapters": [
+          {
+            "timestamp": "00:00",
+            "title": "Intro"
+          },
+          {
+            "timestamp": "01:45",
+            "title": "The Story Unfolds"
+          },
+          {
+            "timestamp": "11:20",
+            "title": "The Psychology of Deception"
+          },
+          {
+            "timestamp": "20:10",
+            "title": "The Truth Revealed"
+          },
+          {
+            "timestamp": "28:50",
+            "title": "Conclusion"
+          }
+        ],
+        "chaptersJson": [
+          {
+            "timestamp": "00:00",
+            "title": "Intro"
+          },
+          {
+            "timestamp": "01:45",
+            "title": "The Story Unfolds"
+          },
+          {
+            "timestamp": "11:20",
+            "title": "The Psychology of Deception"
+          },
+          {
+            "timestamp": "20:10",
+            "title": "The Truth Revealed"
+          },
+          {
+            "timestamp": "28:50",
+            "title": "Conclusion"
+          }
+        ],
+        "guests": [],
+        "createdAt": "2026-07-30T08:41:21.924Z",
+        "updatedAt": "2026-07-30T08:41:21.924Z"
+      },
+      "createdAt": "2026-07-30T08:41:21.925Z",
+      "updatedAt": "2026-07-30T08:41:21.925Z",
+      "archivedAt": null,
+      "trashedAt": null
+    },
+    {
       "id": "p-1785396287409-77f1ea",
       "creatorId": "user-1784797382509-d6efb1",
       "module": "podcast",
@@ -7159,6 +7267,13 @@
   "notifications": [],
   "activity": [
     {
+      "id": "act-1785400881925-d7a9ff",
+      "creatorId": "user-1784797382509-d6efb1",
+      "type": "episode.created",
+      "message": "Published podcast episode Ek haseena thi.",
+      "createdAt": "2026-07-30T08:41:21.925Z"
+    },
+    {
       "id": "act-1785396389444-e9e995",
       "creatorId": "user-1784797382509-d6efb1",
       "type": "episode.scheduled_published",
@@ -7608,8 +7723,100 @@
     "accentColor": "#7c3aed",
     "feedStatus": "ACTIVE",
     "feedHealth": "Valid",
-    "lastPublishedAt": "2026-07-30T07:26:29.444Z",
+    "lastPublishedAt": "2026-07-30T08:41:21.924Z",
     "episodes": [
+      {
+        "id": "ep-1785400881924-5b6b69",
+        "podcastId": "pod-1",
+        "creatorId": "user-1784797382509-d6efb1",
+        "title": "Ek haseena thi",
+        "slug": "ek-haseena-thi",
+        "subtitle": "",
+        "status": "PUBLISHED",
+        "season": 1,
+        "seasonNumber": 1,
+        "episodeNumber": 3,
+        "episodeType": "Full",
+        "author": "Priyanshu",
+        "language": "en",
+        "keywords": [
+          "Ek Haseena Thi",
+          "Mystery",
+          "Thriller",
+          "Psychology",
+          "Deception"
+        ],
+        "date": "2026-07-30T08:41:21.924Z",
+        "scheduledAt": null,
+        "publishedAt": "2026-07-30T08:41:21.924Z",
+        "duration": "0:12",
+        "durationSeconds": 12.144,
+        "bytes": 97389,
+        "audioFileSize": 97389,
+        "mimeType": "audio/mpeg",
+        "audioMimeType": "audio/mpeg",
+        "audioUrl": "/uploads/55d7635002f974b767add0a4fe790e19.mp3",
+        "audioStorageKey": "",
+        "audioFileName": "_Ek_Hasina_Thi_Instrumental_Ringtone_(by Fringster.com).mp3",
+        "coverImageUrl": "",
+        "guid": "tech-with-priyanshu-guid-1785400881924-3e674b",
+        "explicit": false,
+        "description": "In this episode, we explore the captivating story of Ek Haseena Thi. Join us as we delve into the world of mystery and intrigue.",
+        "showNotes": [
+          "Discover the twists and turns of the Ek Haseena Thi story",
+          "Understand the complexities of the human psyche behind the mystery",
+          "Explore the themes of deception and truth"
+        ],
+        "showNotesJson": {},
+        "transcript": "",
+        "chapters": [
+          {
+            "timestamp": "00:00",
+            "title": "Intro"
+          },
+          {
+            "timestamp": "01:45",
+            "title": "The Story Unfolds"
+          },
+          {
+            "timestamp": "11:20",
+            "title": "The Psychology of Deception"
+          },
+          {
+            "timestamp": "20:10",
+            "title": "The Truth Revealed"
+          },
+          {
+            "timestamp": "28:50",
+            "title": "Conclusion"
+          }
+        ],
+        "chaptersJson": [
+          {
+            "timestamp": "00:00",
+            "title": "Intro"
+          },
+          {
+            "timestamp": "01:45",
+            "title": "The Story Unfolds"
+          },
+          {
+            "timestamp": "11:20",
+            "title": "The Psychology of Deception"
+          },
+          {
+            "timestamp": "20:10",
+            "title": "The Truth Revealed"
+          },
+          {
+            "timestamp": "28:50",
+            "title": "Conclusion"
+          }
+        ],
+        "guests": [],
+        "createdAt": "2026-07-30T08:41:21.924Z",
+        "updatedAt": "2026-07-30T08:41:21.924Z"
+      },
       {
         "id": "ep-1785396287408-da338d",
         "podcastId": "pod-1",

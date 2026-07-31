@@ -16,7 +16,7 @@ const api = (path, options = {}) => {
       let rawMsg = payload?.data?.message || payload?.message || "Request failed";
       let displayMsg = rawMsg;
       const lower = rawMsg.toLowerCase();
-      
+
       // Mask backend/model/technical errors with user-friendly messages
       if (lower.includes("api") || lower.includes("model") || lower.includes("gemini") || lower.includes("openai") || lower.includes("groq") || lower.includes("key") || lower.includes("token") || lower.includes("rate limit") || lower.includes("failed to generate")) {
         displayMsg = "Our AI services are currently busy or unavailable. Please try again shortly.";
@@ -842,7 +842,7 @@ function renderSubtitleScreen() {
         </label>
         ${select("language", "Language in Audio", ["Auto Detect", "English", "Hindi", "Spanish"])}
         ${select("format", "Output Format", ["SRT", "VTT", "TXT"])}
-        ${select("style", "Caption Style (Optional)", ["Default (White on Black)", "Bold Yellow", "Karaoke"])}
+
         <div class="subtitle-actions">
           <button type="submit">Generate Subtitles</button>
           <button class="ghost" data-download-srt type="button">${icon("download")} Download SRT</button>
@@ -908,7 +908,7 @@ function renderThumbnailScreen() {
       <form id="toolForm">
         ${input("title", "Enter your video title", "")}
         ${input("subtitle", "Subtitle on thumbnail", "")}
-        ${select("emotion", "Style", ["Bold", "Urgent", "Curious", "Clean"])}
+        ${input("emotion", "Style", "", "text")}
         <input name="audience" type="hidden" value="Creators">
         <input name="aspectRatio" type="hidden" value="16:9">
         <input name="accent" type="hidden" value="#7c35f2">
@@ -1212,8 +1212,8 @@ function renderPodcastTab(podcast, tab) {
       <section class="simple-table">
         <div class="simple-table-row podcast-row head"><span>Episode</span><span>Status</span><span>Date</span><span>Duration</span><span>Actions</span></div>
         ${episodes.map((episode) => {
-          const date = new Date(episode.publishedAt || episode.scheduledAt || episode.date || episode.createdAt).toLocaleString(undefined, { month: "short", day: "2-digit", year: "numeric", hour: "numeric", minute: "2-digit" });
-          return `<div class="simple-table-row podcast-row" data-episode-row data-title="${html(episode.title)}" data-status="${html(episode.status)}">
+    const date = new Date(episode.publishedAt || episode.scheduledAt || episode.date || episode.createdAt).toLocaleString(undefined, { month: "short", day: "2-digit", year: "numeric", hour: "numeric", minute: "2-digit" });
+    return `<div class="simple-table-row podcast-row" data-episode-row data-title="${html(episode.title)}" data-status="${html(episode.status)}">
             <span><strong>${html(episode.title)}</strong><p class="muted">S${html(episode.seasonNumber || episode.season || 1)} E${html(episode.episodeNumber || 1)} - ${html(episode.episodeType || "Full")}</p>${episode.audioUrl ? `<audio controls src="${html(episode.audioUrl)}"></audio>` : ""}</span>
             <span>${badge(titleCase(episode.status), podcastStatusTone(episode.status))}</span>
             <span class="muted">${html(date)}</span>
@@ -1225,7 +1225,7 @@ function renderPodcastTab(podcast, tab) {
               <button class="ghost" data-episode-action="delete" data-episode-id="${html(episode.id)}" type="button">Delete</button>
             </span>
           </div>`;
-        }).join("") || '<div class="simple-table-row"><span class="muted">No podcast episodes yet.</span><span></span><span></span><span></span></div>'}
+  }).join("") || '<div class="simple-table-row"><span class="muted">No podcast episodes yet.</span><span></span><span></span><span></span></div>'}
       </section>
       <section class="panel rss-card">
         <div>
@@ -1550,7 +1550,7 @@ function renderSubtitleScreen() {
         </label>
         ${select("language", "Language in Audio", ["Auto Detect", "English", "Hindi", "Spanish"])}
         ${select("format", "Output Format", ["SRT", "VTT", "TXT"])}
-        ${select("style", "Caption Style", ["Default (White on Black)", "Bold Yellow", "Karaoke"])}
+
         ${select("processing", "Processing options", ["Standard transcription", "Auto punctuation", "Remove filler words"])}
         <div class="subtitle-actions">
           <button type="submit">Generate Subtitles</button>
@@ -1573,7 +1573,7 @@ function renderThumbnailScreen() {
       <form id="toolForm">
         ${input("title", "Video title", "")}
         ${input("subtitle", "Subtitle on thumbnail", "")}
-        ${select("emotion", "Style", ["Bold", "Urgent", "Curious", "Clean"])}
+        ${input("emotion", "Style", "", "text")}
         <input name="audience" type="hidden" value="Creators">
         <input name="aspectRatio" type="hidden" value="16:9">
         <input name="accent" type="hidden" value="#7c35f2">
@@ -2069,7 +2069,7 @@ document.addEventListener("click", async (event) => {
   if (downloadThumbnail) {
     const payload = currentThumbnailPayload();
     notify("Preparing thumbnail for download...");
-    
+
     const finalizeDownload = (svgPayload) => {
       const svgString = thumbnailSvg(svgPayload);
       const img = new Image();
@@ -2373,7 +2373,7 @@ document.addEventListener("keydown", (event) => {
 
 
 document.querySelector("#logoutBtn")?.addEventListener("click", async () => {
-  try { await api("/api/auth/logout", { method: "POST" }); } catch (e) {}
+  try { await api("/api/auth/logout", { method: "POST" }); } catch (e) { }
   clearAuth();
   document.querySelector("#appContainer").style.display = "none";
   document.querySelector("#landingContainer").style.display = "block";
