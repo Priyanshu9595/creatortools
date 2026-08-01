@@ -47,11 +47,11 @@ const state = {
 
 const primaryNav = [
   ["dashboard", "layout", "Dashboard"],
-  ["script", "edit", "AI Script Writer"],
-  ["subtitles", "captions", "Subtitles & Captions"],
-  ["podcast", "mic", "Podcast Manager"],
-  ["thumbnail", "image", "Thumbnail Generator"],
-  ["storyboard", "grid", "Storyboard Builder"]
+  ["script", "edit", "AI Script Generator"],
+  ["storyboard", "layout", "Storyboards"],
+  ["subtitles", "captions", "Subtitle Studio"],
+  ["podcast", "mic", "Podcast Studio"],
+  ["thumbnail", "image", "Thumbnail Creator"]
 ];
 
 const secondaryNav = [
@@ -551,8 +551,8 @@ function loadingState(copy = "Loading workspace data...") {
 function statCard(label, value, iconName, tone, support = "") {
   return `
     <article class="card stat-card">
-      <div><p>${html(label)}</p><strong>${html(value)}</strong>${support ? `<small>${html(support)}</small>` : ""}</div>
       <span class="stat-icon ${tone}">${icon(iconName)}</span>
+      <div><p>${html(label)}</p><strong>${html(value)}</strong>${support ? `<small>${html(support)}</small>` : ""}</div>
     </article>
   `;
 }
@@ -1097,7 +1097,7 @@ function renderPodcastTab(podcast, tab) {
   if (tab === "overview") {
     const stats = podcast.stats || {};
     return `
-      <section class="cards-grid podcast-stats">
+      <section class="grid stats podcast-stats">
         ${statCard("Total Episodes", stats.totalEpisodes ?? episodes.length, "mic", "purple")}
         ${statCard("Published Episodes", stats.publishedEpisodes ?? 0, "play-square", "blue")}
         ${statCard("Draft Episodes", stats.draftEpisodes ?? 0, "file", "orange")}
@@ -1492,7 +1492,7 @@ function renderScriptScreen() {
   return `
     ${pageHead("AI Script Writer", "Generate structured scripts with hooks, scenes, voice-over, CTA, captions and hashtags.")}
     <section class="workspace">
-      <form id="toolForm">
+      <form id="toolForm" class="premium-form">
         ${input("topic", "Topic", "")}
         ${buttonGroup("platform", "Platform", ["YouTube", "Instagram Reels", "YouTube Shorts", "Product Ads"])}
         ${buttonGroup("duration", "Duration", ["30", "45", "60", "90"], "45")}
@@ -1506,8 +1506,8 @@ function renderScriptScreen() {
           <button class="ghost" type="reset">Reset</button>
         </div>
       </form>
-      <section class="panel output script-output tool-output" id="toolOutput">
-        <div class="panel-header"><h2>Generated Script</h2></div>
+      <section class="panel output script-output tool-output premium-panel" id="toolOutput">
+        <div class="panel-header" style="border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 24px;"><h2>Generated Script</h2></div>
         ${emptyState("No generated script yet", "Add a topic and generate a script to review it here.", "edit")}
       </section>
     </section>
@@ -2381,6 +2381,15 @@ document.querySelector("#logoutBtn")?.addEventListener("click", async () => {
   document.querySelector("#showLoginBtn").style.display = "inline-flex";
 });
 
+document.querySelector("#topbarLogoutBtn")?.addEventListener("click", async () => {
+  try { await api("/api/auth/logout", { method: "POST" }); } catch (e) { }
+  clearAuth();
+  document.querySelector("#appContainer").style.display = "none";
+  document.querySelector("#landingContainer").style.display = "block";
+  document.querySelector("#navToDashboardBtn").hidden = true;
+  document.querySelector("#showLoginBtn").style.display = "inline-flex";
+});
+
 document.querySelector("#loginForm")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const mode = document.querySelector("#authModeInput").value || "login";
@@ -2444,11 +2453,9 @@ document.querySelector("#backHomeBtn")?.addEventListener("click", () => {
   setLoginError("");
 });
 
-document.querySelector("#sidebarCollapseBtn")?.addEventListener("click", () => {
+document.querySelector("#sidebarToggleBtn")?.addEventListener("click", () => {
   const shell = document.querySelector("#appContainer");
   shell?.classList.toggle("sidebar-collapsed");
-  const collapsed = shell?.classList.contains("sidebar-collapsed");
-  document.querySelector("#sidebarCollapseBtn").textContent = collapsed ? ">" : "<";
 });
 
 document.querySelector("#authToggleBtn")?.addEventListener("click", async () => {

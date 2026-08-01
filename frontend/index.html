@@ -192,7 +192,7 @@
       </form>
       <p class="auth-switch" id="authSwitch" hidden><span id="authToggleText"></span> <button class="link-button"
           id="authToggleBtn" type="button"></button></p>
-      <button class="link-button back-home" id="backHomeBtn" type="button">Back to Home</button>
+      <button class="ghost back-home" id="backHomeBtn" type="button" style="width: 100%; margin-top: 16px; min-height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid #e2e8f0; color: #475569; font-weight: 500; text-decoration: none; cursor: pointer; transition: all 0.2s; background: transparent;">Back to Home</button>
     </div>
   </div>
 
@@ -203,8 +203,6 @@
           <span class="brand-mark"></span>
           <strong>CreatorSuite</strong>
         </a>
-        <button class="ghost sidebar-collapse" id="sidebarCollapseBtn" type="button"
-          aria-label="Collapse sidebar">&lt;</button>
       </div>
       <nav id="nav" class="nav" aria-label="Primary"></nav>
       <div class="sidebar-footer" style="display: flex; flex-direction: column; gap: 8px;">
@@ -215,15 +213,21 @@
 
     <main>
       <header class="topbar">
-        <div class="topbar-copy">
-          <strong id="topbarTitle">Dashboard</strong>
-          <span id="topbarSubtitle">Welcome back to your private workspace.</span>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="ghost sidebar-toggle" id="sidebarToggleBtn" type="button" aria-label="Toggle sidebar" style="padding: 0; min-height: 32px; width: 32px; min-width: 32px; border: none; color: #94a3b8; background: transparent; box-shadow: none; cursor: pointer;">
+            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="topbar-copy">
+            <strong id="topbarTitle">Dashboard</strong>
+            <span id="topbarSubtitle">Welcome back to your private workspace.</span>
+          </div>
         </div>
-        <div class="top-actions">
+        <div class="top-actions" style="display: flex; align-items: center; gap: 16px;">
           <div class="avatar-menu" id="userChip">
             <span>CW</span>
             <strong>Creator Workspace</strong>
           </div>
+          <button class="topbar-logout-btn" id="topbarLogoutBtn" type="button">Log Out</button>
         </div>
       </header>
       <h1 id="pageTitle" class="sr-only">Dashboard</h1>
