@@ -1225,28 +1225,28 @@ function renderPodcastTab(podcast, tab) {
         <select id="episodeStatusFilter"><option value="">All statuses</option>${["DRAFT", "READY", "SCHEDULED", "PUBLISHED", "UNPUBLISHED", "ARCHIVED", "FAILED"].map((item) => `<option>${item}</option>`).join("")}</select>
       </div>
       <section class="simple-table">
-        <div class="simple-table-row podcast-row head"><span>Episode</span><span>Status</span><span>Date</span><span>Duration</span><span>Actions</span></div>
+        <div class="simple-table-row podcast-row head"><span>Episode</span><span>Status</span><span>Date</span><span>Actions</span></div>
         ${episodes.map((episode) => {
     const date = new Date(episode.publishedAt || episode.scheduledAt || episode.date || episode.createdAt).toLocaleString(undefined, { month: "short", day: "2-digit", year: "numeric", hour: "numeric", minute: "2-digit" });
     return `<div class="simple-table-row podcast-row" data-episode-row data-title="${html(episode.title)}" data-status="${html(episode.status)}">
-            <div class="podcast-top-row">
+            <div class="episode-info">
               <strong>${html(episode.title)}</strong>
-              <span>${badge(titleCase(episode.status), podcastStatusTone(episode.status))}</span>
-              <span class="muted">${html(date)}</span>
-              <span class="episode-actions action-dropdown" tabindex="0">
-                <button class="ghost icon-btn dropbtn" type="button" aria-label="Actions">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </button>
-                <div class="dropdown-content">
-                  ${episode.status !== "PUBLISHED" && episode.audioUrl ? `<button data-episode-action="publish" data-episode-id="${html(episode.id)}" type="button">Publish</button>` : ""}
-                  ${episode.status === "PUBLISHED" ? `<button data-episode-action="unpublish" data-episode-id="${html(episode.id)}" type="button">Unpublish</button>` : ""}
-                  <button data-episode-action="archive" data-episode-id="${html(episode.id)}" type="button">Archive</button>
-                  <button class="danger" data-episode-action="delete" data-episode-id="${html(episode.id)}" type="button">Delete</button>
-                </div>
-              </span>
+              <p class="muted season-text">S${html(episode.seasonNumber || episode.season || 1)} E${html(episode.episodeNumber || 1)} - ${html(episode.episodeType || "Full")}</p>
+              ${episode.audioUrl ? `<audio class="podcast-item-audio" controls src="${html(episode.audioUrl)}"></audio>` : ""}
             </div>
-            <p class="muted season-text">S${html(episode.seasonNumber || episode.season || 1)} E${html(episode.episodeNumber || 1)} - ${html(episode.episodeType || "Full")}</p>
-            ${episode.audioUrl ? `<audio class="podcast-item-audio" controls src="${html(episode.audioUrl)}"></audio>` : ""}
+            <span>${badge(titleCase(episode.status), podcastStatusTone(episode.status))}</span>
+            <span class="muted">${html(date)}</span>
+            <span class="episode-actions action-dropdown" tabindex="0">
+              <button class="ghost icon-btn dropbtn" type="button" aria-label="Actions">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+              </button>
+              <div class="dropdown-content">
+                ${episode.status !== "PUBLISHED" && episode.audioUrl ? `<button data-episode-action="publish" data-episode-id="${html(episode.id)}" type="button">Publish</button>` : ""}
+                ${episode.status === "PUBLISHED" ? `<button data-episode-action="unpublish" data-episode-id="${html(episode.id)}" type="button">Unpublish</button>` : ""}
+                <button data-episode-action="archive" data-episode-id="${html(episode.id)}" type="button">Archive</button>
+                <button class="danger" data-episode-action="delete" data-episode-id="${html(episode.id)}" type="button">Delete</button>
+              </div>
+            </span>
           </div>`;
   }).join("") || '<div class="simple-table-row"><span class="muted">No podcast episodes yet.</span><span></span><span></span><span></span></div>'}
       </section>

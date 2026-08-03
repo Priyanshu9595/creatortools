@@ -1864,36 +1864,51 @@ textarea {
 .simple-table {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border: none;
-  background: transparent;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
 }
 
 .simple-table-row {
-  min-height: auto;
-  padding: 24px;
+  min-height: 80px;
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 120px 180px 60px;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.simple-table-row:last-child {
+  border-bottom: none;
+}
+
+.simple-table-row.head {
+  display: grid;
+  min-height: 54px;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #f8fafc;
+  padding: 0 24px;
+}
+
+.episode-info {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  gap: 6px;
 }
 
-.podcast-top-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 120px 180px 60px;
-  align-items: center;
-  gap: 16px;
-}
-
-.podcast-top-row strong {
+.episode-info strong {
   font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #0f172a;
 }
 
 .season-text {
@@ -1903,16 +1918,12 @@ textarea {
 
 .podcast-row audio.podcast-item-audio {
   width: 100%;
-  max-width: 500px;
-  height: 44px;
-  margin-top: 4px;
+  max-width: 480px;
+  height: 40px;
+  margin-top: 8px;
   display: block;
-  border-radius: 24px;
+  border-radius: 20px;
   outline: none;
-}
-
-.simple-table-row.head {
-  display: none;
 }
 
 .rss-card {
