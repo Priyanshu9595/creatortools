@@ -528,7 +528,10 @@ function initNav() {
   nav.innerHTML = `${group(primaryNav, "Production tools")}`;
   nav.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-route]");
-    if (button) setRoute(button.dataset.route);
+    if (button) {
+      setRoute(button.dataset.route);
+      document.querySelector("#appContainer")?.classList.remove("sidebar-open");
+    }
   });
 }
 
@@ -2468,6 +2471,16 @@ document.querySelector("#backHomeBtn")?.addEventListener("click", () => {
 document.querySelector("#sidebarToggleBtn")?.addEventListener("click", () => {
   const shell = document.querySelector("#appContainer");
   shell?.classList.toggle("sidebar-collapsed");
+});
+
+document.querySelector("#mobileMenuBtn")?.addEventListener("click", () => {
+  const shell = document.querySelector("#appContainer");
+  shell?.classList.toggle("sidebar-open");
+});
+
+document.querySelector("#sidebarOverlay")?.addEventListener("click", () => {
+  const shell = document.querySelector("#appContainer");
+  shell?.classList.remove("sidebar-open");
 });
 
 document.querySelector("#authToggleBtn")?.addEventListener("click", async () => {

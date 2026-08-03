@@ -199,6 +199,7 @@
   </div>
 
   <div id="appContainer" class="app-container" style="display: none;">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <aside class="sidebar">
       <div class="sidebar-top">
         <a class="brand sidebar-brand" href="#dashboard" aria-label="CreatorSuite dashboard">
@@ -322,6 +323,13 @@
     <main>
       <header class="topbar">
         <div style="display: flex; align-items: center; gap: 16px;">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
           <div class="topbar-copy">
             <strong id="topbarTitle">Dashboard</strong>
             <span id="topbarSubtitle">Welcome back to your private workspace.</span>

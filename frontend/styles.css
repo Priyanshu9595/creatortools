@@ -3663,3 +3663,235 @@ summary:focus-visible {
     font-size: 20px !important;
   }
 }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  /* Prevent horizontal overflow globally */
+  html, body {
+    overflow-x: hidden;
+    width: 100vw;
+  }
+
+  /* Landing Page */
+  .landing-hero {
+    grid-template-columns: 1fr;
+    padding: 100px 20px 40px 20px;
+    min-height: auto;
+    text-align: center;
+  }
+  .hero-laptop {
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 100%;
+    margin-top: 40px;
+    transform: none;
+    animation: none;
+  }
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-copy h1 {
+    font-size: 38px;
+    line-height: 1.2;
+  }
+  .landing-header {
+    padding: 0 16px;
+  }
+  .landing-nav {
+    display: none;
+  }
+  .landing-actions button {
+    padding: 0 12px;
+    font-size: 14px;
+    min-height: 48px;
+  }
+  .landing-tool-grid,
+  .step-grid,
+  .capability-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .section-heading h2 {
+    font-size: 28px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-buttons button {
+    width: 100%;
+    min-width: 0;
+  }
+  .trust-points {
+    justify-content: center;
+    gap: 16px;
+  }
+  .float-tile {
+    display: none; /* Hide floating tiles on mobile to prevent overflow */
+  }
+
+  /* Login Page */
+  .login-container {
+    padding: 16px;
+  }
+  .login-card {
+    padding: 24px 16px !important;
+    width: 100%;
+    max-width: 100%;
+  }
+  .login-card h2 {
+    font-size: 24px;
+  }
+
+  /* App Shell */
+  .app-container {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Topbar Mobile Adjustments */
+  .topbar {
+    padding: 12px 16px !important;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 12px;
+    height: auto !important;
+  }
+  .top-actions {
+    width: 100%;
+    justify-content: flex-end !important;
+  }
+  
+  /* Sidebar Drawer Mobile */
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    width: 280px !important;
+    z-index: 1000 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+    background: #0b1121 !important;
+    border-right: 1px solid rgba(255,255,255,0.1) !important;
+  }
+  .app-container.sidebar-open .sidebar {
+    transform: translateX(0) !important;
+  }
+  .sidebar-top {
+    padding: 16px !important;
+  }
+  
+  /* Create a hamburger menu in the topbar for mobile */
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    border-radius: 6px;
+    color: var(--text);
+    margin-right: 12px;
+  }
+  .topbar > div:first-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Inner Pages and Blocks */
+  main {
+    width: 100vw;
+    overflow-x: hidden;
+    padding-bottom: 24px;
+  }
+  .view {
+    padding: 16px !important;
+  }
+  .grid.stats, .grid.columns {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .panel {
+    padding: 16px !important;
+  }
+  .quick-actions button,
+  .project-row {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .project-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .project-row .row-icon {
+    display: none;
+  }
+  .workspace {
+    flex-direction: column;
+    padding: 16px;
+  }
+  .workspace-sidebar, .workspace-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-right: none;
+    border-left: none;
+    height: auto;
+    overflow: visible;
+  }
+  .workspace-main {
+    margin-top: 24px;
+  }
+  form label, form input, form select, form textarea, form button {
+    width: 100%;
+  }
+  .button-group {
+    flex-direction: column;
+  }
+  .button-pill {
+    width: 100%;
+  }
+  .button-pill span {
+    width: 100%;
+    text-align: center;
+  }
+  .page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+  .page-head button {
+    width: 100%;
+  }
+  .media-grid, .storyboard-grid, .art-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Mobile overlay for drawer */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.app-container.sidebar-open .sidebar-overlay {
+  display: block;
+  opacity: 1;
+}
+
+/* Ensure mobile menu button is hidden on desktop */
+.mobile-menu-btn {
+  display: none;
+}
