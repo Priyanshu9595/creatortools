@@ -132,12 +132,19 @@ function updateUserChip() {
   const label = document.querySelector("#userChip strong");
   if (avatar) avatar.textContent = initialsForUser(user);
   if (label) label.textContent = user?.email || "Creator Workspace";
-  const sidebarAvatar = document.querySelector("#sidebarUserChip > span");
-  const sidebarName = document.querySelector("#sidebarUserChip strong");
-  const sidebarMeta = document.querySelector("#sidebarUserChip p");
-  if (sidebarAvatar) sidebarAvatar.textContent = initialsForUser(user);
-  if (sidebarName) sidebarName.textContent = user?.name || "Creator Workspace";
-  if (sidebarMeta) sidebarMeta.textContent = user?.email || "Personal account";
+  const sidebarAvatar = document.querySelector("#sidebarAvatar");
+  const sidebarName = document.querySelector("#sidebarName");
+  const sidebarMeta = document.querySelector("#sidebarMeta");
+  
+  if (!user) {
+    if (sidebarAvatar) sidebarAvatar.innerHTML = `<div style="width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.1); animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;"></div>`;
+    if (sidebarName) sidebarName.innerHTML = `<div style="width: 90px; height: 14px; border-radius: 4px; background: rgba(255,255,255,0.1); animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;"></div>`;
+    if (sidebarMeta) sidebarMeta.innerHTML = `<div style="width: 130px; height: 12px; border-radius: 4px; background: rgba(255,255,255,0.05); animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;"></div>`;
+  } else {
+    if (sidebarAvatar) sidebarAvatar.textContent = initialsForUser(user);
+    if (sidebarName) sidebarName.textContent = user?.name || "Creator Workspace";
+    if (sidebarMeta) sidebarMeta.textContent = user?.email || "Personal account";
+  }
 }
 
 function showLogin(mode = "login") {
