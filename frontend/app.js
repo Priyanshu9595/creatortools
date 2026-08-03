@@ -1229,16 +1229,24 @@ function renderPodcastTab(podcast, tab) {
         ${episodes.map((episode) => {
     const date = new Date(episode.publishedAt || episode.scheduledAt || episode.date || episode.createdAt).toLocaleString(undefined, { month: "short", day: "2-digit", year: "numeric", hour: "numeric", minute: "2-digit" });
     return `<div class="simple-table-row podcast-row" data-episode-row data-title="${html(episode.title)}" data-status="${html(episode.status)}">
-            <span><strong>${html(episode.title)}</strong><p class="muted">S${html(episode.seasonNumber || episode.season || 1)} E${html(episode.episodeNumber || 1)} - ${html(episode.episodeType || "Full")}</p>${episode.audioUrl ? `<audio controls src="${html(episode.audioUrl)}"></audio>` : ""}</span>
-            <span>${badge(titleCase(episode.status), podcastStatusTone(episode.status))}</span>
-            <span class="muted">${html(date)}</span>
-            <span class="muted">${html(episode.duration)}</span>
-            <span class="episode-actions">
-              ${episode.status !== "PUBLISHED" && episode.audioUrl ? `<button data-episode-action="publish" data-episode-id="${html(episode.id)}" type="button">Publish</button>` : ""}
-              ${episode.status === "PUBLISHED" ? `<button data-episode-action="unpublish" data-episode-id="${html(episode.id)}" type="button">Unpublish</button>` : ""}
-              <button data-episode-action="archive" data-episode-id="${html(episode.id)}" type="button">Archive</button>
-              <button class="ghost" data-episode-action="delete" data-episode-id="${html(episode.id)}" type="button">Delete</button>
-            </span>
+            <div class="podcast-top-row">
+              <strong>${html(episode.title)}</strong>
+              <span>${badge(titleCase(episode.status), podcastStatusTone(episode.status))}</span>
+              <span class="muted">${html(date)}</span>
+              <span class="episode-actions action-dropdown" tabindex="0">
+                <button class="ghost icon-btn dropbtn" type="button" aria-label="Actions">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                </button>
+                <div class="dropdown-content">
+                  ${episode.status !== "PUBLISHED" && episode.audioUrl ? `<button data-episode-action="publish" data-episode-id="${html(episode.id)}" type="button">Publish</button>` : ""}
+                  ${episode.status === "PUBLISHED" ? `<button data-episode-action="unpublish" data-episode-id="${html(episode.id)}" type="button">Unpublish</button>` : ""}
+                  <button data-episode-action="archive" data-episode-id="${html(episode.id)}" type="button">Archive</button>
+                  <button class="danger" data-episode-action="delete" data-episode-id="${html(episode.id)}" type="button">Delete</button>
+                </div>
+              </span>
+            </div>
+            <p class="muted season-text">S${html(episode.seasonNumber || episode.season || 1)} E${html(episode.episodeNumber || 1)} - ${html(episode.episodeType || "Full")}</p>
+            ${episode.audioUrl ? `<audio class="podcast-item-audio" controls src="${html(episode.audioUrl)}"></audio>` : ""}
           </div>`;
   }).join("") || '<div class="simple-table-row"><span class="muted">No podcast episodes yet.</span><span></span><span></span><span></span></div>'}
       </section>
@@ -2253,19 +2261,20 @@ document.addEventListener("click", async (event) => {
   if (episodeAction && state.podcast) {
     const actionName = episodeAction.dataset.episodeAction;
     const episodeId = episodeAction.dataset.episodeId;
-    const confirmed = actionName === "delete" ? window.confirm("Delete this episode?") : true;
+    const confirmed = actionName === "delete" ? window.confirm("Move this episode to archive (history) instead of permanently deleting?") : true;
     if (!confirmed) return;
     episodeAction.disabled = true;
     try {
       if (actionName === "delete") {
-        await api(`/api/episodes/${episodeId}`, { method: "DELETE" });
+        // User requested: Delete acts as Archive (history)
+        await api(`/api/episodes/${episodeId}/archive`, { method: "POST", body: JSON.stringify({}) });
       } else {
         await api(`/api/episodes/${episodeId}/${actionName}`, { method: "POST", body: JSON.stringify({}) });
       }
       await refresh();
       await renderPodcastBody("episodes");
       notify({
-        delete: "Episode deleted.",
+        delete: "Episode moved to history (archived).",
         publish: "Episode published.",
         unpublish: "Episode unpublished.",
         archive: "Episode archived."
