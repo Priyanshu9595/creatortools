@@ -3572,17 +3572,94 @@ summary:focus-visible {
     box-sizing: border-box;
   }
 
-  /* Ensure the sidebar nav scrolls horizontally smoothly on small screens */
+  /* Proper collapsible mobile menu */
   .sidebar {
     position: sticky;
     top: 0;
     z-index: 50;
     width: 100%;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 16px !important;
+    display: flex;
+    flex-direction: column;
   }
 
+  .sidebar-top {
+    margin-bottom: 0 !important;
+  }
+
+  /* When collapsed, hide the nav and footer */
+  .app-container.sidebar-collapsed .nav,
+  .app-container.sidebar-collapsed .isolated-footer {
+    display: none !important;
+  }
+
+  /* Show vertically when expanded */
   .nav {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100%;
+    margin-top: 16px;
+    gap: 8px;
+    overflow-x: hidden !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Smaller screens (Phones) */
+  .stats {
+    grid-template-columns: 1fr !important;
+  }
+  .page-title h1, .public-podcast-hero h1 {
+    font-size: 24px !important;
+  }
+  .view, .landing-hero, .landing-section, .landing-footer {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-buttons button {
+    width: 100%;
+  }
+  .login-card {
+    padding: 24px 16px !important;
+  }
+  form label {
+    margin-bottom: 12px;
+  }
+  .story-row {
+    flex-direction: column;
+  }
+  .public-podcast-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+  .public-episode-card {
+    grid-template-columns: 1fr !important;
+  }
+  .episode-art {
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Very small screens */
+  .topbar {
+    padding: 12px !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 8px;
+  }
+  .top-actions {
+    justify-content: stretch !important;
+  }
+  .page-title h1 {
+    font-size: 20px !important;
   }
 }

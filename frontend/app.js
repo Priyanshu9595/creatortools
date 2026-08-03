@@ -510,6 +510,11 @@ function setRoute(route) {
     ? "Welcome back to your private workspace."
     : "CreatorSuite keeps drafts, media and podcast publishing in one place.";
 
+  const topbar = document.querySelector(".topbar");
+  if (topbar) {
+    topbar.style.display = route === "dashboard" ? "" : "none";
+  }
+
   render();
 }
 
@@ -2501,6 +2506,11 @@ async function bootApp() {
     state.route = window.location.hash.replace("#", "") || "dashboard";
     initNav();
   }
+  
+  if (window.innerWidth <= 820) {
+    document.querySelector("#appContainer")?.classList.add("sidebar-collapsed");
+  }
+
   state.user = authUser();
   updateUserChip();
   await refresh();
